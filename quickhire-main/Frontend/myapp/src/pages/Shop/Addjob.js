@@ -19,7 +19,7 @@ const Addjob = () => {
     const fetchData = async () => {
       try {
         // Replace this with the actual API endpoint
-        const apiUrl = `https://quickhirebackend.onrender.com/getShopinfo/${user}`;
+        const apiUrl = `http://localhost:3001/getShopinfo/${user}`;
 
         const response = await axios.get(apiUrl);
         setUserData(response.data);

@@ -7,7 +7,7 @@ const sqlite3 = require("sqlite3").verbose();
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
-const allowedOrigins = ['https://quickhire-seven.vercel.app'];
+const allowedOrigins = ['http://localhost:3000'];
 
 app.use(cors({
   origin: function (origin, callback) {

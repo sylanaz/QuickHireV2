@@ -45,7 +45,7 @@ const Createshop = () => {
       formData.append("telnumber", telnumber);
 
       axios
-        .post("https://quickhirebackend.onrender.com/uploadShopinfo", formData, {
+        .post("http://localhost:3001/uploadShopinfo", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

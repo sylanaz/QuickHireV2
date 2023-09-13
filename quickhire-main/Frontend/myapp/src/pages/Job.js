@@ -14,7 +14,7 @@ const Job = () => {
 
   const fetchJobs = async () => {
     try {
-      const response = await axios.get('https://quickhirebackend.onrender.com/alljobs'); // Replace with your API endpoint
+      const response = await axios.get('http://localhost:3001/alljobs'); // Replace with your API endpoint
       setJobs(response.data.data);
     } catch (error) {
       console.error('Error fetching jobs:', error);

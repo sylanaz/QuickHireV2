@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import banner from "../img/banner.png";
 import Card from "../components/Card";
-import LoginMain from "./LoginMain";
+// import LoginMain from "./LoginMain";
 
 function Home() {
   const [jobs, setJobs] = useState([]);
@@ -15,7 +15,7 @@ function Home() {
 
   const fetchJobs = async () => {
     try {
-      const response = await axios.get("https://quickhirebackend.onrender.com/alljobs"); // Replace with your API endpoint
+      const response = await axios.get("http://localhost:3001/alljobs"); // Replace with your API endpoint
       setJobs(response.data.data);
     } catch (error) {
       console.error("Error fetching jobs:", error);
@@ -30,12 +30,12 @@ function Home() {
   };
 
   return (
-    <div className="Home mx-auto ">
+    <div className="Home mx-auto h-screen">
       <Navbar />
-      <LoginMain />
+      {/* <LoginMain /> */}
 
-      {/* <div className=" flex flex-col justify-center">
-        <img src={banner} className="mx-10" alt="img" />
+      <div className=" flex flex-col justify-center">
+        <img src={banner} className="mx-2 mt-2 md:mt-0 md:mx-10" alt="img" />
         <h1 className="mx-auto mt-7 font-semibold md:text-3xl">ค้นหางานพาร์ทไทม์ที่ใช่สำหรับคุณ</h1>
         <h1 className="mx-auto mt-3 font-semibold md:text-2xl">งานทั้งหมด</h1>
         <h1 className="mx-auto font-semibold md:text-2xl">จำนวน {jobs.length} งาน</h1>
@@ -46,7 +46,7 @@ function Home() {
         {jobs.map((job, index) => (
           <Card key={index} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={decodeBlobToImageUrl(job.img)} lat={job.lat} long={job.long} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} />
         ))}
-      </div> */}
+      </div>
       <Footer />
     </div>
   );

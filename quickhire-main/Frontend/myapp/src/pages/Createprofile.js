@@ -54,7 +54,7 @@ const Createprofile = () => {
       formData.append('email', email);
   
       axios
-        .post('https://quickhirebackend.onrender.com/uploadUserinfo', formData, {
+        .post('http://localhost:3001/uploadUserinfo', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

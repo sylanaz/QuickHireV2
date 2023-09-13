@@ -11,7 +11,7 @@ export default function Loginshop() {
 
   const onFinish = (event) => {
     event.preventDefault();
-    axios.post("https://quickhirebackend.onrender.com/validatePasswordShop", { email, password }).then((res) => {
+    axios.post("http://localhost:3001/validatePasswordShop", { email, password }).then((res) => {
       if (res.data.validation) {
         localStorage.setItem("accessToken", "Logged In");
         localStorage.setItem("user", email);

@@ -16,15 +16,15 @@ function Card({ restaurantName, minilocation, position, hourlyIncome,img,lat,lon
   return (
     <div className="max-w-xs mx-auto" >
       <div className="flex flex-col shadow-xl relative group  rounded-b-xl" onClick={() => setShowModal(true)}>
-        <div className="image-container ">
+        <div className="image-container">
           <img
             src={img}
             alt="Restaurant"
-            className="w-full h-[200px] md:h-[300px] transition-opacity duration-300 ease-in-out rounded-t-xl "
+            className="w-[100%] h-[150px] md:h-[200px] transition-opacity duration-300 ease-in-out rounded-t-xl "
           />
           <div className="overlay absolute top-0 left-0 w-full h-full bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out rounded-b-xl rounded-t-xl"></div>
         </div>
-        <div className="p-4 bg-white rounded-b-xl text-xs md:text-base">
+        <div className="p-2 md:p-4 bg-white rounded-b-xl text-xs md:text-base ">
           <h2 className="text-lg font-bold mb-2 md:text-xl">{restaurantName}</h2>
           <div className="flex items-center py-1">
             <img src={map} alt="Location" className="w-6 h-6 mr-4" />

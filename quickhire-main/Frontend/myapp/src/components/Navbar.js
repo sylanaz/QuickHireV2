@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import logo from "../img/logo.png";
+import LoginMain from "../pages/LoginMain";
+import Home from "../pages/Home";
 
 function Navbar() {
   const token = localStorage.getItem("accessToken");
   const role = localStorage.getItem("role");
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showNewContent, setShowNewContent] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -20,12 +23,14 @@ function Navbar() {
     setMenuOpen((prevMenuOpen) => !prevMenuOpen);
   };
 
+
+
   return (
     <div className="Navbar flex justify-center relative sm:m-0 sm:justify-between sm:rounded-none md:rounded-xl md:m-5 items-center bg-cyan-900 flex-wrap text-lg md:text-xl lg:text-2xl">
       <div className="flex gap-5 md:gap-10 mx-10 items-center text-white">
         <Link to="/Home" class="transition duration-300 hover:scale-125">
           {" "}
-          <img src={logo} className="w-24"></img>
+          <img src={logo} alt="" className="w-24 "></img>
         </Link>
         <div className="md:flex gap-5 md:gap-10 items-center hidden ">
           <Link to="/Home" class="transition duration-300 hover:rotate-12">
@@ -56,12 +61,13 @@ function Navbar() {
         </div>
       ) : (
         <div className="md:flex gap-5 md:gap-10 items-center mx-10 text-white hidden">
-          {/* <Link to="/Login" class="transition duration-300 hover:scale-125 border-orange-400 border-4 p-2 rounded-xl">
+          {/* <button onClick={toggleContent}>เข้าสู่ระบบ</button>
+          {showNewContent ? <LoginMain /> : null} */}
+
+          <Link to="/Login" class="transition duration-300 hover:scale-125 border-orange-400 border-4 p-2 rounded-xl">
             เข้าสู่ระบบ
-          </Link> */}
-          <div>
-            
-          </div>
+          </Link>
+          <div></div>
         </div>
       )}
 
