@@ -4,13 +4,18 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import banner from "../img/banner.png";
 import Card from "../components/Card";
+import { getUserApplyJob } from "../data/userApplyJob";
+import { shopNoti } from "../data/shopApplyUsers";
 // import LoginMain from "./LoginMain";
 
 function Home() {
   const [jobs, setJobs] = useState([]);
+  const email = localStorage.getItem("user");
+  const role = localStorage.getItem("role");
 
   useEffect(() => {
     fetchJobs();
+    showNoti(email);
   }, []);
 
   const fetchJobs = async () => {
@@ -28,6 +33,19 @@ function Home() {
     const imageUrl = URL.createObjectURL(blob);
     return imageUrl;
   };
+
+    // =====================================
+    const showNoti = async (email) => {
+      if (role === "user") {
+        console.log("user");
+      const data = await getUserApplyJob(email)
+      console.log(data);
+      } else if (role === "shop") {
+        const data = await shopNoti(email);
+        console.log(data);
+      }
+    }
+    // =====================================
 
   return (
     <div className="Home mx-auto h-screen">
