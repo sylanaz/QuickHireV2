@@ -34,24 +34,23 @@ function Home() {
     return imageUrl;
   };
 
-    // =====================================
-    const showNoti = async (email) => {
-      if (role === "user") {
-        console.log("user");
-      const data = await getUserApplyJob(email)
+  // =====================================
+  const showNoti = async (email) => {
+    if (role === "user") {
+      console.log("user");
+      const data = await getUserApplyJob(email);
       console.log(data);
-      } else if (role === "shop") {
-        const data = await shopNoti(email);
-        console.log(data);
-      }
+    } else if (role === "shop") {
+      const data = await shopNoti(email);
+      console.log(data);
     }
-    // =====================================
+  };
+  // =====================================
 
   return (
     <div className="Home mx-auto h-screen">
       <Navbar />
       {/* <LoginMain /> */}
-
       <div className=" flex flex-col justify-center">
         <img src={banner} className="mx-2 mt-2 md:mt-0 md:mx-10" alt="img" />
         <h1 className="mx-auto mt-7 font-semibold md:text-3xl">ค้นหางานพาร์ทไทม์ที่ใช่สำหรับคุณ</h1>

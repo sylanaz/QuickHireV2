@@ -8,11 +8,14 @@ import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
 const Createprofile = () => {
+  const stages = ["personalInfo", "educationAndWork", "abilities"]; // Define stage names
+  const [currentIndex, setCurrentIndex] = useState(0); // Keep track of the current stage index
+  const currentStage = stages[currentIndex]; // Get the current stage name
   const [selectedImage, setSelectedImage] = useState(null);
-  const [Imageblob,setImageblob] = useState(null)
-  const [stage, setStage] = useState(1);
+  const [Imageblob, setImageblob] = useState(null);
   const [crop, setCrop] = useState({ aspect: 1 / 1 }); // Set the aspect ratio here
   const [showModal, setShowModal] = React.useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -30,50 +33,91 @@ const Createprofile = () => {
   const [talent, setTalent] = useState("");
   const [email, setEmail] = useState("");
 
+  const stageLabels = {
+    personalInfo: "ข้อมูลส่วนบุคคล",
+    educationAndWork: "ประวัติการศึกษาและการทำงาน/ฝึกงาน",
+    abilities: "ความสามารถ",
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const handlePrevClick = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1); // Move to the previous stage
+    }
+  };
+
+  const handleNextClick = () => {
+    if (currentIndex < stages.length - 1) {
+      setCurrentIndex(currentIndex + 1); // Move to the next stage
+    } else {
+    }
+  };
+
+  const renderNextButton = () => {
+    if (currentStage === "abilities") {
+      // Render a different button or label for the last section
+      return (
+        // <button className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3" onClick={handleSubmit}>
+        //   ยืนยันข้อมูล
+        // </button>
+        <button className={`p-3 rounded-lg ${currentIndex === stages.length - 1 ? "bg-gray-400" : "bg-custom-color text-white"}`} onClick={handleSubmit}>
+          ยืนยันข้อมูล
+        </button>
+      );
+    } else {
+      return (
+        <button className={`p-3 rounded-lg ${currentIndex === stages.length - 1 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === stages.length - 1} onClick={handleNextClick}>
+          Next
+        </button>
+      );
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
     // Only proceed with the upload if an image is selected
     if (Imageblob instanceof Blob) {
       const formData = new FormData();
-      formData.append('file', Imageblob);
-      formData.append('firstname', firstname);
-      formData.append('lastname', lastname);
-      formData.append('nickname', nickname);
-      formData.append('sex', sex);
-      formData.append('telnumber', telnumber);
-      formData.append('birthdate', birthdate);
-      formData.append('national', national);
-      formData.append('area', area);
-      formData.append('degree', degree);
-      formData.append('workexp', workexp);
-      formData.append('thailevel', thailevel);
-      formData.append('englevel', englevel);
-      formData.append('vehicle', vehicle);
-      formData.append('talent', talent);
-      formData.append('email', email);
-  
+      formData.append("file", Imageblob);
+      formData.append("firstname", firstname);
+      formData.append("lastname", lastname);
+      formData.append("nickname", nickname);
+      formData.append("sex", sex);
+      formData.append("telnumber", telnumber);
+      formData.append("birthdate", birthdate);
+      formData.append("national", national);
+      formData.append("area", area);
+      formData.append("degree", degree);
+      formData.append("workexp", workexp);
+      formData.append("thailevel", thailevel);
+      formData.append("englevel", englevel);
+      formData.append("vehicle", vehicle);
+      formData.append("talent", talent);
+      formData.append("email", email);
+
       axios
-        .post('http://localhost:3001/uploadUserinfo', formData, {
+        .post("http://localhost:3001/uploadUserinfo", formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
         })
         .then((response) => {
           // Handle the API response as needed
           console.log(response.data);
-          localStorage.setItem("newuser","old")
+          localStorage.setItem("newuser", "old");
           window.location.replace("/Profile");
-          
         })
         .catch((error) => {
           // Handle errors
-          console.error('Error uploading image:', error);
+          console.error("Error uploading image:", error);
         });
     }
   };
-  
-
 
   const handleCropChange = (newCrop) => {
     setCrop(newCrop);
@@ -119,25 +163,24 @@ const Createprofile = () => {
   };
 
   return (
-    <div className="Home max-w-[1400px] mx-auto ">
+    <div className="Home mx-auto min-h-screen">
       <Navbar></Navbar>
       <h1 className="flex justify-center text-2xl ">กรอกข้อมูลสำหรับผู้สมัครงาน</h1>
-      <div className="flex justify-center gap-5 text-white mt-10 mx-10">
-        <div className="relative cursor-pointer" onClick={() => setStage(1)}>
-          <h1 className="bg-cyan-700 p-4 rounded-lg">ข้อมูลส่วนบุคคล</h1>
-          <h1 className="text-xl font-bold absolute bg-orange-400 px-4 py-1 rounded-full -top-5 left-1/2 -translate-x-1/2">1</h1>
-        </div>
-        <div className="relative cursor-pointer" onClick={() => setStage(2)}>
-          <h1 className="bg-cyan-700 p-4 rounded-lg">ประวัติการศึกษา และ ประวัติการทำงาน/ฝึกงาน</h1>
-          <h1 className="text-xl font-bold absolute bg-orange-400 px-4 py-1 rounded-full -top-5 left-1/2 -translate-x-1/2">2</h1>
-        </div>
-        <div className="relative cursor-pointer" onClick={() => setStage(3)}>
-          <h1 className="bg-cyan-700 p-4 rounded-lg">ความสามารถ</h1>
-          <h1 className="text-xl font-bold absolute bg-orange-400 px-4 py-1 rounded-full -top-5 left-1/2 -translate-x-1/2">3</h1>
-        </div>
+      <div className="flex flex-wrap justify-center gap-5 text-white mt-10 mx-10 text-center">
+        {stages.map((stageName, index) => (
+          <div
+            key={stageName}
+            className={`w-full sm:w-auto relative cursor-pointer rounded-xl ${currentStage === stageName ? "bg-cyan-700" : "bg-gray-400"}`}
+            onClick={() => setCurrentIndex(index)}
+            style={{ flex: "1 0 calc(33.333% - 1rem)" }} // Adjust the width as needed
+          >
+            <h1 className={`p-4 ${currentStage === stageName ? "text-white" : "text-gray-900"}`}>{stageLabels[stageName]}</h1>
+            <h1 className="text-xl font-bold absolute bg-orange-400 px-4 py-1 rounded-full -top-5 left-1/2 -translate-x-1/2">{index + 1}</h1>
+          </div>
+        ))}
       </div>
 
-      {stage === 1 && (
+      {currentStage === "personalInfo" && (
         <div>
           <div className="flex justify-center  mt-10 ">
             <div className="flex justify-center ">
@@ -157,7 +200,7 @@ const Createprofile = () => {
               </form>
             </div>
           </div>
-
+          {/* insert pictrue */}
           {showModal ? (
             <>
               <div className="justify-center items-center flex overflow-x-hidden overflow-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -173,18 +216,19 @@ const Createprofile = () => {
                     </div>
 
                     <div className="flex">{selectedImage && <ReactCrop src={selectedImage} crop={crop} onChange={handleCropChange} className="mx-auto my-auto" />}</div>
-                    <button type="button" onClick={handleImageCrop} className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3 my-3">ตัดรูป</button>
+                    <button type="button" onClick={handleImageCrop} className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3 my-3">
+                      ตัดรูป
+                    </button>
                   </div>
                 </div>
               </div>
               <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
             </>
           ) : null}
-
           <div className="mx-10">
             <div className="flex flex-col">
               <h1 className="m-3 text-xl font-medium">ชื่อจริง</h1>
-              <input onChange={(event) => setFirstname(event.target.value)} type="text"  value={firstname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+              <input onChange={(event) => setFirstname(event.target.value)} type="text" value={firstname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
             </div>
             <div className="flex flex-col">
               <h1 className="m-3 text-xl font-medium">นามสกุล</h1>
@@ -222,17 +266,12 @@ const Createprofile = () => {
               <h1 className="m-3 text-xl font-medium">เบอร์โทรศัพท์</h1>
               <input onChange={(event) => setTelnumber(event.target.value)} type="text" value={telnumber} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
             </div>
-            <div className="flex flex-col">
-              <h1 className="m-3 text-xl font-medium">รหัสอ้างอิง (ถ้ามี)</h1>
-              <input type="text" class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
-            </div>
           </div>
         </div>
       )}
-      {/* end of stage1 */}
-
-      {stage === 2 && (
-        <div className="mt-4 ">
+      {/* Education */}
+      {currentStage === "educationAndWork" && (
+        <div className="mt-4 mb-20">
           <div className="mx-10">
             <div className="flex flex-col">
               <h1 className="m-3 text-xl font-medium">ประวัติการศึกษา (กำลังศึกษาอยู่/จบการศึกษา)</h1>
@@ -246,15 +285,26 @@ const Createprofile = () => {
 กำลังศึกษาปริญญาตรีคณะวิศวกรรมศาสตร์ มหาวิทยาลัยขอนแก่น เป็นต้น"
               ></input>
             </div>
+            <div>
+              <h1 className="m-3 text-xl font-medium">หนังสือรับรองผลการศึกษา (ถ้ามี)</h1>
+              <input type="file" accept=".jpg, .jpeg, .png, .pdf" onChange={handleFileChange} className="rounded-[10px] border-[1px] solid bg-cyan" />
+
+              {/* {selectedFile && <p>Selected file: {selectedFile.name}</p>} */}
+            </div>
             <div className="flex flex-col ">
               <h1 className="m-3 text-xl font-medium">ประวัติการทำงาน/ฝึกงาน (อธิบายโดยละเอียด)</h1>
-              <input onChange={(event) => setWorkexp(event.target.value)} type="text" value={workexp} class=" mb-20 h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ปี 2020-2022 เป็นพนักงานทำความสะอาด ที่โรงพยาบาลขอนแก่น ได้รับหน้าที่ดูแลความสะอาดบริเวณตึกผู้ป่วย A B C เป็นต้น  หากไม่เคยมีประสบการณ์ทำงานให้กรอก ไม่มีประสบการณ์ทำงาน"></input>
+              <input onChange={(event) => setWorkexp(event.target.value)} type="text" value={workexp} class=" h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ปี 2020-2022 เป็นพนักงานทำความสะอาด ที่โรงพยาบาลขอนแก่น ได้รับหน้าที่ดูแลความสะอาดบริเวณตึกผู้ป่วย A B C เป็นต้น  หากไม่เคยมีประสบการณ์ทำงานให้กรอก ไม่มีประสบการณ์ทำงาน"></input>
+            </div>
+            <div>
+              <h1 className="m-3 text-xl font-medium">หลักฐานการฝึกงาน/ทำงาน (ถ้ามี)</h1>
+              <input type="file" accept=".jpg, .jpeg, .png, .pdf" onChange={handleFileChange} className="rounded-[10px] border-[1px] solid bg-cyan" />
+              {/* {selectedFile && <p>Selected file: {selectedFile.name}</p>} */}
             </div>
           </div>
         </div>
       )}
 
-      {stage === 3 && (
+      {currentStage === "abilities" && (
         <div className="mt-4 ">
           <div className="mx-10">
             <div className="flex flex-col">
@@ -274,12 +324,19 @@ const Createprofile = () => {
               <input onChange={(event) => setTalent(event.target.value)} type="text" value={talent} class="  h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น คอมพิวเตอร์ ทำอาหาร ว่ายนํ้า เล่นดนตรี"></input>
             </div>
             <div className="flex mx-auto mt-10">
-              <button className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3" onClick={handleSubmit}>ยืนยันข้อมูล</button>
+              {/* <button className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3" onClick={handleSubmit}>
+                ยืนยันข้อมูล
+              </button> */}
             </div>
           </div>
         </div>
       )}
-
+      <div className="flex justify-between mt-5 mx-10">
+        <button onClick={handlePrevClick} className={`p-3 rounded-lg ${currentIndex === 0 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === 0}>
+          Previous
+        </button>
+        {renderNextButton()}
+      </div>
       <Footer></Footer>
     </div>
   );
