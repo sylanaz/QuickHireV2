@@ -1,6 +1,9 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "react-icons": "^4.11.0",
+=======
+>>>>>>> de104224a44ba2bec23a3aff6e686b77b38ba54e
     "react-tailwindcss-datepicker": "^1.6.6"
   }
 }

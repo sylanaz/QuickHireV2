@@ -263,6 +263,7 @@ const Createprofile = () => {
             <div className="flex flex-col">
               <h1 className="m-3 text-xl font-medium">วัน/เดือน/ปี เกิด</h1>
               <input type="date" className="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+              {/* <input onChange={(event) => setBirthdate(event.target.value)} type="text" value={birthdate} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="00/00/0000"></input> */}
             </div>
             <div className="flex flex-col">
               <h1 className="m-3 text-xl font-medium">สัญชาติ</h1>

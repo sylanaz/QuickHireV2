@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import test from "../../img/test.jpeg";
 import { Link } from "react-router-dom";
-
 import axios from "axios";
 
 export const LoginOrg = () => {
@@ -16,13 +15,13 @@ export const LoginOrg = () => {
 
   const onFinish = (event) => {
     event.preventDefault();
-    axios.post("http://localhost:3001/validatePassword", { email, password }).then((res) => {
+    axios.post("http://localhost:3001/validatePasswordShop", { email, password }).then((res) => {
       if (res.data.validation) {
         localStorage.setItem("accessToken", "Logged In");
         localStorage.setItem("user", email);
-        localStorage.setItem("newuser", res.data.newuser);
-        localStorage.setItem("role", res.data.role);
-        window.location.replace("/Job");
+        localStorage.setItem("newuser",res.data.newuser)
+        localStorage.setItem("role",res.data.role)
+        window.location.replace("/");
       } else {
         alert("Your password is incorrect");
       }
