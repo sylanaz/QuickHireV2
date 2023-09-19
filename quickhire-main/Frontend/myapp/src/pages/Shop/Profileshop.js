@@ -35,7 +35,7 @@ function Profileshop() {
   if (userData == null) {
     // Return a loading state or null while waiting for the data to be fetched
     return (
-      <div className="flex flex-col justify-center max-w-[1400px] mx-auto">
+      <div className="flex flex-col justify-center mx-auto">
         <Navbar></Navbar>
       </div>
     );
@@ -49,14 +49,14 @@ function Profileshop() {
   };
 
   return (
-    <div className="flex flex-col justify-center max-w-[1400px] mx-auto">
+    <div className="flex flex-col justify-center mx-auto">
       <Navbar></Navbar>
-      <h1 className="flex justify-center text-2xl font-medium ">โปรไฟล์ร้านค้า</h1>
+      <h1 className="flex justify-center text-2xl font-medium mt-5">โปรไฟล์ร้านค้า</h1>
       <div className="flex justify-center gap-5 text-white mt-10 mx-10"></div>
       <div>
         <div className="flex justify-center  ">
           <div className="flex justify-center ">
-            <img className="w-[400px] h-[400px] rounded-lg mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img>
+            <img className="w-[200px] h-[200px] md:w-[400px] md:h-[400px] rounded-lg mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img>
           </div>
         </div>
         

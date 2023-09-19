@@ -13,8 +13,8 @@ export default function Login() {
       if (res.data.validation) {
         localStorage.setItem("accessToken", "Logged In");
         localStorage.setItem("user", email);
-        localStorage.setItem("newuser",res.data.newuser)
-        localStorage.setItem("role",res.data.role)
+        localStorage.setItem("newuser", res.data.newuser);
+        localStorage.setItem("role", res.data.role);
         window.location.replace("/Job");
       } else {
         alert("Your password is incorrect");
@@ -25,7 +25,7 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-300 to-orange-600 flex items-center justify-center text-white">
       <form className="min-w-fit flex-col bg-cyan-900 px-6 py-6 shadow-md rounded-[8px]" onSubmit={onFinish}>
-      <h1 className="flex justify-center text-3xl pt-2">เข้าสู่ระบบผู้สมัครงาน</h1>
+        <h1 className="flex justify-center text-3xl pt-2">เข้าสู่ระบบผู้สมัครงาน</h1>
         <div className="mb-8 flex justify-center">
           <Link to="/Home">
             <img className="w-60  mx-auto md:mx-36 hover:rotate-12 hover:scale-125 duration-300" src={logo} alt="Logo" />
@@ -41,9 +41,9 @@ export default function Login() {
           เข้าสู่ระบบ
         </button>
         <Link to="/LoginShop">
-        <button className="mt-5 w-full p-6 text-2xl font-medium bg-orange-400 text-cyan-950 rounded-[4px] hover:bg-orange-300 duration-300" type="submit">
-          สำหรับร้านค้า 🏪
-        </button>
+          <button className="mt-5 w-full p-6 text-2xl font-medium bg-orange-400 text-cyan-950 rounded-[4px] hover:bg-orange-300 duration-300" type="submit">
+            สำหรับร้านค้า 🏪
+          </button>
         </Link>
         <div className="mt-5 flex justify-between text-sm text-white">
           {" "}

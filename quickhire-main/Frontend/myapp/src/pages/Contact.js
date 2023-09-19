@@ -18,7 +18,7 @@ const Contact = () => {
       <div className="flex flex-col mt-5 gap-10">
         <div className="grid grid-cols-2 mx-5 gap-5 md:gap-2 text-xs md:text-xl">
           <div className="flex flex-col gap-4">
-            <img className="w-[120px] h-[120px] md:w-[200px] md:h-[200px] rounded-full  mx-auto" src={ping} alt="Rounded avatar"></img>
+            <img className="w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-full  mx-auto" src={ping} alt="Rounded avatar"></img>
             <h1 className=" mx-auto">Pingping</h1>
           </div>
 
@@ -45,7 +45,7 @@ const Contact = () => {
 
         <div className="grid grid-cols-2 mx-5 gap-5 md:gap-2 text-xs md:text-xl">
           <div className="flex flex-col gap-4 ">
-            <img className="w-[120px] h-[120px] md:w-[200px] md:h-[200px] rounded-full mx-auto" src={boss} alt="Rounded avatar"></img>
+            <img className="w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-full mx-auto" src={boss} alt="Rounded avatar"></img>
             <h1 className=" mx-auto">Boss</h1>
           </div>
 
@@ -72,7 +72,7 @@ const Contact = () => {
 
         <div className="grid grid-cols-2 mx-5 gap-5 md:gap-2 text-xs md:text-xl">
           <div className="flex flex-col gap-4 ">
-            <img className="w-[120px] h-[120px] md:w-[200px] md:h-[200px] rounded-full mx-auto" src={noey} alt="Rounded avatar"></img>
+            <img className="w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-full mx-auto" src={noey} alt="Rounded avatar"></img>
             <h1 className=" mx-auto">Noeynoey</h1>
           </div>
 
@@ -99,7 +99,7 @@ const Contact = () => {
 
         <div className="grid grid-cols-2 mx-5 gap-5 md:gap-2 text-xs md:text-xl">
           <div className="flex flex-col gap-4 ">
-            <img className="w-[120px] h-[120px] md:w-[200px] md:h-[200px] rounded-full mx-auto" src={bas} alt="Rounded avatar"></img>
+            <img className="w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-full mx-auto" src={bas} alt="Rounded avatar"></img>
             <h1 className=" mx-auto">Bas</h1>
           </div>
 

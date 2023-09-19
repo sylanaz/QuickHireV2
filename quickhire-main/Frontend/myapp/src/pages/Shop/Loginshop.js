@@ -25,7 +25,7 @@ export default function Loginshop() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-300 to-orange-600 flex items-center justify-center text-white">
+    <div className="h-screen bg-gradient-to-br from-orange-300 to-orange-600 flex items-center justify-center text-white">
       <form className="min-w-fit flex-col bg-cyan-900 px-6 py-6 shadow-md rounded-[8px]" onSubmit={onFinish}>
       <h1 className="flex justify-center text-3xl pt-2">เข้าสู่ระบบร้านค้า</h1>
         <div className="mb-8 flex justify-center">        

@@ -90,9 +90,9 @@ const Addjob = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center max-w-[1400px] mx-auto">
+    <div className="flex flex-col justify-center mx-auto ">
       <Navbar></Navbar>
-      <h1 className="text-2xl flex justify-center mb-6">สร้างประกาศรับสมัครพนักงาน</h1>
+      <h1 className="text-2xl flex justify-center mb-6 mt-5 font-medium">สร้างประกาศรับสมัครพนักงาน</h1>
       <Card restaurantName={userData.shopname} minilocation={minilocation} position={workposition} hourlyIncome={money} img={decodeBlobToImageUrl(userData.img)} lat={userData.lat} long={userData.long} peopleneed={peopleneed} jobdesc={jobdesc} timework={userData.timework} welfare={userData.welfare} location={userData.location} email={userData.email} />
       <div className="mx-10">
         <div className="flex flex-col">

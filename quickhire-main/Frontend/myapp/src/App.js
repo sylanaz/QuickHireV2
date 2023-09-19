@@ -11,14 +11,18 @@ import Registershop from "./pages/Shop/Registershop";
 import Createshop from "./pages/Shop/Createshop";
 import Profileshop from "./pages/Shop/Profileshop";
 import Addjob from "./pages/Shop/Addjob";
+import { LoginMain } from "./pages/LoginMain";
+import { LoginOrg } from "./pages/Shop/LoginOrg";
+import { LoginEmpl } from "../src/pages/LoginEmpl";
+import { RegisterEmpl } from "../src/pages/RegisterEmpl";
 
 function App() {
   const token = localStorage.getItem("accessToken");
   const role = localStorage.getItem("role");
   const newuser = localStorage.getItem("newuser");
-  console.log(newuser)
-  console.log(role)
-  
+  console.log(newuser);
+  console.log(role);
+
   if (!token) {
     return (
       <div className="App font-kanit">
@@ -31,14 +35,17 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/RegisterShop" element={<Registershop />} />
-          <Route path="/LoginShop" element={<Loginshop/>}/>
+          <Route path="/LoginShop" element={<Loginshop />} />
+          <Route path="/LoginMain" element={<LoginMain />} />
+          <Route path="/LoginOrg" element={<LoginOrg />} />
+          <Route path="/LoginEmpl" element={<LoginEmpl />} />
+          <Route path="/RegisterEmpl" element={<RegisterEmpl />} />
         </Routes>
       </div>
     );
-  }
-  else if(token && newuser === "new" && role === "user"){
+  } else if (token && newuser === "new" && role === "user") {
     return (
-    <div className="App font-kanit">
+      <div className="App font-kanit">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
@@ -49,10 +56,9 @@ function App() {
         </Routes>
       </div>
     );
-  }
-  else if(token && newuser === "new" && role === "shop"){
+  } else if (token && newuser === "new" && role === "shop") {
     return (
-    <div className="App font-kanit">
+      <div className="App font-kanit">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
@@ -63,10 +69,9 @@ function App() {
         </Routes>
       </div>
     );
-  }
-  else if(token && newuser === "old" && role === "shop"){
+  } else if (token && newuser === "old" && role === "shop") {
     return (
-    <div className="App font-kanit">
+      <div className="App font-kanit">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
@@ -91,7 +96,6 @@ function App() {
       </Routes>
     </div>
   );
-
 }
 
 export default App;

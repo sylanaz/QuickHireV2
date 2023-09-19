@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <div className="grid grid-cols-3 text-xs gap-2 mt-4 bg-cyan-900 text-white rounded-t-2xl pt-4 w-full">
-      <div className="hidden md:block  md:place-self-center">
+      <div className="hidden md:block  md:place-self-center md:px-3">
         <img src={logo} alt="/" className="w-28 -mt-7 mx-auto"></img>
         <div className="md:place-self-center">
           <h1 className="md:text-xl ">ที่อยู่ : มหาวิทยาลัยขอนแก่น</h1>

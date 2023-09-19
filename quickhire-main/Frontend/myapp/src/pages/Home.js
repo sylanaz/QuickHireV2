@@ -6,12 +6,17 @@ import banner from "../img/banner.png";
 import Card from "../components/Card";
 import { getUserApplyJob } from "../data/userApplyJob";
 import { shopNoti } from "../data/shopApplyUsers";
-// import LoginMain from "./LoginMain";
+import { LoginMain } from "./LoginMain";
 
 function Home() {
   const [jobs, setJobs] = useState([]);
   const email = localStorage.getItem("user");
   const role = localStorage.getItem("role");
+  const [value, setValue] = useState(1);
+
+  const setIncrease = () => {
+    setValue(value + 1);
+  };
 
   useEffect(() => {
     fetchJobs();
@@ -50,7 +55,9 @@ function Home() {
   return (
     <div className="Home mx-auto h-screen">
       <Navbar />
+
       {/* <LoginMain /> */}
+
       <div className=" flex flex-col justify-center">
         <img src={banner} className="mx-2 mt-2 md:mt-0 md:mx-10" alt="img" />
         <h1 className="mx-auto mt-7 font-semibold md:text-3xl">ค้นหางานพาร์ทไทม์ที่ใช่สำหรับคุณ</h1>

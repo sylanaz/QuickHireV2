@@ -32,7 +32,7 @@ export default function Registershop() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cyan-300 to-emerald-400 flex items-center justify-center text-white ">
+    <div className="h-screen bg-gradient-to-br from-cyan-300 to-emerald-400 flex items-center justify-center text-white ">
       <form className=" min-w-fit flex-col bg-cyan-900 px-6 py-6 shadow-md rounded-[8px]" onSubmit={onFinish}>
         <div className=" flex justify-center">
           <Link to="/Home">
