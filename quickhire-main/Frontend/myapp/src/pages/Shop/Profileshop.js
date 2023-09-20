@@ -10,6 +10,7 @@ import { useMap } from "react-leaflet/hooks";
 import { Marker, Popup } from "react-leaflet";
 import L from "leaflet"; // Import Leaflet library for creating custom icon
 import customMarkerIcon from "../../img/pin.png";
+import SwapImage from "./SwapImage";
 
 function Profileshop() {
   const user = localStorage.getItem("user");
@@ -41,12 +42,13 @@ function Profileshop() {
     );
   }
 
-  const decodeBlobToImageUrl = (blobData) => {
-    if (!blobData) return null;
-    const blob = new Blob([new Uint8Array(blobData.data)], { type: "image/jpeg" });
-    const imageUrl = URL.createObjectURL(blob);
-    return imageUrl;
-  };
+  // const decodeBlobToImageUrl = (blobData) => {
+  //   if (!blobData) return null;
+  //   const blob = new Blob([new Uint8Array(blobData.data)], { type: "image/jpeg" });
+  //   const imageUrl = URL.createObjectURL(blob);
+  //   return imageUrl;
+  // };
+  console.log([JSON.parse(userData.img)][0]);
 
   return (
     <div className="flex flex-col justify-center mx-auto">
@@ -56,7 +58,11 @@ function Profileshop() {
       <div>
         <div className="flex justify-center  ">
           <div className="flex justify-center ">
-            <img className="w-[200px] h-[200px] md:w-[400px] md:h-[400px] rounded-lg mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img>
+            {userData && <SwapImage images={[JSON.parse(userData.img)]} />}
+            {/* {userData && [JSON.parse(userData.img)].map((data) => {
+              return <img className="w-[200px] h-[200px] md:w-[400px] md:h-[400px] rounded-lg mx-auto" src={data} alt="Rounded avatar"></img>
+            })} */}
+          
           </div>
         </div>
         
@@ -68,14 +74,10 @@ function Profileshop() {
             <h1 class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">{userData.shopname}</h1>
           </div>
           <div className="flex flex-col">
-            <h1 className="m-3 text-xl font-medium">ชื่อจริง (เจ้าของร้าน)</h1>
-            <h1 class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">{userData.firstname}</h1>
+            <h1 className="m-3 text-xl font-medium">ชื่อจริง - นามสกุล (เจ้าของร้าน)</h1>
+            <h1 class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">{userData.fullname}</h1>
           </div>
 
-          <div className="flex flex-col">
-            <h1 className="m-3 text-xl font-medium">นามสกุล</h1>
-            <h1 class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">{userData.lastname}</h1>
-          </div>
           <div className="flex flex-col">
             <h1 className="m-3 text-xl font-medium">เวลาทำงาน</h1>
             <h1 class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">{userData.timework}</h1>

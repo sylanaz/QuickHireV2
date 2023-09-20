@@ -3,11 +3,14 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import date from "../data/date";
+import SwapImage from "./Shop/SwapImage";
 
 function Profile() {
   const user = localStorage.getItem("user");
 
   const [userData, setUserData] = useState(null);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,49 +37,44 @@ function Profile() {
     );
   }
 
-  const decodeBlobToImageUrl = (blobData) => {
-    if (!blobData) return null;
-    const blob = new Blob([new Uint8Array(blobData.data)], { type: "image/jpeg" });
-    const imageUrl = URL.createObjectURL(blob);
-    return imageUrl;
-  };
+  // const decodeBlobToImageUrl = (blobData) => {
+  //   if (!blobData) return null;
+  //   const blob = new Blob([new Uint8Array(blobData.data)], { type: "image/jpeg" });
+  //   const imageUrl = URL.createObjectURL(blob);
+  //   return imageUrl;
+  // };
 
   const birthDate = new Date(userData.birthdate);
   const birthYear = birthDate.getFullYear();
-  const currentYear = new Date().getFullYear();
+  const currentYear = date.getFullYear();
   const age = currentYear - birthYear;
 
   return (
     <div className="flex flex-col justify-center mx-auto">
-      <Navbar />
-      <div className="flex md:justify-center justify-between relative ml-10 mt-5">
+      <Navbar/>
+      <div className="flex md:justify-center justify-between relative ml-10">
         <h1 className=" text-2xl font-medium">โปรไฟล์ของคุณ</h1>
-        <Link to="/Editprofile" className="absolute right-10 border-2 border-black rounded-3xl px-2">
-          แก้ไขประวัติ
-        </Link>
+        <Link to="/Editprofile" className="absolute right-10 border-2 border-black rounded-3xl px-2">แก้ไขประวัติ</Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 m-10 gap-10">
-        <div className=" rounded-2xl bg-slate-100 ">
-          <div className="flex flex-col mx-auto justify-items-center">
-            <img className="w-[200px] h-[200px] md:w-[300px] md:h-[300px] rounded-full mx-auto mt-10" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img>
-            <h1 className="mx-auto mt-4 text-lg md:text-2xl">{userData.nickname}</h1>
-            <h1 className="mx-auto mt-4 text-xl md:text-3xl">
-              {userData.firstname} {userData.lastname}
-            </h1>
-            <h1 className="mx-auto  mt-2 text-lg md:text-2xl">
-              {userData.birthdate} อายุ {age} ปี
-            </h1>
-            <h1 className="mx-auto  mt-2 mb-2 text-lg md:text-2xl">เพศ หญิง สัญชาติ ไทย</h1>
-          </div>
+        <div className="flex flex-col mx-auto justify-center md:-mt-56">
+          {/* <img className="w-[200px] h-[200px] rounded-full mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img> */}
+          <SwapImage images={JSON.parse(userData.img)} />
+          <h1 className="mx-auto mt-4">{userData.nickname}</h1>
+          <h1 className="mx-auto mt-4 text-2xl">
+            {userData.fullname}
+          </h1>
+          <h1 className="mx-auto mt-4">{userData.birthdate} อายุ {age} ปี</h1>
+          <h1 className="mx-auto ">เพศ {userData.sex} สัญชาติ ไทย</h1>
         </div>
 
-        <div className="flex flex-col mx-auto justify-center gap-8 w-full">
+        <div className="flex flex-col mx-auto justify-center gap-8">
           <div className="relative">
-            <div className=" rounded-full bg-slate-400 p-2 w-48 text-center absolute left-1/2 -translate-x-1/2 -top-5">
+            <div className=" rounded-full bg-slate-400 p-2 w-40 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
               <h1>ประวัติการศึกษา</h1>
             </div>
-            <div className=" rounded-2xl bg-slate-100 h-40 md:h-64">
+            <div className=" rounded-2xl bg-slate-100 h-64 min-w-[250px]">
               <h1 className="p-10 ">{userData.degree}</h1>
             </div>
           </div>
@@ -85,7 +83,7 @@ function Profile() {
             <div className=" rounded-full bg-slate-400 p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
               <h1>ประวัติการทำงาน / ฝึกงาน</h1>
             </div>
-            <div className=" rounded-2xl bg-slate-100 h-40 md:h-64">
+            <div className=" rounded-2xl bg-slate-100 h-64">
               <h1 className="p-10">{userData.workexp}</h1>
             </div>
           </div>

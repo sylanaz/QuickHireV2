@@ -6,10 +6,10 @@ import logo from "../../img/logo.png";
 export default function Registershop() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [fullname, setFullname] = useState("");
+  // const [lastname, setLastname] = useState("");
   const [telnumber, setTelnumber] = useState("");
-  const [shop, setShop] = useState("");
+  // const [shop, setShop] = useState("");
 
   const onFinish = (event) => {
     event.preventDefault();
@@ -17,10 +17,8 @@ export default function Registershop() {
       .post("http://localhost:3001/insertShop", {
         email,
         password,
-        firstname,
-        lastname,
+        fullname,
         telnumber,
-        shop,
       })
       .then((res) => {
         localStorage.setItem("accessToken", "Logged In");
@@ -59,17 +57,17 @@ export default function Registershop() {
         </div>
         <div class="grid grid-cols-2 gap-6">
           <div class="relative z-0 w-full mb-6 group">
-            <input type="text" name="floating_first_name" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-emerald-400 appearance-none   focus:outline-none focus:ring-0 focus:border-emerald-600 peer" placeholder=" " value={firstname} onChange={(event) => setFirstname(event.target.value)} required />
+            <input type="text" name="floating_first_name" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-emerald-400 appearance-none   focus:outline-none focus:ring-0 focus:border-emerald-600 peer" placeholder=" " value={fullname} onChange={(event) => setFullname(event.target.value)} required />
             <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-              ชื่อจริง
+              ชื่อจริง - นามสกุล
             </label>
           </div>
-          <div class="relative z-0 w-full mb-6 group">
+          {/* <div class="relative z-0 w-full mb-6 group">
             <input type="text" name="floating_last_name" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-emerald-400 appearance-none   focus:outline-none focus:ring-0 focus:border-emerald-600 peer" placeholder=" " value={lastname} onChange={(event) => setLastname(event.target.value)} required />
             <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
               นามสกุล
             </label>
-          </div>
+          </div> */}
         </div>
         <div class="grid grid-cols-2 gap-6">
           <div class="relative z-0 w-full mb-6 group">
@@ -78,12 +76,12 @@ export default function Registershop() {
               เบอร์โทรศัพท์
             </label>
           </div>
-          <div class="relative z-0 w-full mb-6 group">
+          {/* <div class="relative z-0 w-full mb-6 group">
             <input type="text" name="floating_company" id="floating_company" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-emerald-400 appearance-none   focus:outline-none focus:ring-0 focus:border-emerald-600 peer" placeholder=" " value={shop} onChange={(event) => setShop(event.target.value)} required />
             <label for="floating_company" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-emerald-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
               ชื่อร้าน
             </label>
-          </div>
+          </div> */}
         </div>
         <button type="submit" className="bg-emerald-400 text-cyan-950 rounded-[4px] hover:bg-emerald-300 duration-300 w-full p-2">
           สมัครสมาชิก

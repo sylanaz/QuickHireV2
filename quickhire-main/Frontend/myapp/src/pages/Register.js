@@ -6,19 +6,20 @@ import logo from "../img/logo.png";
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  // const [firstname, setFirstname] = useState("");
+  const [fullname, setFullname] = useState("");
   const [telnumber, setTelnumber] = useState("");
   const [occupation, setOccupation] = useState("");
 
   const onFinish = (event) => {
+    // const fullname = firstname + " " + lastname;
     event.preventDefault();
     axios
       .post("http://localhost:3001/insertUser", {
         email,
         password,
-        firstname,
-        lastname,
+        // firstname,
+        fullname,
         telnumber,
         occupation,
       })
@@ -59,17 +60,17 @@ export default function Register() {
         </div>
         <div class="grid grid-cols-2 gap-6">
           <div class="relative z-0 w-full mb-6 group">
-            <input type="text" name="floating_first_name" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-orange-400 appearance-none   focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " value={firstname} onChange={(event) => setFirstname(event.target.value)} required />
+            <input type="text" name="floating_first_name" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-orange-400 appearance-none   focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " value={fullname} onChange={(event) => setFullname(event.target.value)} required />
             <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-              ชื่อจริง
+              ชื่อจริง - นามสกุล
             </label>
           </div>
-          <div class="relative z-0 w-full mb-6 group">
+          {/* <div class="relative z-0 w-full mb-6 group">
             <input type="text" name="floating_last_name" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-orange-400 appearance-none   focus:outline-none focus:ring-0 focus:border-orange-600 peer" placeholder=" " value={lastname} onChange={(event) => setLastname(event.target.value)} required />
             <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-orange-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
               นามสกุล
             </label>
-          </div>
+          </div> */}
         </div>
         <div class="grid grid-cols-2 gap-6">
           <div class="relative z-0 w-full mb-6 group">

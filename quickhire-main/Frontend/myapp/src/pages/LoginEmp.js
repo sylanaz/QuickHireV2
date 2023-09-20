@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import logo from "../img/logo.png";
 
-export default function Login() {
+export default function LoginEmp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

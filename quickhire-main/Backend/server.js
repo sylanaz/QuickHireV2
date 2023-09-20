@@ -31,14 +31,77 @@ let db = new sqlite3.Database("users.db", (err) => {
   console.log("Connected to the access database");
 });
 
-app.post("/uploadUserinfo", upload.single("file"), (req, res) => {
+// app.post("/uploadUserinfo", upload.single("file"), (req, res) => {
+//   // Access the user info sent in the request body
+//   const {
+//     // firstname,
+//     fullname,
+//     nickname,
+//     sex,
+//     telnumber,
+//     birthdate,
+//     national,
+//     area,
+//     degree,
+//     workexp,
+//     thailevel,
+//     englevel,
+//     vehicle,
+//     talent,
+//     email,
+//   } = req.body;
+
+//   // Access the uploaded file information (if it exists)
+//   const selectedImage = req.file;
+
+//   const fs = require("fs");
+//   fs.readFile(selectedImage.path, (err, data) => {
+//     if (err) {
+//       console.error("Error reading file:", err);
+//       return res.status(500).json({ error: "Error reading file" });
+//     }
+
+//     // Now you have the binary data in the 'data' variable
+//     // Perform the database update
+//     db.run(
+//       `UPDATE users SET img = ? , fullname = ?, nickname = ?, sex = ?, telnumber = ?, birthdate = ?, national = ?, area = ?, degree = ?, workexp = ?, thailevel = ?, englevel = ?, vehicle = ?, talent = ?, newuser = 'old' WHERE email = ?`,
+//       [
+//         data,
+//         fullname,
+//         // lastname,
+//         nickname,
+//         sex,
+//         telnumber,
+//         birthdate,
+//         national,
+//         area,
+//         degree,
+//         workexp,
+//         thailevel,
+//         englevel,
+//         vehicle,
+//         talent,
+//         email,
+//       ],
+//       (err) => {
+//         if (err) {
+//           console.error("Error updating database:", err);
+//         }
+//         console.log("Success Update");
+//       }
+//     );
+//   });
+
+//   // Send a response back to the client
+//   res.json({ message: "Data and file successfully received!" });
+// });
+app.post("/uploadUserinfo", (req, res) => {
   // Access the user info sent in the request body
   const {
-    firstname,
-    lastname,
+    fullname,
+    telnumber,
     nickname,
     sex,
-    telnumber,
     birthdate,
     national,
     area,
@@ -48,30 +111,19 @@ app.post("/uploadUserinfo", upload.single("file"), (req, res) => {
     englevel,
     vehicle,
     talent,
-    email,
+    img,
+    email
   } = req.body;
 
-  // Access the uploaded file information (if it exists)
-  const selectedImage = req.file;
-
-  const fs = require("fs");
-  fs.readFile(selectedImage.path, (err, data) => {
-    if (err) {
-      console.error("Error reading file:", err);
-      return res.status(500).json({ error: "Error reading file" });
-    }
-
-    // Now you have the binary data in the 'data' variable
     // Perform the database update
     db.run(
-      `UPDATE users SET img = ? , firstname = ?, lastname = ?, nickname = ?, sex = ?, telnumber = ?, birthdate = ?, national = ?, area = ?, degree = ?, workexp = ?, thailevel = ?, englevel = ?, vehicle = ?, talent = ?, newuser = 'old' WHERE email = ?`,
+      `UPDATE users SET fullname = ?, telnumber = ?, nickname = ?, sex = ?, birthdate = ?, national = ?, area = ?, degree = ?, workexp = ?, thailevel = ?, englevel = ?, vehicle = ?, talent = ?, img = ?, newuser = 'old' WHERE email = ?`,
       [
-        data,
-        firstname,
-        lastname,
+        fullname,
+        // lastname,
+        telnumber,
         nickname,
         sex,
-        telnumber,
         birthdate,
         national,
         area,
@@ -81,7 +133,8 @@ app.post("/uploadUserinfo", upload.single("file"), (req, res) => {
         englevel,
         vehicle,
         talent,
-        email,
+        img,
+        email
       ],
       (err) => {
         if (err) {
@@ -90,125 +143,238 @@ app.post("/uploadUserinfo", upload.single("file"), (req, res) => {
         console.log("Success Update");
       }
     );
-  });
 
   // Send a response back to the client
   res.json({ message: "Data and file successfully received!" });
 });
 
-app.post("/uploadShopinfo", upload.single("file"), (req, res) => {
+// app.post("/uploadShopinfo", (req, res) => {
+
+//   const {
+//     images,
+//     fullname,
+//     shopname,
+//     location,
+//     timework,
+//     money,
+//     lat,
+//     long,
+//     welfare,
+//     telnumber,
+//     newuser,
+//     email,
+//   } = req.body;
+
+//   db.run(
+//     `UPDATE shops SET img = ? , fullname = ?, shopname = ?, location = ?, timework = ?, money = ?, lat = ?, long = ?, welfare = ?, telnumber = ?, newuser = ? WHERE email = ?`,
+//     [
+//       images,
+//       // firstname,
+//       fullname,
+//       shopname,
+//       location,
+//       timework,
+//       money,
+//       lat,
+//       long,
+//       welfare,
+//       telnumber,
+//       newuser,
+//       email,
+//     ],
+//     (err) => {
+//       if (err) {
+//         console.error("Error updating database:", err);
+//       }
+//       console.log("Success Update");
+//     }
+//   );
+
+//   // Send a response back to the client
+//   res.json({ message: "Data and file successfully received!" });
+// });
+// app.post("/uploadShopinfo", upload.single("file"), (req, res) => {
+//   // Access the user info sent in the request body
+//   const {
+//     // firstname,
+//     fullname,
+//     shopname,
+//     location,
+//     timework,
+//     money,
+//     lat,
+//     long,
+//     welfare,
+//     email,
+//     telnumber,
+//   } = req.body;
+
+//   // Access the uploaded file information (if it exists)
+//   const selectedImage = req.file;
+
+//   const fs = require("fs");
+//   fs.readFile(selectedImage.path, (err, data) => {
+//     if (err) {
+//       console.error("Error reading file:", err);
+//       return res.status(500).json({ error: "Error reading file" });
+//     }
+
+//     // Now you have the binary data in the 'data' variable
+//     // Perform the database update
+//     db.run(
+//       `UPDATE shops SET img = ? , fullname = ?, shopname = ?, location = ?, timework = ?, money = ?, lat = ?, long = ?, welfare = ?, telnumber = ?, newuser = 'old' WHERE email = ?`,
+//       [
+//         data,
+//         // firstname,
+//         fullname,
+//         shopname,
+//         location,
+//         timework,
+//         money,
+//         lat,
+//         long,
+//         welfare,
+//         telnumber,
+//         email,
+//       ],
+//       (err) => {
+//         if (err) {
+//           console.error("Error updating database:", err);
+//         }
+//         console.log("Success Update");
+//       }
+//     );
+//   });
+
+//   // Send a response back to the client
+//   res.json({ message: "Data and file successfully received!" });
+// });
+
+app.post("/uploadJobinfo", (req, res) => {
   // Access the user info sent in the request body
   const {
-    firstname,
-    lastname,
-    shopname,
-    location,
-    timework,
-    money,
-    lat,
-    long,
-    welfare,
     email,
     telnumber,
+    fullname,
+    shopname,
+    workposition,
+    jobdesc,
+    timework,
+    money,
+    peopleneed,
+    welfare,
+    location,
+    lat,
+    long,
+    minilocation,
+    img,
   } = req.body;
 
-  // Access the uploaded file information (if it exists)
-  const selectedImage = req.file;
-
-  const fs = require("fs");
-  fs.readFile(selectedImage.path, (err, data) => {
-    if (err) {
-      console.error("Error reading file:", err);
-      return res.status(500).json({ error: "Error reading file" });
-    }
-
-    // Now you have the binary data in the 'data' variable
-    // Perform the database update
-    db.run(
-      `UPDATE shops SET img = ? , firstname = ?, lastname = ?, shopname = ?, location = ?, timework = ?, money = ?, lat = ?, long = ?, welfare = ?, telnumber = ?, newuser = 'old' WHERE email = ?`,
-      [
-        data,
-        firstname,
-        lastname,
-        shopname,
-        location,
-        timework,
-        money,
-        lat,
-        long,
-        welfare,
-        telnumber,
-        email,
-      ],
-      (err) => {
-        if (err) {
-          console.error("Error updating database:", err);
-        }
+  // Now you have the binary data in the 'data' variable
+  // Perform the database update
+  db.run(
+    `INSERT INTO jobs (email,
+    telnumber,
+    fullname,
+    shopname,
+    workposition,
+    jobdesc,
+    timework,
+    money,
+    peopleneed,
+    welfare,
+    location,
+    lat,
+    long,
+    minilocation,
+    img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [
+      email,
+      telnumber,
+      fullname,
+      shopname,
+      workposition,
+      jobdesc,
+      timework,
+      money,
+      peopleneed,
+      welfare,
+      location,
+      lat,
+      long,
+      minilocation,
+      img,
+    ],
+    (err) => {
+      if (err) {
+        console.error("Error updating database:", err);
+        res.status(500).json({ error: "An error occurred while updating the database" });
+      } else {
         console.log("Success Update");
+        res.json({ message: "Data and file successfully received!" });
       }
-    );
-  });
-
+    }
+  );
   // Send a response back to the client
-  res.json({ message: "Data and file successfully received!" });
+  // res.json({ message: "Data and file successfully received!" });
 });
 
 app.post("/uploadJob", upload.single("img"), async (req, res) => {
-  const shopname = req.body.shopname;
-  const workposition = req.body.workposition;
-  const money = req.body.money;
-  const jobdesc = req.body.jobdesc;
-  const timework = req.body.timework;
-  const welfare = req.body.welfare;
-  const peopleneed = req.body.peopleneed;
-  const lat = req.body.lat;
-  const long = req.body.long;
-  const location = req.body.location;
-  const email = req.body.email;
-  const minilocation = req.body.minilocation;
+  // const shopname = req.body.shopname;
+  // const workposition = req.body.workposition;
+  // const money = req.body.money;
+  // const jobdesc = req.body.jobdesc;
+  // const timework = req.body.timework;
+  // const welfare = req.body.welfare;
+  // const peopleneed = req.body.peopleneed;
+  // const lat = req.body.lat;
+  // const long = req.body.long;
+  // const location = req.body.location;
+  // const email = req.body.email;
+  // const minilocation = req.body.minilocation;
 
-  // You can access the uploaded image as req.file
-  const imgPath = req.file.path;
+  // // You can access the uploaded image as req.file
+  // const imgPath = req.file.path;
 
-  const fs = require("fs");
-  fs.readFile(imgPath, (err, data) => {
-    if (err) {
-      console.error("Error reading file:", err);
-      return res.status(500).json({ error: "Error reading file" });
-    }
+  // const fs = require("fs");
+  // fs.readFile(imgPath, (err, data) => {
+  //   if (err) {
+  //     console.error("Error reading file:", err);
+  //     return res.status(500).json({ error: "Error reading file" });
+  //   }
 
-    // Insert the data into the database
-    db.run(
-      `INSERT INTO jobs (shopname, workposition, money, jobdesc, timework, welfare, peopleneed, lat, long, location, email, img,minilocation) 
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)`,
-      [
-        shopname,
-        workposition,
-        money,
-        jobdesc,
-        timework,
-        welfare,
-        peopleneed,
-        lat,
-        long,
-        location,
-        email,
-        data,
-        minilocation,
-      ],
-      function (err) {
-        if (err) {
-          console.error("Error inserting data:", err.message);
-          res
-            .status(500)
-            .json({ error: "An error occurred while processing the data" });
-        } else {
-          console.log(`A new job with ID ${this.lastID} has been inserted.`);
-          res.status(200).json({ message: "Data received successfully" });
-        }
-      }
-    );
-  }); // Corrected placement of closing parenthesis for fs.readFile
+  //   // Insert the data into the database
+  //   db.run(
+  //     `INSERT INTO jobs (shopname, workposition, money, jobdesc, timework, welfare, peopleneed, lat, long, location, email, img,minilocation) 
+  //         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)`,
+  //     [
+  //       shopname,
+  //       workposition,
+  //       money,
+  //       jobdesc,
+  //       timework,
+  //       welfare,
+  //       peopleneed,
+  //       lat,
+  //       long,
+  //       location,
+  //       email,
+  //       data,
+  //       minilocation,
+  //     ],
+  //     function (err) {
+  //       if (err) {
+  //         console.error("Error inserting data:", err.message);
+  //         res
+  //           .status(500)
+  //           .json({ error: "An error occurred while processing the data" });
+  //       } else {
+  //         console.log(`A new job with ID ${this.lastID} has been inserted.`);
+  //         res.status(200).json({ message: "Data received successfully" });
+  //       }
+  //     }
+  //   );
+  // }); // Corrected placement of closing parenthesis for fs.readFile
 }); // Corrected placement of closing parenthesis for app.post
 
 app.get("/alljobs", (req, res) => {
@@ -239,8 +405,9 @@ app.get("/getUserinfo/:email", (req, res) => {
 
     // User found, respond with the user data
     const userInfo = {
-      firstname: row.firstname,
-      lastname: row.lastname,
+      // firstname: row.firstname,
+      // lastname: row.lastname,
+      fullname: row.fullname,
       nickname: row.nickname,
       sex: row.sex,
       telnumber: row.telnumber,
@@ -277,10 +444,10 @@ app.get("/getShopinfo/:email", (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // User found, respond with the user data
+    // Assuming there can be multiple rows for the same email
+    // We'll respond with an array of shopInfo
     const shopInfo = {
-      firstname: row.firstname,
-      lastname: row.lastname,
+      fullname: row.fullname,
       shopname: row.shopname,
       location: row.location,
       timework: row.timework,
@@ -290,9 +457,47 @@ app.get("/getShopinfo/:email", (req, res) => {
       welfare: row.welfare,
       email: row.email,
       telnumber: row.telnumber,
-      // Assuming "img" column stores the binary data of the user's image
-      img: row.img,
+      img: row.img, // Assuming "img" column stores the binary data of the user's image
     };
+
+    res.json(shopInfo);
+  });
+});
+
+app.get("/getAllShopinfo/:email", (req, res) => {
+  const email = req.params.email;
+
+  // Perform the database query to fetch user data based on the email
+  db.all("SELECT * FROM jobs WHERE email = ?", [email], (err, rows) => {
+    if (err) {
+      console.error("Error querying database:", err);
+      return res.status(500).json({ error: "Error querying database" });
+    }
+
+    if (!rows && rows.length === 0) {
+      // User with the specified email not found
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Assuming there can be multiple rows for the same email
+    // We'll respond with an array of shopInfo
+    const shopInfo = rows.map((row) => ({
+      email: row.email,
+      telnumber: row.telnumber,
+      fullname: row.fullname,
+      shopname: row.shopname,
+      workposition: row.workposition,
+      jobdesc: row.jobdesc,
+      timework: row.timework,
+      money: row.money,
+      peopleneed: row.peopleneed,
+      welfare: row.welfare,
+      location: row.location,
+      lat: row.lat,
+      long: row.long,
+      minilocation: row.minilocation,
+      img: JSON.parse(row.img), // Assuming "img" column stores the binary data of the user's image
+    }));
 
     res.json(shopInfo);
   });
@@ -341,11 +546,12 @@ app.post("/validatePasswordShop", (req, res) => {
 });
 
 app.post("/insertUser", (req, res) => {
-  const { email, password, firstname, lastname, telnumber, occupation } =
-    req.body;
+  // const { email, password, firstname, lastname, telnumber, occupation } =
+  //   req.body;
+  const { email, password, fullname, telnumber, occupation } = req.body;
 
   db.run(
-    `INSERT INTO users (email, password, firstname,lastname,telnumber,occupation,nickname,sex,birthdate,national,area,degree,workexp,thailevel,englevel,vehicle,talent,img,loginrole,newuser) VALUES ('${email}', '${password}', '${firstname}','${lastname}','${telnumber}','${occupation}',null,null,null,null,null,null,null,null,null,null,null,null,'user','new')`,
+    `INSERT INTO users (email, password, fullname,telnumber,occupation,nickname,sex,birthdate,national,area,degree,workexp,thailevel,englevel,vehicle,talent,img,loginrole,newuser) VALUES ('${email}', '${password}', '${fullname}','${telnumber}','${occupation}',null,null,null,null,null,null,null,null,null,null,null,null,'user','new')`,
     (err) => {
       if (err) {
         throw err;
@@ -356,10 +562,10 @@ app.post("/insertUser", (req, res) => {
 });
 
 app.post("/insertShop", (req, res) => {
-  const { email, password, firstname, lastname, telnumber, shop } = req.body;
+  const { email, password, fullname, telnumber } = req.body;
 
   db.run(
-    `INSERT INTO shops (email, password, firstname,lastname,telnumber,shopname,role,location,timework,money,lat,long,personamount,welfare,img,newuser) VALUES ('${email}', '${password}', '${firstname}','${lastname}','${telnumber}','${shop}','shop',null,null,null,null,null,null,null,null,'new')`,
+    `INSERT INTO shops (email, password, fullname,telnumber,role,newuser) VALUES ('${email}', '${password}', '${fullname}','${telnumber}','shop','new')`,
     (err) => {
       if (err) {
         throw err;
@@ -368,6 +574,20 @@ app.post("/insertShop", (req, res) => {
     }
   );
 });
+
+app.post("/changeRolesShop", (req,res) => {
+  const { email, newuser } = req.body;
+
+  db.run(
+    `UPDATE shops (newuser) VALUES ('${newuser}') WHERE email = '${email}'`,
+    (err) => {
+      if (err) {
+        throw err;
+      }
+      res.send({ message: "User inserted successfully!" });
+    }
+  );
+})
 
 //============================= noti when user apply job ==============================
 app.get("/userapplyjob/:email", (req, res) => {
@@ -385,9 +605,10 @@ app.get("/userapplyjob/:email", (req, res) => {
     }
 
     // Assuming you want to send all rows as a JSON response
-    const usernoti = rows.map(row => ({
+    const usernoti = rows.map((row) => ({
       shop_name: row.shopname,
       status: row.status,
+      date: row.date,
     }));
 
     // User found, respond with the user data
@@ -396,10 +617,11 @@ app.get("/userapplyjob/:email", (req, res) => {
 });
 
 app.post("/applyjob", (req, res) => {
-  const { email, email_shopname, shopname, status, date } = req.body;
+  const { email, user_fullname, email_shopname, shopname, status, date } =
+    req.body;
 
   db.run(
-    `INSERT INTO noti (email, email_shopname, shopname, status, date) VALUES ('${email}', '${email_shopname}', '${shopname}', '${status}','${date}')`,
+    `INSERT INTO noti (email, user_fullname, email_shopname, shopname, status, date) VALUES ('${email}', '${user_fullname}', '${email_shopname}', '${shopname}', '${status}','${date}')`,
     (err) => {
       if (err) {
         throw err;
@@ -413,33 +635,45 @@ app.post("/applyjob", (req, res) => {
 app.get("/shopacceptjob/:email", (req, res) => {
   const email = req.params.email;
 
-  db.all("SELECT * FROM noti WHERE email_shopname = ?", [email], (err, rows) => {
-    if (err) {
-      console.error("Error querying database:", err);
-      return res.status(500).json({ error: "Error querying database" });
+  db.all(
+    "SELECT * FROM noti WHERE email_shopname = ?",
+    [email],
+    (err, rows) => {
+      if (err) {
+        console.error("Error querying database:", err);
+        return res.status(500).json({ error: "Error querying database" });
+      }
+
+      if (
+        !rows
+        // || rows.length === 0
+      ) {
+        // No data found for the specified email, send an empty response or a message indicating no data.
+        return res
+          .status(404)
+          .json({ message: "No data found for the email." });
+      }
+
+      // Assuming you want to send all rows as a JSON response
+      const usernoti = rows.map((row) => ({
+        useremail: row.email,
+        user_fullname: row.user_fullname,
+        shopname:row.shopname,
+        status: row.status,
+        date: row.date,
+      }));
+
+      // User found, respond with the user data
+      res.json(usernoti);
     }
-
-    if (!rows || rows.length === 0) {
-      // No data found for the specified email, send an empty response or a message indicating no data.
-      return res.status(404).json({ message: "No data found for the email." });
-    }
-
-    // Assuming you want to send all rows as a JSON response
-    const usernoti = rows.map(row => ({
-      useremail: row.email,
-      date: row.date,
-    }));
-
-    // User found, respond with the user data
-    res.json(usernoti);
-  });
+  );
 });
 
 app.post("/acceptjob", (req, res) => {
   const { email, shop, status } = req.body;
 
   db.run(
-    `UPDATE INTO noti (status) VALUES ('${status}') WHERE email = '${email}' and shop = '${shop}'`,
+    `UPDATE noti (status) VALUES ('${status}') WHERE email = '${email}' and shop = '${shop}'`,
     (err) => {
       if (err) {
         throw err;

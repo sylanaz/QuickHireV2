@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const applyJob = async (email, email_shopname, shopname, status, date) => {
+const applyJob = async (email, user_fullname, email_shopname, shopname, status, date) => {
   try {
-    const response = await axios.post(`http://localhost:3001/applyjob`, { email, email_shopname, shopname, status, date });
+    const response = await axios.post(`http://localhost:3001/applyjob`, { email, user_fullname, email_shopname, shopname, status, date });
     return response;
   } catch (error) {
     console.log(error);

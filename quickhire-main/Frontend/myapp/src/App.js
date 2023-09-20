@@ -11,10 +11,8 @@ import Registershop from "./pages/Shop/Registershop";
 import Createshop from "./pages/Shop/Createshop";
 import Profileshop from "./pages/Shop/Profileshop";
 import Addjob from "./pages/Shop/Addjob";
-import { LoginMain } from "./pages/LoginMain";
-import { LoginOrg } from "./pages/Shop/LoginOrg";
-import { LoginEmpl } from "../src/pages/LoginEmpl";
-import { RegisterEmpl } from "../src/pages/RegisterEmpl";
+import CardAddJob from "./pages/Shop/CardAddJob";
+import { ApproveUser } from "./pages/Shop/ApproveUser";
 
 function App() {
   const token = localStorage.getItem("accessToken");
@@ -30,16 +28,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Profile" element={<Login />} />
+          <Route path="/Profile" element={<Createprofile />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Job" element={<Login />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/RegisterShop" element={<Registershop />} />
           <Route path="/LoginShop" element={<Loginshop />} />
-          <Route path="/LoginMain" element={<LoginMain />} />
-          <Route path="/LoginOrg" element={<LoginOrg />} />
-          <Route path="/LoginEmpl" element={<LoginEmpl />} />
-          <Route path="/RegisterEmpl" element={<RegisterEmpl />} />
         </Routes>
       </div>
     );
@@ -50,7 +45,22 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Profile" element={<Createprofile />} />
+          <Route path="/Apply" element={<Createprofile />} />
           <Route path="/Editprofile" element={<Createprofile />} />
+          <Route path="/Contact" element={<Contact />} />
+          <Route path="/Job" element={<Createprofile />} />
+        </Routes>
+      </div>
+    );
+  } else if (token && newuser === "old" && role === "user") {
+    return (
+      <div className="App font-kanit">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/Editprofile" element={<Createprofile />} />
+          <Route path="/Apply" element={<Createprofile />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Job" element={<Createprofile />} />
         </Routes>
@@ -63,9 +73,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Profile" element={<Createshop />} />
-          <Route path="/Editprofile" element={<Createshop />} />
+          <Route path="/Create" element={<Createshop />} />
           <Route path="/Contact" element={<Contact />} />
-          <Route path="/Job" element={<Createshop />} />
+          {/* <Route path="/Job" element={<Createshop />} /> */}
+          {/* <Route path="/Create" element={<Createshop />} /> */}
+          <Route path="/Add" element={<Addjob />} />
+          <Route path="/Approve" element={<ApproveUser />} />
         </Routes>
       </div>
     );
@@ -76,9 +89,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Profile" element={<Profileshop />} />
-          <Route path="/Editprofile" element={<Createshop />} />
+          <Route path="/Create" element={<Createshop />} />
+          <Route path="/Add" element={<Addjob />} />
           <Route path="/Contact" element={<Contact />} />
-          <Route path="/Job" element={<Addjob />} />
+          {/* <Route path="/Job" element={<Addjob />} /> */}
+          <Route path="/Approve" element={<ApproveUser />} />
         </Routes>
       </div>
     );
@@ -89,10 +104,21 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Home" element={<Home />} />
-        <Route path="/Profile" element={<Profile />} />
+        {role === "shop" ? (
+          <>
+            <Route path="/Add" element={<Addjob />} />
+            <Route path="/Approve" element={<ApproveUser />} />
+          </>
+        ) : (
+          <>
+            {/* <Route path="/Add" element={<Addjob />} />
+            <Route path="/Approve" element={<ApproveUser />} /> */}
+          </>
+        )}
+        {/* <Route path="/Profile" element={<Profile />} /> */}
         <Route path="/Contact" element={<Contact />} />
-        <Route path="/Editprofile" element={<Createprofile />} />
-        <Route path="/Job" element={<Job />} />
+        {/* <Route path="/Editprofile" element={<Createprofile />} /> */}
+        {/* <Route path="/Job" element={<Job />} /> */}
       </Routes>
     </div>
   );
