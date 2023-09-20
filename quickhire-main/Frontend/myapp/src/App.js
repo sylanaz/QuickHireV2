@@ -13,6 +13,10 @@ import Profileshop from "./pages/Shop/Profileshop";
 import Addjob from "./pages/Shop/Addjob";
 import CardAddJob from "./pages/Shop/CardAddJob";
 import { ApproveUser } from "./pages/Shop/ApproveUser";
+import { LoginMain } from "./pages/LoginMain";
+import { LoginOrg } from "./pages/Shop/LoginOrg";
+import { LoginEmpl } from "../src/pages/LoginEmpl";
+import { RegisterEmpl } from "../src/pages/RegisterEmpl";
 
 function App() {
   const token = localStorage.getItem("accessToken");
@@ -35,6 +39,10 @@ function App() {
           <Route path="/Register" element={<Register />} />
           <Route path="/RegisterShop" element={<Registershop />} />
           <Route path="/LoginShop" element={<Loginshop />} />
+          <Route path="/LoginMain" element={<LoginMain />} />
+          <Route path="/LoginOrg" element={<LoginOrg />} />
+          <Route path="/LoginEmpl" element={<LoginEmpl />} />
+          <Route path="/RegisterEmpl" element={<RegisterEmpl />} />
         </Routes>
       </div>
     );

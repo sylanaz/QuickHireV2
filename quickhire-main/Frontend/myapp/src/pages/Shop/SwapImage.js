@@ -14,18 +14,24 @@ const SwapImage = ({ images }) => {
   };
 
   return (
+    <div className="flex flex-col">
       <div className="flex flex-row justify-center">
-        <button onClick={goToPrevious} className="my-auto w-[2rem] bg-[#EF4444] text-white rounded">
-          <span className="text-2xl font-bold p-auto pb-10">&#171;</span>
-        </button>
-        <div className="flex flex-col">
+      <button onClick={goToPrevious} className="my-auto w-[2rem] bg-[#EF4444] text-white rounded">
+        <span className="text-2xl font-bold">&#171;</span>
+      </button>
+      <div className="flex flex-col">
         <img src={images[currentIndex]} alt={`Image ${currentIndex + 1}`} className="w-[125px] h-[125px] md:max-w-[500px] md:max-h-[500px] rounded mx-auto cursor-pointer" />
-        <p className="text-center">{currentIndex + 1} / {images.length}</p>
-        </div>
-        <button onClick={goToNext} className="my-auto w-[2rem] bg-[#EF4444] text-white rounded">
-          <span className="text-2xl font-bold p-auto pb-10">&#187;</span>
-        </button>
       </div>
+      <button onClick={goToNext} className="my-auto w-[2rem] bg-[#EF4444] text-white rounded">
+        <span className="text-2xl font-bold">&#187;</span>
+      </button>
+      </div>
+      <div className="flex flex-col">
+        <p className="text-center">
+          {currentIndex + 1} / {images.length}
+        </p>
+      </div>
+    </div>
   );
 };
 

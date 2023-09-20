@@ -78,7 +78,7 @@ function Navbar() {
           {/* <button onClick={toggleContent}>เข้าสู่ระบบ</button>
           {showNewContent ? <LoginMain /> : null} */}
 
-          <Link to="/Login" class="transition duration-300 hover:scale-125 border-orange-400 border-4 p-2 rounded-xl">
+          <Link to="/LoginMain" class="transition duration-300 hover:scale-125 border-orange-400 border-4 p-2 rounded-xl">
             เข้าสู่ระบบ
           </Link>
           <div></div>
