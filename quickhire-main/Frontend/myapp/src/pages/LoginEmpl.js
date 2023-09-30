@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import test from "../img/test.jpeg";
+import empl from "../img/empl.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { ScreenMode } from "./LoginMain";
 
-export const LoginEmpl = () => {
+export const LoginEmpl = ({ onSwitchMode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setshow] = useState(false);
 
   const toShow = () => {
-    // console.log("test")
     setshow(!show);
   };
 
@@ -28,8 +28,10 @@ export const LoginEmpl = () => {
     });
   };
   return (
-    <section className="bg-gray-50 min-h-screen flex items-center justify-center ">
-      <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
+    <section className="bg-gray-50 min-h-screen flex flex-col items-center justify-center ">
+      {/* {currMode === ScreenMode.LOGIN_EMPL ? <LoginEmpl onSwitchMode={onSwitchMode} /> : <LoginOrg onSwitchMode={onSwitchMode} />} */}
+
+      <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center mb-8">
         {/* form */}
         <div className="md:w-1/2 px-8 md:px-16">
           <h2 className="font-bold text-2xl text-center text-[#002D74]">
@@ -72,9 +74,11 @@ export const LoginEmpl = () => {
             <hr class=" border-gray-400" />
           </div>
 
-          <div className="flex justify-center text-center text-red-400">
-            <Link to="/LoginOrg">หาใจที่รักงาน</Link>
+          <div className="flex justify-center text-center text-red-400 hover:scale-125 duration-300" onClick={() => onSwitchMode(ScreenMode.LOGIN_ORG)}>
+            หาใจที่รักงาน
+            {/* <Link to="/LoginOrg">หาใจที่รักงาน</Link> */}
           </div>
+
           {/* <Link to={"/Home"}>
           <div className="flex justify-center bg-white rounded-full py-2 hover:scale-105 duration-300">
             <span className="text-center text-xl"> Back to Homepage</span>
@@ -82,11 +86,14 @@ export const LoginEmpl = () => {
         </Link> */}
         </div>
         {/* image something */}
-        <div className="md:block hidden w-1/2 p-5 hover:scale-110 duration-300">
-          <Link to="/LoginMain">
-            <img src={test} className="rounded-2xl" alt="" />
-          </Link>
+        <div className="md:block hidden w-1/2 p-5 ">
+          <img src={empl} className="rounded-2xl" alt="" />
         </div>
+      </div>
+      <div className="hover:scale-105 duration-300 mt-8">
+        <Link to={"/Home"}>
+          <span className="text-xl">Back to Homepage</span>
+        </Link>
       </div>
     </section>
   );
