@@ -78,7 +78,7 @@ function Navbar() {
           {/* <button onClick={toggleContent}>เข้าสู่ระบบ</button>
           {showNewContent ? <LoginMain /> : null} */}
 
-          <Link to="/LoginMain" class="transition duration-300 hover:scale-125 border-orange-400 border-4 p-2 rounded-xl">
+          <Link to="/ChooseLogin" class="transition duration-300 hover:scale-125 border-orange-400 border-4 p-2 rounded-xl">
             เข้าสู่ระบบ
           </Link>
           <div></div>
@@ -113,9 +113,15 @@ function Navbar() {
             </>
           )}
           <Link to="/Contact">ติดต่อเรา</Link>
-          <Link to="/" onClick={handleLogout}>
-            ออกจากระบบ
-          </Link>
+          {token ? (
+            <button onClick={handleLogout} className="transition duration-300 hover:scale-12">
+              ออกจากระบบ
+            </button>
+          ) : (
+            <Link to="/ChooseLogin" className="transition duration-300 hover:scale-12 ">
+              เข้าสู่ระบบ
+            </Link>
+          )}
         </div>
       )}
     </div>

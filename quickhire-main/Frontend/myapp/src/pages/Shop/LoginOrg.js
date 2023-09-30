@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import test from "../../img/test.jpeg";
+import org from "../../img/org.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { ScreenMode } from "../LoginMain";
 
-export const LoginOrg = () => {
+export const LoginOrg = ({ onSwitchMode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setshow] = useState(false);
@@ -19,8 +20,8 @@ export const LoginOrg = () => {
       if (res.data.validation) {
         localStorage.setItem("accessToken", "Logged In");
         localStorage.setItem("user", email);
-        localStorage.setItem("newuser",res.data.newuser)
-        localStorage.setItem("role",res.data.role)
+        localStorage.setItem("newuser", res.data.newuser);
+        localStorage.setItem("role", res.data.role);
         window.location.replace("/");
       } else {
         alert("Your password is incorrect");
@@ -28,8 +29,8 @@ export const LoginOrg = () => {
     });
   };
   return (
-    <section className="bg-gray-50 min-h-screen flex items-center justify-center ">
-      <div className="bg-gray-100 flex flex-row-reverse rounded-2xl shadow-lg max-w-3xl p-5 items-center">
+    <section className="bg-gray-50 min-h-screen flex flex-col items-center justify-center ">
+      <div className="bg-gray-100 flex flex-row-reverse rounded-2xl shadow-lg max-w-3xl p-5 items-center mb-8">
         {/* form */}
         <div className="md:w-1/2 px-8 md:px-16">
           <h2 className="font-bold text-2xl text-center text-[#002D74]">
@@ -61,7 +62,7 @@ export const LoginOrg = () => {
             </button>
             <div className="flex justify-center">
               ยังไม่มีบัญชี ?{" "}
-              <Link to="/Register">
+              <Link to="/RegisterOrg">
                 <span className="mx-2 text-yellow-500 text-center">สมัครเลย !</span>
               </Link>
             </div>
@@ -72,8 +73,9 @@ export const LoginOrg = () => {
             <hr class=" border-gray-400" />
           </div>
 
-          <div className="flex justify-center text-center text-red-400">
-            <Link to="/LoginEmpl">หางานที่รู้ใจ</Link>
+          <div className="flex justify-center text-center text-red-400 hover:scale-125 duration-300" onClick={() => onSwitchMode(ScreenMode.LOGIN_EMPL)}>
+            {/* <Link to="/LoginEmpl">หางานที่รู้ใจ</Link> */}
+            หางานที่รู้ใจ
           </div>
           {/* <Link to={"/Home"}>
           <div className="flex justify-center bg-white rounded-full py-2 hover:scale-105 duration-300">
@@ -82,11 +84,14 @@ export const LoginOrg = () => {
         </Link> */}
         </div>
         {/* image something */}
-        <div className="md:block hidden w-1/2 p-5 hover:scale-110 duration-300">
-          <Link to ="/LoginMain" >
-            <img src={test} className="rounded-2xl" alt="" />
-          </Link>
+        <div className="md:block hidden w-1/2 p-5">
+          <img src={org} className="rounded-2xl" alt="" />
         </div>
+      </div>
+      <div className="hover:scale-105 duration-300 mt-8">
+        <Link to={"/Home"}>
+          <span className="text-center text-xl"> Back to Homepage</span>
+        </Link>
       </div>
     </section>
   );
