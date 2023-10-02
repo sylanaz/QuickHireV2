@@ -4,7 +4,7 @@ import DescBTN from "../BTN/DescBTN";
 import AccAndDenie from "../BTN/AccAndDenie";
 import Mymodal from "./modal";
 
-const CardApproveUser = ({ userData, date_month_year, hour_minute }) => {
+const CardApproveUser = ({ userData, shopname, date_month_year, hour_minute, triggerAccOrDenie }) => {
   // const [userData, setUserData] = useState([]);
   // const getUserInfo = async () => {
   //   const data = await axios.get(`http://localhost:3001/getUserinfo/${email}`);
@@ -75,7 +75,7 @@ const CardApproveUser = ({ userData, date_month_year, hour_minute }) => {
               </div>
               <div className="flex flex-row justify-center rounded-b-[20px] mx-2">
                 {bool.map((data) => {
-                  return <AccAndDenie acc_denie={data} />;
+                  return <AccAndDenie acc_denie={data} shopname={shopname} triggerAccOrDenie={triggerAccOrDenie}/>;
                 })}
                 {/* <AccAndDenie acc_denie={false} />
                   <AccAndDenie acc_denie={true} /> */}

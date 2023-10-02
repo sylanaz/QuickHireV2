@@ -3,7 +3,7 @@ import Mymodal from "./modal";
 import axios from "axios";
 import CardApproveUser from "./CardApproveUser";
 
-const Mail = ({ useremail, user_fullname, shopname, status, date, role }) => {
+const Mail = ({ useremail, user_fullname, shopname, status, date, role, triggerAccOrDenie }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const day = new Date(date);
@@ -52,7 +52,7 @@ const Mail = ({ useremail, user_fullname, shopname, status, date, role }) => {
           ) : (
             <>
               {/* <div onClick={openModal}> */}
-                <CardApproveUser userData={userData} date_month_year={date_month_year} hour_minute={hour_minute} />
+                <CardApproveUser userData={userData} shopname={shopname} date_month_year={date_month_year} hour_minute={hour_minute} triggerAccOrDenie={triggerAccOrDenie}/>
               {/* </div> */}
               {/* <Mymodal isOpen={isModalOpen} onClose={closeModal} userData={userData} /> */}
             </>

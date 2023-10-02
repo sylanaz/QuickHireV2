@@ -4,15 +4,15 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import banner from "../img/banner.png";
 import Card from "../components/Card";
-// import { getUserApplyJob } from "../data/userApplyJob";
+import { getUserApplyJob } from "../data/userApplyJob";
 // import { shopNoti } from "../data/shopApplyUsers";
 // import Mail from "./Mailbox/mail";
 // import LoginMain from "./LoginMain";
 
 function Home() {
   const [jobs, setJobs] = useState([]);
-  // const email = localStorage.getItem("user");
-  // const role = localStorage.getItem("role");
+  const email = localStorage.getItem("user");
+  const role = localStorage.getItem("role");
 
   useEffect(() => {
     fetchJobs();
@@ -27,28 +27,36 @@ function Home() {
     }
   };
 
-  const decodeBlobToImageUrl = (blobData) => {
-    if (!blobData) return null;
-    const blob = new Blob([new Uint8Array(blobData.data)], { type: "image/jpeg" });
-    const imageUrl = URL.createObjectURL(blob);
-    return imageUrl;
-  };
-
-  // =====================================
-
-  // const [noti, setNoti] = useState([]);
-
-  // const showNoti = async (email) => {
-  //   if (role === "user") {
-  //     const data = await getUserApplyJob(email);
-  //     setNoti(data);
-  //   } else if (role === "shop") {
-  //     const data = await shopNoti(email);
-  //     setNoti(data);
-  //   }
+  // const decodeBlobToImageUrl = (blobData) => {
+  //   if (!blobData) return null;
+  //   const blob = new Blob([new Uint8Array(blobData.data)], { type: "image/jpeg" });
+  //   const imageUrl = URL.createObjectURL(blob);
+  //   return imageUrl;
   // };
+
   // =====================================
-  
+
+  const [noti, setNoti] = useState([]);
+
+  const showNoti = async (email) => {
+    if (role === "user") {
+      await getUserApplyJob(email).then((data) => setNoti(data));
+    }
+  };
+  const [trigger, setTrigger] = useState(false);
+  const triggerUserApplyJob = () => {
+    setTrigger(!trigger);
+  };
+  useEffect(() => {
+    showNoti(email);
+  }, [trigger]);
+
+  // const list = noti !== undefined ? noti.map((data) => data.shop_name) : [""];
+  // const allJobsUserNotApply = noti !== undefined ? jobs.filter((data) => !list.includes(data.shopname)) : [""];
+  const list = noti ? noti.map((data) => data.shop_name) : [];
+  const allJobsUserNotApply = noti ? jobs.filter((data) => !list.includes(data.shopname)) : [];
+  // =====================================
+
   const [searchTerm, setSearchTerm] = useState("");
   const filteredCards = jobs.filter((card) => card.shopname.toLowerCase().includes(searchTerm.toLowerCase()));
 
@@ -76,10 +84,15 @@ function Home() {
           <input type="text" placeholder="Search by restaurant name" className="border-2 rounded-lg px-1 md:px-4 py-2 focus:outline-none" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         </div>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 md:ml-[6rem]">
-        {filteredCards.map((job, index) => (
-          <Card key={index} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.lat} long={job.long} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} />
-        ))}
+      <div className="flex justify-center items-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10">
+          {" "}
+          {/* md:ml-[6rem] */}
+          {/* {filteredCards.map((job, index) => (
+            <Card key={index} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.lat} long={job.long} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} />
+          ))} */}
+          {role === "user" ? allJobsUserNotApply.map((job, index) => <Card key={index} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.lat} long={job.long} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} triggerUserApplyJob={triggerUserApplyJob} />) : filteredCards.map((job, index) => <Card key={index} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.lat} long={job.long} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} />)}
+        </div>
       </div>
       <Footer />
     </div>

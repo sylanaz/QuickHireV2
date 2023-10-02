@@ -599,20 +599,25 @@ app.get("/userapplyjob/:email", (req, res) => {
       return res.status(500).json({ error: "Error querying database" });
     }
 
-    if (!rows || rows.length === 0) {
+    if (!rows) {
       // No data found for the specified email, send an empty response or a message indicating no data.
       return res.status(404).json({ message: "No data found for the email." });
     }
 
+    if (rows.length === 0) {
+      res.json([]);
+    } else {
+      const usernoti = rows.map((row) => ({
+        shop_name: row.shopname,
+        status: row.status,
+        date: row.date,
+      }));
+      res.json(usernoti);
+    }
     // Assuming you want to send all rows as a JSON response
-    const usernoti = rows.map((row) => ({
-      shop_name: row.shopname,
-      status: row.status,
-      date: row.date,
-    }));
+
 
     // User found, respond with the user data
-    res.json(usernoti);
   });
 });
 
@@ -636,8 +641,8 @@ app.get("/shopacceptjob/:email", (req, res) => {
   const email = req.params.email;
 
   db.all(
-    "SELECT * FROM noti WHERE email_shopname = ?",
-    [email],
+    "SELECT * FROM noti WHERE email_shopname = ? and status = ?",
+    [email, "pending"],
     (err, rows) => {
       if (err) {
         console.error("Error querying database:", err);
@@ -670,10 +675,10 @@ app.get("/shopacceptjob/:email", (req, res) => {
 });
 
 app.post("/acceptjob", (req, res) => {
-  const { email, shop, status } = req.body;
+  const { email_shopname, shopname, status } = req.body;
 
   db.run(
-    `UPDATE noti (status) VALUES ('${status}') WHERE email = '${email}' and shop = '${shop}'`,
+    `UPDATE noti SET status = '${status}' WHERE email_shopname = '${email_shopname}' and shopname = '${shopname}'`,
     (err) => {
       if (err) {
         throw err;
