@@ -10,6 +10,11 @@ export const ApproveUser = () => {
   const email = localStorage.getItem("user");
   const [noti, setNoti] = useState([]);
 
+  const [acceptTriggerAccOrDenie,setAcceptTriggerAccOrDenie] = useState(false)
+  const triggerAccOrDenie = () => {
+    setAcceptTriggerAccOrDenie(!acceptTriggerAccOrDenie)
+  }
+
   const showNoti = async (email) => {
     if (role === "user") {
       const data = await getUserApplyJob(email);
@@ -22,7 +27,7 @@ export const ApproveUser = () => {
 
   useEffect(() => {
     showNoti(email);
-  }, []);
+  }, [acceptTriggerAccOrDenie]);
 
   return (
     <div className="flex flex-col">
@@ -35,7 +40,7 @@ export const ApproveUser = () => {
               if (role === "user") {
                 return <Mail key={index} email={noti.shop_name} status={noti.status} date={noti.date} role={role} />;
               } else {
-                return <Mail key={index} useremail={noti.useremail} user_fullname={noti.user_fullname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} />;
+                return <Mail key={index} useremail={noti.useremail} user_fullname={noti.user_fullname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerAccOrDenie={triggerAccOrDenie}/>;
               }
             })}
         </div>

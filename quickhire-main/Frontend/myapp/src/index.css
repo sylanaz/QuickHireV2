@@ -11,32 +11,24 @@
 @layer utilities {
   @variants responsive {
 
-    /* Hide scrollbar for Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
 
-    /* Hide scrollbar for IE, Edge and Firefox */
     .no-scrollbar {
       -ms-overflow-style: none;
-      /* IE and Edge */
       scrollbar-width: none;
-      /* Firefox */
     }
   }
 }
 
-.backdrop {
+/* .backdrop {
   position: fixed;
-  /* top: 0;
-  left: 0; */
   width: 100%;
   height: 100%;
   background-color: rgba(199, 199, 199, 0.5);
-  /* Semi-transparent black background */
   backdrop-filter: blur(5px);
-  /* Adjust the blur intensity as needed */
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */

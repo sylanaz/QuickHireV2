@@ -15,8 +15,9 @@ import axios from "axios";
 import SwapImage from "../pages/Shop/SwapImage";
 import { EditBTN } from "../pages/Shop/EditBTN";
 import DescBTN from "../pages/BTN/DescBTN";
+import Swal from "sweetalert2";
 
-function Card({ restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email }) {
+function Card({ restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob }) {
   const [showModal, setShowModal] = React.useState(false);
   const useremail = localStorage.getItem("user");
   const status = "pending";
@@ -52,17 +53,36 @@ function Card({ restaurantName, minilocation, position, hourlyIncome, img, lat, 
     } else {
       console.error("Data is not an array:", data);
     }
+    triggerUserApplyJob();
   };
 
   const checkJob = async (shopname) => {
-    userApplyJob(useremail, shopname);
+    // userApplyJob(useremail, shopname);
+    // setShowModal(false);
+    Swal.fire({
+      title: "สมัครงาน!",
+      text: "ต้องการสมัครงานนี้หรือไม่",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3EC712",
+      cancelButtonColor: "#D80000",
+      cancelButtonText: "ไม่ต้องการ",
+      confirmButtonText: "ต้องการ!",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        userApplyJob(useremail, shopname);
+        setShowModal(false);
+      }
+    });
   };
 
   return (
-    <div className="max-w-xs max-h-[19rem] md:max-h-[40rem] mx-3 my-3 md:my-5 border-4 border-[#6C8C9C] rounded-[20px] md:rounded-[40px] bg-[#C7EFF6] cursor-pointer">
+    <div className="w-44 h-60 xl:w-80 xl:h-[23rem] md:max-h-[40rem] border-4 border-[#6C8C9C] rounded-[20px] md:rounded-[40px] cursor-pointer bg-[#C7EFF6]">
       {" "}
       {/* max-w-xs */}
-      <div className="flex flex-col shadow-xl rounded-[20px] md:rounded-[40px] relative group" onClick={() => setShowModal(true)}>
+      <div className="flex flex-col rounded-[20px] md:rounded-[40px] relative group" onClick={() => setShowModal(true)}>
         {" "}
         {/*rounded-b-xl*/}
         <div className="flex flex-row rounded-[20px] md:rounded-[40px]">
@@ -71,7 +91,7 @@ function Card({ restaurantName, minilocation, position, hourlyIncome, img, lat, 
           <h2 className="w-full flex justify-center text-center px-2 my-auto text-lg font-bold text-[#224555] md:text-3xl">{restaurantName}</h2>
           {/* <div className="overlay absolute top-0 left-0 w-full h-full bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out rounded-b-xl rounded-t-xl"></div> */}
         </div>
-        <div className="px-2 pt-1 rounded-[20px] md:rounded-[40px] text-xs md:text-base bg-[#C7EFF6]">
+        <div className="px-2 pt-1 rounded-[20px] md:rounded-[40px] text-xs md:text-base">
           {" "}
           {/*rounded-b-xl*/}
           {/* <h2 className="text-lg font-bold text-[#306279] mb-1 md:text-xl">{restaurantName}</h2> */}

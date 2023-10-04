@@ -4,8 +4,8 @@ import Card from '../../components/Card'
 
 export const EditBTN = () => {
   return (
-    <>
-    <Link to="/Create">แก้ไข้ข้อมูล</Link>
-    </>
+    <div>
+    <Link to="/Create">แก้ไขข้อมูล</Link>
+    </div>
   )
 }

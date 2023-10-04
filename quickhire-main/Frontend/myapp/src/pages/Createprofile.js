@@ -168,7 +168,6 @@ const Createprofile = () => {
   const MAX_LENGTH = 3;
   const handleImageSelect = (e) => {
     const files = e.target.files;
-    console.log(files.length);
 
     if (files && files.length > 0) {
       if (files.length <= MAX_LENGTH) {
