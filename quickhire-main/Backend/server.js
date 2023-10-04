@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const sqlite3 = require("sqlite3").verbose();
+const mysql = require("mysql2");
+// const sqlite3 = require("sqlite3").verbose();
 
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
+require('dotenv').config()
 
 // const allowedOrigins = ['https://quickhire-seven.vercel.app'];
 const allowedOrigins = ["http://localhost:3000"];
@@ -24,12 +26,26 @@ app.use(
 
 app.use(express.json({ limit: "10mb" }));
 
-let db = new sqlite3.Database("users.db", (err) => {
-  if (err) {
-    console.error(err.message);
-  }
-  console.log("Connected to the access database");
+const db = mysql.createPool({
+  host: process.env.DB_HOST, 
+  user: process.env.DB_USER, 
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
+
+db.getConnection((err, conn) => {
+  if(err) console.log(err)
+  console.log("Connected successfully")
+})
+// let db = new sqlite3.Database("users.db", (err) => {
+//   if (err) {
+//     console.error(err.message);
+//   }
+//   console.log("Connected to the access database");
+// });
 
 // app.post("/uploadUserinfo", upload.single("file"), (req, res) => {
 //   // Access the user info sent in the request body
@@ -63,7 +79,7 @@ let db = new sqlite3.Database("users.db", (err) => {
 
 //     // Now you have the binary data in the 'data' variable
 //     // Perform the database update
-//     db.run(
+//     db.query(
 //       `UPDATE users SET img = ? , fullname = ?, nickname = ?, sex = ?, telnumber = ?, birthdate = ?, national = ?, area = ?, degree = ?, workexp = ?, thailevel = ?, englevel = ?, vehicle = ?, talent = ?, newuser = 'old' WHERE email = ?`,
 //       [
 //         data,
@@ -116,7 +132,7 @@ app.post("/uploadUserinfo", (req, res) => {
   } = req.body;
 
     // Perform the database update
-    db.run(
+    db.query(
       `UPDATE users SET fullname = ?, telnumber = ?, nickname = ?, sex = ?, birthdate = ?, national = ?, area = ?, degree = ?, workexp = ?, thailevel = ?, englevel = ?, vehicle = ?, talent = ?, img = ?, newuser = 'old' WHERE email = ?`,
       [
         fullname,
@@ -165,7 +181,7 @@ app.post("/uploadUserinfo", (req, res) => {
 //     email,
 //   } = req.body;
 
-//   db.run(
+//   db.query(
 //     `UPDATE shops SET img = ? , fullname = ?, shopname = ?, location = ?, timework = ?, money = ?, lat = ?, long = ?, welfare = ?, telnumber = ?, newuser = ? WHERE email = ?`,
 //     [
 //       images,
@@ -221,7 +237,7 @@ app.post("/uploadUserinfo", (req, res) => {
 
 //     // Now you have the binary data in the 'data' variable
 //     // Perform the database update
-//     db.run(
+//     db.query(
 //       `UPDATE shops SET img = ? , fullname = ?, shopname = ?, location = ?, timework = ?, money = ?, lat = ?, long = ?, welfare = ?, telnumber = ?, newuser = 'old' WHERE email = ?`,
 //       [
 //         data,
@@ -272,7 +288,7 @@ app.post("/uploadJobinfo", (req, res) => {
 
   // Now you have the binary data in the 'data' variable
   // Perform the database update
-  db.run(
+  db.query(
     `INSERT INTO jobs (email,
     telnumber,
     fullname,
@@ -284,8 +300,8 @@ app.post("/uploadJobinfo", (req, res) => {
     peopleneed,
     welfare,
     location,
-    lat,
-    long,
+    lats,
+    longs,
     minilocation,
     img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
@@ -344,7 +360,7 @@ app.post("/uploadJob", upload.single("img"), async (req, res) => {
   //   }
 
   //   // Insert the data into the database
-  //   db.run(
+  //   db.query(
   //     `INSERT INTO jobs (shopname, workposition, money, jobdesc, timework, welfare, peopleneed, lat, long, location, email, img,minilocation) 
   //         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)`,
   //     [
@@ -378,7 +394,7 @@ app.post("/uploadJob", upload.single("img"), async (req, res) => {
 }); // Corrected placement of closing parenthesis for app.post
 
 app.get("/alljobs", (req, res) => {
-  db.all("SELECT * FROM jobs", (err, jobs) => {
+  db.query("SELECT * FROM jobs", (err, jobs) => {
     if (err) {
       console.error("Error fetching jobs:", err);
       res.status(500).json({ error: "Internal server error" });
@@ -452,8 +468,8 @@ app.get("/getShopinfo/:email", (req, res) => {
       location: row.location,
       timework: row.timework,
       money: row.money,
-      lat: row.lat,
-      long: row.long,
+      lat: row.lats,
+      long: row.longs,
       welfare: row.welfare,
       email: row.email,
       telnumber: row.telnumber,
@@ -468,7 +484,7 @@ app.get("/getAllShopinfo/:email", (req, res) => {
   const email = req.params.email;
 
   // Perform the database query to fetch user data based on the email
-  db.all("SELECT * FROM jobs WHERE email = ?", [email], (err, rows) => {
+  db.query("SELECT * FROM jobs WHERE email = ?", [email], (err, rows) => {
     if (err) {
       console.error("Error querying database:", err);
       return res.status(500).json({ error: "Error querying database" });
@@ -493,8 +509,8 @@ app.get("/getAllShopinfo/:email", (req, res) => {
       peopleneed: row.peopleneed,
       welfare: row.welfare,
       location: row.location,
-      lat: row.lat,
-      long: row.long,
+      lat: row.lats,
+      long: row.longs,
       minilocation: row.minilocation,
       img: JSON.parse(row.img), // Assuming "img" column stores the binary data of the user's image
     }));
@@ -505,7 +521,7 @@ app.get("/getAllShopinfo/:email", (req, res) => {
 
 app.post("/validatePassword", (req, res) => {
   const { email, password } = req.body;
-  db.all(
+  db.query(
     `select * from users where email = '${email}' and password = '${password}'`,
     (err, rows) => {
       if (err) {
@@ -526,7 +542,7 @@ app.post("/validatePassword", (req, res) => {
 
 app.post("/validatePasswordShop", (req, res) => {
   const { email, password } = req.body;
-  db.all(
+  db.query(
     `select * from shops where email = '${email}' and password = '${password}'`,
     (err, rows) => {
       if (err) {
@@ -550,7 +566,7 @@ app.post("/insertUser", (req, res) => {
   //   req.body;
   const { email, password, fullname, telnumber, occupation } = req.body;
 
-  db.run(
+  db.query(
     `INSERT INTO users (email, password, fullname,telnumber,occupation,nickname,sex,birthdate,national,area,degree,workexp,thailevel,englevel,vehicle,talent,img,loginrole,newuser) VALUES ('${email}', '${password}', '${fullname}','${telnumber}','${occupation}',null,null,null,null,null,null,null,null,null,null,null,null,'user','new')`,
     (err) => {
       if (err) {
@@ -564,7 +580,7 @@ app.post("/insertUser", (req, res) => {
 app.post("/insertShop", (req, res) => {
   const { email, password, fullname, telnumber } = req.body;
 
-  db.run(
+  db.query(
     `INSERT INTO shops (email, password, fullname,telnumber,role,newuser) VALUES ('${email}', '${password}', '${fullname}','${telnumber}','shop','new')`,
     (err) => {
       if (err) {
@@ -578,8 +594,9 @@ app.post("/insertShop", (req, res) => {
 app.post("/changeRolesShop", (req,res) => {
   const { email, newuser } = req.body;
 
-  db.run(
-    `UPDATE shops (newuser) VALUES ('${newuser}') WHERE email = '${email}'`,
+  db.query(
+    // `UPDATE shops (newuser) VALUES ('${newuser}') WHERE email = '${email}'`,
+    `UPDATE shops SET newuser = '${newuser}' WHERE email = '${email}'`,
     (err) => {
       if (err) {
         throw err;
@@ -593,7 +610,7 @@ app.post("/changeRolesShop", (req,res) => {
 app.get("/userapplyjob/:email", (req, res) => {
   const email = req.params.email;
 
-  db.all("SELECT * FROM noti WHERE email = ?", [email], (err, rows) => {
+  db.query("SELECT * FROM noti WHERE email = ?", [email], (err, rows) => {
     if (err) {
       console.error("Error querying database:", err);
       return res.status(500).json({ error: "Error querying database" });
@@ -625,7 +642,7 @@ app.post("/applyjob", (req, res) => {
   const { email, user_fullname, email_shopname, shopname, status, date } =
     req.body;
 
-  db.run(
+  db.query(
     `INSERT INTO noti (email, user_fullname, email_shopname, shopname, status, date) VALUES ('${email}', '${user_fullname}', '${email_shopname}', '${shopname}', '${status}','${date}')`,
     (err) => {
       if (err) {
@@ -640,7 +657,7 @@ app.post("/applyjob", (req, res) => {
 app.get("/shopacceptjob/:email", (req, res) => {
   const email = req.params.email;
 
-  db.all(
+  db.query(
     "SELECT * FROM noti WHERE email_shopname = ? and status = ?",
     [email, "pending"],
     (err, rows) => {
@@ -677,7 +694,7 @@ app.get("/shopacceptjob/:email", (req, res) => {
 app.post("/acceptjob", (req, res) => {
   const { email_shopname, shopname, status } = req.body;
 
-  db.run(
+  db.query(
     `UPDATE noti SET status = '${status}' WHERE email_shopname = '${email_shopname}' and shopname = '${shopname}'`,
     (err) => {
       if (err) {
