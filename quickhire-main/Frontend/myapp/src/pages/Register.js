@@ -15,7 +15,7 @@ export default function Register() {
     // const fullname = firstname + " " + lastname;
     event.preventDefault();
     axios
-      .post("http://localhost:3001/insertUser", {
+      .post(`${process.env.REACT_APP_API}insertUser`, {
         email,
         password,
         // firstname,

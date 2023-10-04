@@ -120,7 +120,7 @@ const Createprofile = () => {
       // formData.append('email', email);
   
       axios
-        .post("http://localhost:3001/uploadUserinfo", {
+        .post(`${process.env.REACT_APP_API}uploadUserinfo`, {
           fullname: fullname,
           telnumber: telnumber,
           nickname: nickname,

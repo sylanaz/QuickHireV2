@@ -166,10 +166,10 @@ const Createshop = () => {
     };
 
     axios
-      .post("http://localhost:3001/uploadJobinfo", formData)
+      .post(`${process.env.REACT_APP_API}uploadJobinfo`, formData)
       .then((response) => {
         // Handle the API response as needed
-        axios.post("http://localhost:3001/changeRolesShop", { email: email, newuser: "old" });
+        axios.post(`${process.env.REACT_APP_API}changeRolesShop`, { email: email, newuser: "old" });
         localStorage.setItem("newuser", "old");
         window.location.replace("/");
       })

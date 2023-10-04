@@ -16,7 +16,7 @@ export const LoginOrg = ({ onSwitchMode }) => {
 
   const onFinish = (event) => {
     event.preventDefault();
-    axios.post("http://localhost:3001/validatePasswordShop", { email, password }).then((res) => {
+    axios.post(`${process.env.REACT_APP_API}validatePasswordShop`, { email, password }).then((res) => {
       if (res.data.validation) {
         localStorage.setItem("accessToken", "Logged In");
         localStorage.setItem("user", email);

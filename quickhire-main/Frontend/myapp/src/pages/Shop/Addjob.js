@@ -21,7 +21,7 @@ const Addjob = () => {
     const fetchData = async () => {
       try {
         // Replace this with the actual API endpoint
-        const apiUrl = `http://localhost:3001/getAllShopinfo/${user}`;
+        const apiUrl = `${process.env.REACT_APP_API}getAllShopinfo/${user}`;
 
         const response = await axios.get(apiUrl);
         setUserData(response.data);

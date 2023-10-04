@@ -23,7 +23,7 @@ const AccAndDenie = ({ acc_denie, shopname, triggerAccOrDenie }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire("รับพนักงาน!", "รับพนักงานเรียบร้อย", "success");
-          axios.post("http://localhost:3001/acceptjob", { email_shopname: email_shopname, shopname: shopname, status: "accept" });
+          axios.post(`${process.env.REACT_APP_API}acceptjob`, { email_shopname: email_shopname, shopname: shopname, status: "accept" });
         }
       });
     } else {
@@ -40,7 +40,7 @@ const AccAndDenie = ({ acc_denie, shopname, triggerAccOrDenie }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire("รับพนักงาน!", "รับพนักงานเรียบร้อย", "success");
-          axios.post("http://localhost:3001/acceptjob", { email_shopname: email_shopname, shopname: shopname, status: "reject" });
+          axios.post(`${process.env.REACT_APP_API}acceptjob`, { email_shopname: email_shopname, shopname: shopname, status: "reject" });
         }
       });
     }

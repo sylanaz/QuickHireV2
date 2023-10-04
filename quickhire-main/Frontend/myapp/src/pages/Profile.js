@@ -16,7 +16,7 @@ function Profile() {
     const fetchData = async () => {
       try {
         // Replace this with the actual API endpoint
-        const apiUrl = `http://localhost:3001/getUserinfo/${user}`;
+        const apiUrl = `${process.env.REACT_APP_API}getUserinfo/${user}`;
 
         const response = await axios.get(apiUrl);
         setUserData(response.data);

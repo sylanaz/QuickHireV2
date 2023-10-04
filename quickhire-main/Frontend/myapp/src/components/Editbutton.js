@@ -19,7 +19,7 @@ function AddButton(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        axios.post(`http://localhost:3001/${props.add}`, { name, quantity })
+        axios.post(`${process.env.REACT_APP_API}${props.add}`, { name, quantity })
         .then(res => {
            console.log(res.status)
         })

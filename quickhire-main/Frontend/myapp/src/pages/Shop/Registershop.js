@@ -11,10 +11,10 @@ export default function Registershop() {
   const [telnumber, setTelnumber] = useState("");
   // const [shop, setShop] = useState("");
 
-  const onFinish = (event) => {
+  const onFinish = async (event) => {
     event.preventDefault();
-    axios
-      .post("http://localhost:3001/insertShop", {
+    await axios
+      .post(`${process.env.REACT_APP_API}insertShop`, {
         email,
         password,
         fullname,
