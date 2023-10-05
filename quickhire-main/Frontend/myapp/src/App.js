@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import Register from "./pages/Register";
+// import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Contact from "./pages/Contact";
 import Job from "./pages/Job";
 import Createprofile from "./pages/Createprofile";
-import Loginshop from "./pages/Shop/Loginshop";
-import Registershop from "./pages/Shop/Registershop";
+// import Loginshop from "./pages/Shop/Loginshop";
+// import Registershop from "./pages/Shop/Registershop";
 import Createshop from "./pages/Shop/Createshop";
 import Profileshop from "./pages/Shop/Profileshop";
 import Addjob from "./pages/Shop/Addjob";
@@ -38,10 +38,10 @@ function App() {
           <Route path="/Profile" element={<Createprofile />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Job" element={<Login />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/RegisterShop" element={<Registershop />} />
-          <Route path="/LoginShop" element={<Loginshop />} />
+          {/* <Route path="/Login" element={<Login />} /> */}
+          {/* <Route path="/Register" element={<Register />} /> */}
+          {/* <Route path="/RegisterShop" element={<Registershop />} /> */}
+          {/* <Route path="/LoginShop" element={<Loginshop />} /> */}
           <Route path="/LoginMain" element={<LoginMain />} />
           <Route path="/LoginOrg" element={<LoginOrg />} />
           <Route path="/LoginEmpl" element={<LoginEmpl />} />
