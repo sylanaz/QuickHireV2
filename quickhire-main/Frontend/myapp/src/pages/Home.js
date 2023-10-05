@@ -45,7 +45,7 @@ function Home() {
   const filteredCards = jobs.filter((card) => card.shopname.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
-    <div className="Home mx-auto h-screen">
+    <div className="Home mx-auto min-h-[100vh] relative">
       <Navbar />
       <div className=" flex flex-col justify-center">
         <img src={banner} className="mx-2 mt-2 md:mt-0 md:mx-10" alt="img" />
