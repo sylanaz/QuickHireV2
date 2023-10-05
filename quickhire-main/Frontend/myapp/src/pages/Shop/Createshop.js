@@ -46,17 +46,16 @@ const Createshop = () => {
       setJobdesc(data.data[0].jobdesc);
       setPeopleneed(data.data[0].peopleneed);
       setImageURL(data.data[0].img);
-    })
-  }
+    });
+  };
   useEffect(() => {
     if (id !== 0) {
       getOldData();
     }
-  },[])
+  }, []);
   // =====================================================
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
     // Only proceed with the upload if an image is selected
     const imageJSON = JSON.stringify(imageURL);
     const formData = {
@@ -77,20 +76,22 @@ const Createshop = () => {
       img: imageJSON,
       // newuser: "old",
     };
-
-    axios
-      .post(`${process.env.REACT_APP_API}uploadJobinfo`, formData)
-      .then((response) => {
-        // Handle the API response as needed
-        axios.post(`${process.env.REACT_APP_API}changeRolesShop`, { email: email, newuser: "old" });
-        localStorage.setItem("newuser", "old");
-        window.location.replace("/");
-      })
-      .catch((error) => {
-        // Handle errors
-        console.error("Error uploading image:", error);
-      });
-    // }
+    if (id === 0) {
+      await axios
+        .post(`${process.env.REACT_APP_API}uploadJobinfo`, formData)
+        .then((response) => {
+          // Handle the API response as needed
+          axios.post(`${process.env.REACT_APP_API}changeRolesShop`, { email: email, newuser: "old" });
+          localStorage.setItem("newuser", "old");
+          window.location.replace("/");
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error("Error uploading image:", error);
+        });
+    } else {
+      await axios.post(`${process.env.REACT_APP_API}updateJob/${id}`, formData).then(window.location.replace("/"));
+    }
   };
   const MAX_LENGTH = 5;
   const handleImageSelect = (e) => {
