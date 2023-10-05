@@ -10,7 +10,6 @@ export const LoginOrg = ({ onSwitchMode }) => {
   const [show, setshow] = useState(false);
 
   const toShow = () => {
-    // console.log("test")
     setshow(!show);
   };
 
@@ -28,6 +27,7 @@ export const LoginOrg = ({ onSwitchMode }) => {
       }
     });
   };
+
   return (
     <section className="bg-gray-50 min-h-screen flex flex-col items-center justify-center ">
       <div className="bg-gray-100 flex flex-row-reverse rounded-2xl shadow-lg max-w-3xl p-5 items-center mb-8">
@@ -74,14 +74,8 @@ export const LoginOrg = ({ onSwitchMode }) => {
           </div>
 
           <div className="flex justify-center text-center text-red-400 hover:scale-125 duration-300" onClick={() => onSwitchMode(ScreenMode.LOGIN_EMPL)}>
-            {/* <Link to="/LoginEmpl">หางานที่รู้ใจ</Link> */}
             หางานที่รู้ใจ
           </div>
-          {/* <Link to={"/Home"}>
-          <div className="flex justify-center bg-white rounded-full py-2 hover:scale-105 duration-300">
-            <span className="text-center text-xl"> Back to Homepage</span>
-          </div>
-        </Link> */}
         </div>
         {/* image something */}
         <div className="md:block hidden w-1/2 p-5">

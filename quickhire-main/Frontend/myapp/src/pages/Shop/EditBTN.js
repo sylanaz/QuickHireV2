@@ -1,11 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Card from '../../components/Card'
 
-export const EditBTN = () => {
+export const EditBTN = ({id}) => {
   return (
     <div>
-    <Link to="/Create">แก้ไขข้อมูล</Link>
+      <Link to={`/Create/${id}`}>แก้ไขข้อมูลร้าน</Link>
     </div>
   )
 }

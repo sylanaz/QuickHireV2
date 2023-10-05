@@ -33,6 +33,8 @@ const Mail = ({ useremail, user_fullname, shopname, status, date, role, triggerA
     setUserData(data.data);
   };
 
+  console.log(userData);
+
   useEffect(() => {
     getUserInfo();
   }, []);

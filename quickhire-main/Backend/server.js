@@ -10,20 +10,21 @@ require('dotenv').config()
 
 // const allowedOrigins = ['https://quickhire-seven.vercel.app'];
 // const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = ['https://quick-hire-v2.vercel.app/', 'http://localhost:3000'];
 
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       // Check if the origin is allowed, or allow requests with no origin (e.g., file://)
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         callback(new Error("Not allowed by CORS"));
-//       }
-//     },
-//   })
-// );
-app.use(cors());
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Check if the origin is allowed, or allow requests with no origin (e.g., file://)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
+// app.use(cors());
 
 app.use(express.json({ limit: "10mb" }));
 
@@ -623,7 +624,7 @@ app.get("/userapplyjob/:email", (req, res) => {
     }
 
     if (rows.length === 0) {
-      res.json([]);
+      res.json();
     } else {
       const usernoti = rows.map((row) => ({
         shop_name: row.shopname,
@@ -644,7 +645,7 @@ app.post("/applyjob", (req, res) => {
     req.body;
 
   db.query(
-    `INSERT INTO noti (email, user_fullname, email_shopname, shopname, status, date) VALUES ('${email}', '${user_fullname}', '${email_shopname}', '${shopname}', '${status}','${date}')`,
+    `INSERT INTO noti (email, user_fullname, email_shopname, shopname, status, date) VALUES (?, ?, ?, ?, ?, ?)`,[email, user_fullname, email_shopname, shopname, status, date],
     (err) => {
       if (err) {
         throw err;

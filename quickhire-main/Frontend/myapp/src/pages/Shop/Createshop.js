@@ -1,18 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import camera from "../../img/camera.png";
-
-import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import SwapImage from "./SwapImage";
 
 const Createshop = () => {
-  const [selectedImage, setSelectedImage] = useState([]);
-  const [Imageblob, setImageblob] = useState(null);
-  const [crop, setCrop] = useState({ aspect: 1 / 1 }); // Set the aspect ratio here
-  const [showModal, setShowModal] = React.useState(false);
+  const { id } = useParams();
 
   // const [firstname, setFirstname] = useState("");
   const [fullname, setFullname] = useState("");
@@ -32,120 +28,37 @@ const Createshop = () => {
 
   // =====================================================
   const [imageURL, setImageURL] = useState([]);
+
+  const getOldData = async () => {
+    await axios.get(`${process.env.REACT_APP_API}getSpecificDataShop/${id}`).then((data) => {
+      setFullname(data.data[0].fullname);
+      setTelnumber(data.data[0].telnumber);
+      setShopname(data.data[0].shopname);
+      setLocation(data.data[0].location);
+      setTimework(data.data[0].timework);
+      setMoney(data.data[0].money);
+      setLat(data.data[0].lat);
+      setLong(data.data[0].long);
+      setWelfare(data.data[0].welfare);
+      setEmail(data.data[0].email);
+      setMinilocation(data.data[0].minilocation);
+      setWorkposition(data.data[0].workposition);
+      setJobdesc(data.data[0].jobdesc);
+      setPeopleneed(data.data[0].peopleneed);
+      setImageURL(data.data[0].img);
+    })
+  }
+  useEffect(() => {
+    if (id !== 0) {
+      getOldData();
+    }
+  },[])
   // =====================================================
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-
-  //   // Only proceed with the upload if an image is selected
-  //   // if (Imageblob instanceof Blob) {
-  //   // const formData = new FormData();
-  //   // formData.append("file", Imageblob);
-  //   // for (let i = 0; i < imageURL.length; i++) {
-  //   //   formData.append('images', imageURL[i]);
-  //   // }
-  //   // formData.append("images", imageJson);
-  //   // formData.append("fullname", fullname);
-  //   // formData.append("shopname", shopname);
-  //   // formData.append("location", location);
-  //   // formData.append("timework", timework);
-  //   // formData.append("money", money);
-  //   // formData.append("lat", lat);
-  //   // formData.append("long", long);
-  //   // formData.append("welfare", welfare);
-  //   // formData.append("email", email);
-  //   // formData.append("telnumber", telnumber);
-  //   console.log(Imageblob);
-  //   // axios
-  //   //   .post("http://localhost:3001/uploadShopinfo", {
-  //   //     images: imageJson,
-  //   //     fullname: fullname,
-  //   //     shopname: shopname,
-  //   //     location: location,
-  //   //     timework: timework,
-  //   //     money: money,
-  //   //     lat: lat,
-  //   //     long: long,
-  //   //     welfare: welfare,
-  //   //     telnumber: telnumber,
-  //   //     newuser: "old",
-  //   //     email: email,
-  //   //   })
-  //   //   .then((response) => {
-  //   //     // Handle the API response as needed
-  //   //     console.log(response.data);
-  //   //     localStorage.setItem("newuser", "old");
-  //   //     window.location.replace("/Profile");
-  //   //   });
-  //   // axios
-  //   //   .post("http://localhost:3001/uploadShopinfo", formData, {
-  //   //     headers: {
-  //   //       "Content-Type": "multipart/form-data",
-  //   //     },
-  //   //   })
-  //   //   .then((response) => {
-  //   //     // Handle the API response as needed
-  //   //     console.log(response.data);
-  //   //     localStorage.setItem("newuser", "old");
-  //   //     window.location.replace("/Profile");
-  //   //   })
-  //   //   .catch((error) => {
-  //   //     // Handle errors
-  //   //     console.error("Error uploading image:", error);
-  //   //   });
-  //   // }
-  // };
-
-  // const handleCropChange = (newCrop) => {
-  //   setCrop(newCrop);
-  // };
-
-  // const handleImageSelect = (e) => {
-  //   // const file = e.target.files[0];
-  //   const files = Array.from(e.target.files || []);
-
-  //   if (files.length > 0) {
-  //     setSelectedImage(files);
-  //     setImageURL(files.map((url) => URL.createObjectURL(url)));
-  //     const imageBlobs = [];
-
-  //     files.forEach((file) => {
-  //       const reader = new FileReader();
-
-  //       reader.onload = () => {
-  //         const blob = new Blob([reader.result], { type: file.type });
-  //         imageBlobs.push(blob);
-
-  //         // Check if all files have been processed and update state
-  //         if (imageBlobs.length === files.length) {
-  //           setImageblob(imageBlobs);
-  //         }
-  //       };
-
-  //       reader.readAsArrayBuffer(file);
-  //     });
-  //   }
-  // };
   const handleSubmit = (event) => {
     event.preventDefault();
 
     // Only proceed with the upload if an image is selected
     const imageJSON = JSON.stringify(imageURL);
-
-    // if (Imageblob instanceof Blob) {
-    // const formData = new FormData();
-    // formData.append("img", imageJSON);
-    // formData.append("fullname", fullname);
-    // // formData.append("lastname", lastname);
-    // formData.append("shopname", shopname);
-    // formData.append("location", location);
-    // formData.append("timework", timework);
-    // formData.append("money", money);
-    // formData.append("lat", lat);
-    // formData.append("long", long);
-    // formData.append("welfare", welfare);
-    // formData.append("email", email);
-    // formData.append("telnumber", telnumber);
     const formData = {
       email: email,
       telnumber: telnumber,
@@ -192,14 +105,8 @@ const Createshop = () => {
 
           reader.onloadend = () => {
             imageUrls.push(reader.result);
-            // localStorage.setItem("image", reader.result);
-            // If you need to do something with each image URL here, you can do it inside this loop.
-
-            // If this is the last file, you can perform further actions with the array of image URLs.
             if (imageUrls.length === files.length) {
               setImageURL(imageUrls);
-              // Handle the array of image URLs (imageUrls) here.
-              // You can pass it to a function or perform further processing.
             }
           };
 
@@ -211,18 +118,6 @@ const Createshop = () => {
       }
     }
   };
-
-  // const convertToBlob = (dataUrl) => {
-  //   const byteString = atob(dataUrl.split(",")[1]);
-  //   const ab = new ArrayBuffer(byteString.length);
-  //   const ia = new Uint8Array(ab);
-  //   for (let i = 0; i < byteString.length; i++) {
-  //     ia[i] = byteString.charCodeAt(i);
-  //   }
-
-  //   const blob = new Blob([ab], { type: "image/jpeg" }); // Adjust the type accordingly
-  //   setImageblob(blob);
-  // };
 
   return (
     <div className="Home mx-auto h-screen ">
@@ -249,32 +144,6 @@ const Createshop = () => {
             </form>
           </div>
         </div>
-
-        {/* {showModal ? (
-          <>
-            <div className="justify-center items-center flex overflow-x-hidden overflow-auto fixed inset-0 z-50 outline-none focus:outline-none">
-              <div className="relative w-auto my-6 mx-10 max-w-[1400px]">
-                content
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                  header
-                  <div className="flex items-center justify-between p-5 border-b border-solid border-slate-200 rounded-t ">
-                    <h3 className="text-3xl font-semibold">เลือกรูปภาพที่ต้องการตัด</h3>
-                    <button className=" ml-auto bg-transparent border-0 text-black opacity-90  float-right text-3xl leading-none font-semibold outline-none focus:outline-none" onClick={() => setShowModal(false)}>
-                      <span className="bg-transparent text-black opacity-90 h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
-                    </button>
-                  </div>
-
-                  <div className="flex">{selectedImage && <ReactCrop src={selectedImage} crop={crop} onChange={handleCropChange} className="mx-auto my-auto" />}</div>
-                  <button type="button" onClick={handleImageCrop} className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3 my-3">
-                    ตัดรูป
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-          </>
-        ) : null} */}
-
         <div className="mx-10">
           <div className="flex flex-col">
             <h1 className="m-3 text-xl font-medium">ชื่อร้าน</h1>
@@ -292,11 +161,6 @@ const Createshop = () => {
             <h1 className="m-3 text-xl font-medium">เบอร์โทรศัพท์</h1>
             <input onChange={(event) => setTelnumber(event.target.value)} type="text" value={telnumber} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
           </div>
-          {/* <div className="flex flex-col">
-            <h1 className="m-3 text-xl font-medium">นามสกุล</h1>
-            <input onChange={(event) => setLastname(event.target.value)} type="text" value={lastname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
-            <h1 className="text-orange-400 font-medium mt-2"> โปรดระบุข้อมูลจริงตามบัตรประชาชน เนื่องจากมีผลต่อการสมัครใช้งานเว็บไซต์</h1>
-          </div> */}
           <div className="flex flex-col">
             <h1 className="m-3 text-xl font-medium">ตำแหน่งงาน</h1>
             <input onChange={(event) => setWorkposition(event.target.value)} type="text" value={workposition} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>

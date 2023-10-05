@@ -15,7 +15,7 @@ export default function Login() {
         localStorage.setItem("user", email);
         localStorage.setItem("newuser",res.data.newuser)
         localStorage.setItem("role",res.data.role)
-        window.location.replace("/Job");
+        window.location.replace("/");
       } else {
         alert("Your password is incorrect");
       }

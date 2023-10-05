@@ -42,14 +42,6 @@ function Profileshop() {
     );
   }
 
-  // const decodeBlobToImageUrl = (blobData) => {
-  //   if (!blobData) return null;
-  //   const blob = new Blob([new Uint8Array(blobData.data)], { type: "image/jpeg" });
-  //   const imageUrl = URL.createObjectURL(blob);
-  //   return imageUrl;
-  // };
-  console.log([JSON.parse(userData.img)][0]);
-
   return (
     <div className="flex flex-col justify-center mx-auto">
       <Navbar></Navbar>
@@ -59,10 +51,6 @@ function Profileshop() {
         <div className="flex justify-center  ">
           <div className="flex justify-center ">
             {userData && <SwapImage images={[JSON.parse(userData.img)]} />}
-            {/* {userData && [JSON.parse(userData.img)].map((data) => {
-              return <img className="w-[200px] h-[200px] md:w-[400px] md:h-[400px] rounded-lg mx-auto" src={data} alt="Rounded avatar"></img>
-            })} */}
-          
           </div>
         </div>
         

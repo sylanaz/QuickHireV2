@@ -20,7 +20,6 @@ import { RegisterEmpl } from "../src/pages/RegisterEmpl";
 import { ChooseLogin } from "./pages/ChooseLogin";
 import { RegisterOrg } from "./pages/Shop/RegisterOrg";
 
-
 function App() {
   const token = localStorage.getItem("accessToken");
   const role = localStorage.getItem("role");
@@ -86,7 +85,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Profile" element={<Createshop />} />
-          <Route path="/Create" element={<Createshop />} />
+          <Route path="/Create/:id" element={<Createshop />} />
           <Route path="/Contact" element={<Contact />} />
           {/* <Route path="/Job" element={<Createshop />} /> */}
           {/* <Route path="/Create" element={<Createshop />} /> */}
@@ -102,7 +101,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Profile" element={<Profileshop />} />
-          <Route path="/Create" element={<Createshop />} />
+          {/* <Route path="/Create" element={<Createshop />} /> */}
+          <Route path="/Create/:id" element={<Createshop />} />
           <Route path="/Add" element={<Addjob />} />
           <Route path="/Contact" element={<Contact />} />
           {/* <Route path="/Job" element={<Addjob />} /> */}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext  } from "react";
 import map from "../img/map.png";
 import money from "../img/money.png";
 import job from "../img/user.png";
@@ -17,7 +17,7 @@ import { EditBTN } from "../pages/Shop/EditBTN";
 import DescBTN from "../pages/BTN/DescBTN";
 import Swal from "sweetalert2";
 
-function Card({ restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob }) {
+function Card({id, restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob }) {
   const [showModal, setShowModal] = React.useState(false);
   const useremail = localStorage.getItem("user");
   const status = "pending";
@@ -37,28 +37,26 @@ function Card({ restaurantName, minilocation, position, hourlyIncome, img, lat, 
   }, []);
   // User apply job at shop
   const userApplyJob = async (useremail, shopname) => {
-    const data = await getUserApplyJob(useremail);
+    // const data = await getUserApplyJob(useremail);
 
     // Check is it array or not
-    if (Array.isArray(data)) {
+    // if (Array.isArray(data)) {
       // Detect user already apply job or not
-      const includesRestaurant = data.map((item) => item.shop_name.includes(shopname));
-      const countTrue = includesRestaurant.filter((value) => value === true).length;
+      // const includesRestaurant = data.map((item) => item.shop_name.includes(shopname));
+      // const countTrue = includesRestaurant.filter((value) => value === true).length;
       // If user not ever apply job at this shop
-      if (countTrue === 0) {
-        applyJob(useremail, user_fullname, email, restaurantName, status, date);
-      }
-    } else if (data === undefined) {
-      applyJob(useremail, user_fullname, email, restaurantName, status, date);
-    } else {
-      console.error("Data is not an array:", data);
-    }
+      // if (countTrue === 0) {
+        // applyJob(useremail, user_fullname, email, restaurantName, status, date);
+      // }
+    // } else if (data === undefined) {
+      applyJob(useremail, user_fullname, email, shopname, status, date);
+    // } else {
+      // console.error("Data is not an array:", data);
+    // }
     triggerUserApplyJob();
   };
 
   const checkJob = async (shopname) => {
-    // userApplyJob(useremail, shopname);
-    // setShowModal(false);
     Swal.fire({
       title: "สมัครงาน!",
       text: "ต้องการสมัครงานนี้หรือไม่",
@@ -212,7 +210,7 @@ function Card({ restaurantName, minilocation, position, hourlyIncome, img, lat, 
                     ) : (
                       <>
                         {/* { restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email } */}
-                        {email === useremail && <EditBTN />}
+                        {email === useremail && <EditBTN id={id}/>}
                         <button className="bg-red-500 rounded text-white font-bold uppercase px-6 py-3 text-sm outline-none focus:outline-none ease-linear transition-all duration-150 mr-1 mb-1" type="button" onClick={() => setShowModal(false)}>
                           ปิดหน้าต่าง
                         </button>
