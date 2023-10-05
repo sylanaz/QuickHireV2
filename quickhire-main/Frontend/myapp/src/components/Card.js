@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import map from "../img/map.png";
-import money from "../img/money.png";
-import job from "../img/user.png";
 import gps from "../img/gps.png";
 
 import { MapContainer } from "react-leaflet/MapContainer";
