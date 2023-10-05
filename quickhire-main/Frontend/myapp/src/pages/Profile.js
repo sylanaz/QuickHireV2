@@ -29,11 +29,7 @@ function Profile() {
 
   if (userData == null) {
     // Return a loading state or null while waiting for the data to be fetched
-    return (
-      <div className="flex flex-col justify-center max-w-[1400px] mx-auto">
-        <Navbar></Navbar>
-      </div>
-    );
+    return <div className="flex flex-col justify-center max-w-[1400px] mx-auto">{/* <Navbar></Navbar> */}</div>;
   }
 
   // const decodeBlobToImageUrl = (blobData) => {
@@ -43,10 +39,11 @@ function Profile() {
   //   return imageUrl;
   // };
 
-  const birthDate = new Date(userData.birthdate);
-  const birthYear = birthDate.getFullYear();
-  const currentYear = date.getFullYear();
+  const birthYear = new Date(userData.birthdate).getFullYear();
+  const currentYear = new Date().getFullYear();
   const age = currentYear - birthYear;
+
+  console.log(age);
 
   return (
     <div className="flex flex-col justify-center mx-auto">
@@ -67,7 +64,9 @@ function Profile() {
           <h1 className="mx-auto mt-4">
             {userData.birthdate} อายุ {age} ปี
           </h1>
-          <h1 className="mx-auto ">เพศ {userData.sex} สัญชาติ ไทย</h1>
+          <h1 className="mx-auto ">
+            เพศ {userData.sex} สัญชาติ {userData.national}
+          </h1>
         </div>
 
         <div className="flex flex-col mx-auto justify-center gap-8">
@@ -119,14 +118,14 @@ function Profile() {
             <h1 className="p-10">{userData.talent}</h1>
           </div>
         </div>
-        <div className="relative mx-10">
+        {/* <div className="relative mx-10">
           <div className=" rounded-full bg-slate-400 p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
             <h1>พื้นที่สะดวกรับงาน</h1>
           </div>
           <div className=" rounded-2xl bg-slate-100 h-32">
             <h1 className="p-10">{userData.area}</h1>
           </div>
-        </div>
+        </div> */}
       </div>
       <Footer></Footer>
     </div>

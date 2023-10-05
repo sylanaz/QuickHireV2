@@ -36,65 +36,6 @@ const Createprofile = () => {
   const [talent, setTalent] = useState("");
   const [email, setEmail] = useState("");
 
-  const stageLabels = {
-    personalInfo: "ข้อมูลส่วนบุคคล",
-    educationAndWork: "ประวัติการศึกษาและการทำงาน/ฝึกงาน",
-    abilities: "ความสามารถ",
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
-
-  const handlePrevClick = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1); // Move to the previous stage
-    }
-  };
-
-  const handleNextClick = () => {
-    if (currentIndex < stages.length - 1) {
-      setCurrentIndex(currentIndex + 1); // Move to the next stage
-    } else {
-    }
-  };
-
-  const isFormComplete = () => {
-    if (currentStage === "personalInfo") {
-      // Check if all the required fields in the personalInfo stage have values
-      return firstname.trim() !== "" && lastname.trim() !== "" && nickname.trim() !== "" && sex.trim() !== "" && national.trim() !== "" && email.trim() !== "" && telnumber.trim() !== "";
-    } else if (currentStage === "educationAndWork") {
-      // Check if all the required fields in the educationAndWork stage have values
-      return degree.trim() !== "" && workexp.trim() !== "";
-    } else if (currentStage === "abilities") {
-      // Check if all the required fields in the abilities stage have values
-      return thailevel.trim() !== "" && englevel.trim() !== "" && vehicle.trim() !== "";
-    }
-
-    return false;
-  };
-
-  const renderNextButton = () => {
-    // Check if the form is complete before rendering the button
-    const isComplete = isFormComplete();
-    // console.log(isComplete);
-    if (currentStage === "abilities") {
-      // const completeColor = isComplete ? "bg-blue-700 text-white" : "bg-gray-400";
-      return (
-        <button className={`p-3 rounded-lg ${currentIndex === stages.length - 1 ? "bg-gray-400" : isComplete ? "bg-blue-700 text-white" : "bg-blue-700 text-white"}`} onClick={isComplete ? handleSubmit : undefined} disabled={!isComplete && currentIndex !== stages.length - 1}>
-          {isComplete ? "ยืนยันข้อมูล"  : "กรุณากรอกข้อมูล"}
-        </button>
-      );
-    } else {
-      return (
-        <button className={`p-3 ml-2 rounded-lg ${currentIndex === stages.length - 1 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === stages.length - 1} onClick={handleNextClick}>
-          Next
-        </button>
-      );
-    }
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -225,6 +166,61 @@ const Createprofile = () => {
   //     };
   //   }
   // };
+
+  const stageLabels = {
+    personalInfo: "ข้อมูลส่วนบุคคล",
+    educationAndWork: "ประวัติการศึกษาและการทำงาน/ฝึกงาน",
+    abilities: "ความสามารถ",
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const handlePrevClick = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1); // Move to the previous stage
+    }
+  };
+
+  const handleNextClick = () => {
+    if (currentIndex < stages.length - 1) {
+      setCurrentIndex(currentIndex + 1); // Move to the next stage
+    } else {
+    }
+  };
+
+  const isFormComplete = () => {
+    const personalInfoComplete = selectedImage && firstname.trim() !== "" && lastname.trim() !== "" && nickname.trim() !== "" && sex.trim() !== "" && birthdate.trim() !== "" && national.trim() !== "" && email.trim() !== "" && telnumber.trim() !== "";
+
+    const educationAndWorkComplete = degree.trim() !== "" && workexp.trim() !== "";
+
+    const abilitiesComplete = thailevel.trim() !== "" && englevel.trim() !== "" && vehicle.trim() !== "";
+
+    // Check if all stages are complete
+    return personalInfoComplete && educationAndWorkComplete && abilitiesComplete;
+  };
+
+  const renderNextButton = () => {
+    // Check if the form is complete before rendering the button
+    const isComplete = isFormComplete();
+    // console.log(isComplete);
+    if (currentStage === "abilities") {
+      // const completeColor = isComplete ? "bg-blue-700 text-white" : "bg-gray-400";
+      return (
+        <button className={`p-3 rounded-lg ${currentIndex === stages.length - 1 && !isComplete ? "bg-gray-400" : isComplete ? "bg-cyan-700 text-white" : "bg-cyan-700 text-white"}`} onClick={isComplete ? handleSubmit : undefined} disabled={!isComplete && currentIndex !== stages.length - 1}>
+          {isComplete ? "ยืนยันข้อมูล" : "กรุณากรอกข้อมูล"}
+        </button>
+      );
+    } else {
+      return (
+        <button className={`p-3 ml-2 rounded-lg ${currentIndex === stages.length - 1 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === stages.length - 1} onClick={handleNextClick}>
+          Next
+        </button>
+      );
+    }
+  };
 
   return (
     <div className="Home mx-auto min-h-screen">
