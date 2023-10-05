@@ -22,7 +22,7 @@ function Card({ restaurantName, minilocation, position, hourlyIncome, img, lat, 
   const useremail = localStorage.getItem("user");
   const status = "pending";
   const role = localStorage.getItem("role");
-  
+
   const [user_fullname, setUser_Fullname] = useState("");
 
   const getUserFullname = async () => {
@@ -87,7 +87,7 @@ function Card({ restaurantName, minilocation, position, hourlyIncome, img, lat, 
         {/*rounded-b-xl*/}
         <div className="flex flex-row rounded-[20px] md:rounded-[40px]">
           {/* {img !== undefined && <img src={img[0]} alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[130px] md:h-[130px] transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />} */}
-          <img src={img[0]} alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[130px] md:h-[130px] transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />
+          <img src={img[0]} alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[180px] md:h-[100px]  transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />
           <h2 className="w-full flex justify-center text-center px-2 my-auto text-lg font-bold text-[#224555] md:text-3xl">{restaurantName}</h2>
           {/* <div className="overlay absolute top-0 left-0 w-full h-full bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out rounded-b-xl rounded-t-xl"></div> */}
         </div>
@@ -122,9 +122,6 @@ function Card({ restaurantName, minilocation, position, hourlyIncome, img, lat, 
                 {/*header*/}
                 <div className="flex items-center justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">{restaurantName}</h3>
-                  <button className=" ml-auto bg-transparent border-0 text-black opacity-90  float-right text-3xl leading-none font-semibold outline-none focus:outline-none" onClick={() => setShowModal(false)}>
-                    <span className="bg-transparent text-black opacity-90 h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
-                  </button>
                 </div>
 
                 {/*body*/}

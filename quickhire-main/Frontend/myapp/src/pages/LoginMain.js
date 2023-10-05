@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { LoginEmpl } from "./LoginEmpl";
 import { LoginOrg } from "./Shop/LoginOrg";
 
@@ -8,7 +9,17 @@ export const ScreenMode = {
 };
 
 const LoginMain = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const destination = queryParams.get("destination");
   const [currMode, setCurrMode] = useState(ScreenMode.LOGIN_EMPL);
+
+  useEffect(() => {
+    if (destination === ScreenMode.LOGIN_EMPL || destination === ScreenMode.LOGIN_ORG) {
+      setCurrMode(destination);
+    }
+  }, [destination]);
+
   const onSwitchMode = (mode) => {
     setCurrMode(mode);
   };
