@@ -29,7 +29,7 @@ const Mail = ({ useremail, user_fullname, shopname, status, date, role, triggerA
 
   const [userData, setUserData] = useState([]);
   const getUserInfo = async () => {
-    const data = await axios.get(`http://localhost:3001/getUserinfo/${useremail}`);
+    const data = await axios.get(`${process.env.REACT_APP_API}getUserinfo/${useremail}`);
     setUserData(data.data);
   };
 
