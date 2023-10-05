@@ -37,7 +37,7 @@ const Addjob = () => {
     // Return a loading state or null while waiting for the data to be fetched
     return (
       <div className="flex flex-col justify-center max-w-[1400px] mx-auto">
-        <Navbar></Navbar>
+        {/* <Navbar></Navbar> */}
       </div>
     );
   }
