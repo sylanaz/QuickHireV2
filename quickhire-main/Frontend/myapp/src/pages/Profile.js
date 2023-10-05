@@ -10,7 +10,6 @@ function Profile() {
   const user = localStorage.getItem("user");
 
   const [userData, setUserData] = useState(null);
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,21 +50,23 @@ function Profile() {
 
   return (
     <div className="flex flex-col justify-center mx-auto">
-      <Navbar/>
+      <Navbar />
       <div className="flex md:justify-center justify-between relative ml-10">
         <h1 className=" text-2xl font-medium">โปรไฟล์ของคุณ</h1>
-        <Link to="/Editprofile" className="absolute right-10 border-2 border-black rounded-3xl px-2">แก้ไขประวัติ</Link>
+        <Link to="/Editprofile" className="absolute right-10 border-2 border-black rounded-3xl px-2">
+          แก้ไขประวัติ
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 m-10 gap-10">
         <div className="flex flex-col mx-auto justify-center md:-mt-56">
           {/* <img className="w-[200px] h-[200px] rounded-full mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img> */}
-          <SwapImage images={JSON.parse(userData.img)} />
+          {userData.img !== null && <SwapImage images={JSON.parse(userData.img)} />}
           <h1 className="mx-auto mt-4">{userData.nickname}</h1>
-          <h1 className="mx-auto mt-4 text-2xl">
-            {userData.fullname}
+          <h1 className="mx-auto mt-4 text-2xl">{userData.fullname}</h1>
+          <h1 className="mx-auto mt-4">
+            {userData.birthdate} อายุ {age} ปี
           </h1>
-          <h1 className="mx-auto mt-4">{userData.birthdate} อายุ {age} ปี</h1>
           <h1 className="mx-auto ">เพศ {userData.sex} สัญชาติ ไทย</h1>
         </div>
 
