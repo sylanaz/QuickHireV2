@@ -87,7 +87,7 @@ const Createprofile = () => {
       );
     } else {
       return (
-        <button className={`p-3 rounded-lg ${currentIndex === stages.length - 1 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === stages.length - 1} onClick={handleNextClick}>
+        <button className={`p-3 ml-2 rounded-lg ${currentIndex === stages.length - 1 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === stages.length - 1} onClick={handleNextClick}>
           Next
         </button>
       );
@@ -290,7 +290,7 @@ const Createprofile = () => {
         </div>
       )}
       <div className="flex justify-center mt-5 ">
-        <button onClick={handlePrevClick} className={`p-3 rounded-lg ${currentIndex === 0 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === 0}>
+        <button onClick={handlePrevClick} className={`p-3 mr-2 rounded-lg ${currentIndex === 0 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === 0}>
           Previous
         </button>
         {renderNextButton()}
