@@ -36,7 +36,7 @@ function Home() {
     showNoti(email);
   };
 
-  const list = noti.length !== 0 ? noti.map((data) => data.shop_name) : jobs
+  const list = noti.length !== 0 ? noti.map((data) => data.shop_name) : jobs;
   const allJobsUserNotApply = list.length !== 0 ? list.filter((data) => !list.includes(data.shopname)) : [];
   // =====================================
   console.log(allJobsUserNotApply);
@@ -60,10 +60,7 @@ function Home() {
         </div>
       </div>
       <div className="flex justify-center items-center">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10">
-          {" "}
-          {role === "user" ? allJobsUserNotApply.map((job, index) => <Card key={index} id={job.id} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.lats} long={job.longs} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} triggerUserApplyJob={triggerUserApplyJob} />) : filteredCards.map((job, index) => <Card key={index} id={job.id} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.lats} long={job.longs} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} />)}
-        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10"> {role === "user" ? allJobsUserNotApply.map((job, index) => <Card key={index} id={job.id} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.lats} long={job.longs} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} triggerUserApplyJob={triggerUserApplyJob} />) : filteredCards.map((job, index) => <Card key={index} id={job.id} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.lats} long={job.longs} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} />)}</div>
       </div>
       <Footer />
     </div>

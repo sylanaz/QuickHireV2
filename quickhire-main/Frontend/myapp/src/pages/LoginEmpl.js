@@ -38,7 +38,7 @@ export const LoginEmpl = ({ onSwitchMode }) => {
         localStorage.setItem("user", email);
         localStorage.setItem("newuser", res.data.newuser);
         localStorage.setItem("role", res.data.role);
-        window.location.replace("/Job");
+        window.location.replace("/");
       } else {
         setPasswordError("Your password is incorrect");
       }
