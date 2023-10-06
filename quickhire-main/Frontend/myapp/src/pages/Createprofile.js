@@ -36,64 +36,6 @@ const Createprofile = () => {
   const [talent, setTalent] = useState("");
   const [email, setEmail] = useState("");
 
-  const stageLabels = {
-    personalInfo: "ข้อมูลส่วนบุคคล",
-    educationAndWork: "ประวัติการศึกษาและการทำงาน/ฝึกงาน",
-    abilities: "ความสามารถ",
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
-
-  const handlePrevClick = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1); // Move to the previous stage
-    }
-  };
-
-  const handleNextClick = () => {
-    if (currentIndex < stages.length - 1) {
-      setCurrentIndex(currentIndex + 1); // Move to the next stage
-    } else {
-    }
-  };
-
-  const isFormComplete = () => {
-    if (currentStage === "personalInfo") {
-      // Check if all the required fields in the personalInfo stage have values
-      return firstname.trim() !== "" && lastname.trim() !== "" && nickname.trim() !== "" && sex.trim() !== "" && national.trim() !== "" && area.trim() !== "" && email.trim() !== "" && telnumber.trim() !== "";
-    } else if (currentStage === "educationAndWork") {
-      // Check if all the required fields in the educationAndWork stage have values
-      return degree.trim() !== "" && workexp.trim() !== "";
-    } else if (currentStage === "abilities") {
-      // Check if all the required fields in the abilities stage have values
-      return thailevel.trim() !== "" && englevel.trim() !== "" && vehicle.trim() !== "" && talent.trim() !== "";
-    }
-
-    return false;
-  };
-
-  const renderNextButton = () => {
-    // Check if the form is complete before rendering the button
-    const isComplete = isFormComplete();
-
-    if (currentStage === "abilities") {
-      return (
-        <button className={`p-3 rounded-lg ${currentIndex === stages.length - 1 ? "bg-gray-400" : isComplete ? "bg-blue-700 text-white" : "bg-custom-color text-white"}`} onClick={isComplete ? handleSubmit : undefined} disabled={!isComplete && currentIndex !== stages.length - 1}>
-          {isComplete ? "ยืนยันข้อมูล" : "กรุณากรอกข้อมูล"}
-        </button>
-      );
-    } else {
-      return (
-        <button className={`p-3 ml-2 rounded-lg ${currentIndex === stages.length - 1 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === stages.length - 1} onClick={handleNextClick}>
-          Next
-        </button>
-      );
-    }
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -137,10 +79,10 @@ const Createprofile = () => {
 
     if (files && files.length > 0) {
       if (files.length <= MAX_LENGTH) {
-      const imageUrls = [];
+        const imageUrls = [];
 
-      for (let i = 0; i < files.length; i++) {
-        const reader = new FileReader();
+        for (let i = 0; i < files.length; i++) {
+          const reader = new FileReader();
 
         reader.onloadend = () => {
           imageUrls.push(reader.result);
@@ -149,12 +91,12 @@ const Createprofile = () => {
           }
         };
 
-        reader.readAsDataURL(files[i]);
+          reader.readAsDataURL(files[i]);
+        }
+      } else {
+        e.preventDefault();
+        alert(`กรุณาเลือกไฟล์รูปภาพไม่เกิน ${MAX_LENGTH} รูป`);
       }
-    } else {
-      e.preventDefault();
-      alert(`กรุณาเลือกไฟล์รูปภาพไม่เกิน ${MAX_LENGTH} รูป`);
-    }
     }
   };
 
@@ -199,7 +141,7 @@ const Createprofile = () => {
           <div className="mx-10">
             <div className="flex flex-col">
               <h1 className="m-3 text-xl font-medium">ชื่อจริง</h1>
-              <input onChange={(event) => setFirstname(event.target.value)} type="text"  value={firstname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+              <input onChange={(event) => setFirstname(event.target.value)} type="text" value={firstname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
             </div>
             <div className="flex flex-col">
               <h1 className="m-3 text-xl font-medium">นามสกุล</h1>
@@ -218,6 +160,7 @@ const Createprofile = () => {
             <div className="flex flex-col">
               <h1 className="m-3 text-xl font-medium">วัน/เดือน/ปี เกิด</h1>
               <input type="date" className="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+              {/* <input onChange={(event) => setBirthdate(event.target.value)} type="text" value={birthdate} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="00/00/0000"></input> */}
             </div>
             <div className="flex flex-col">
               <h1 className="m-3 text-xl font-medium">สัญชาติ</h1>
@@ -252,9 +195,7 @@ const Createprofile = () => {
             </div>
             <div>
               <h1 className="m-3 text-xl font-medium">หนังสือรับรองผลการศึกษา (ถ้ามี)</h1>
-              <input type="file" accept=".jpg, .jpeg, .png, .pdf" onChange={handleFileChange} className="w-[100%] md:w-full rounded-[10px] border-[1px] solid bg-cyan" />
-
-              {/* {selectedFile && <p>Selected file: {selectedFile.name}</p>} */}
+              {/* <input type="file" accept=".jpg, .jpeg, .png, .pdf"  onChange={handleFileChange}  className="w-[100%] md:w-full rounded-[10px] border-[1px] solid bg-cyan" /> */}
             </div>
             <div className="flex flex-col ">
               <h1 className="m-3 text-xl font-medium">ประวัติการทำงาน/ฝึกงาน (อธิบายโดยละเอียด)</h1>
@@ -262,7 +203,7 @@ const Createprofile = () => {
             </div>
             <div>
               <h1 className="m-3 text-xl font-medium">หลักฐานการฝึกงาน/ทำงาน (ถ้ามี)</h1>
-              <input type="file" accept=".jpg, .jpeg, .png, .pdf" onChange={handleFileChange} className="w-[100%] md:w-full rounded-[10px] border-[1px] solid bg-cyan" />
+              {/* <input type="file" accept=".jpg, .jpeg, .png, .pdf" onChange={handleFileChange} className="w-[100%] md:w-full rounded-[10px] border-[1px] solid bg-cyan" /> */}
               {/* {selectedFile && <p>Selected file: {selectedFile.name}</p>} */}
             </div>
           </div>

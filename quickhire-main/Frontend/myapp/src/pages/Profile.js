@@ -10,7 +10,6 @@ function Profile() {
   const user = localStorage.getItem("user");
 
   const [userData, setUserData] = useState(null);
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,11 +29,7 @@ function Profile() {
 
   if (userData == null) {
     // Return a loading state or null while waiting for the data to be fetched
-    return (
-      <div className="flex flex-col justify-center max-w-[1400px] mx-auto">
-        <Navbar></Navbar>
-      </div>
-    );
+    return <div className="flex flex-col justify-center max-w-[1400px] mx-auto">{/* <Navbar></Navbar> */}</div>;
   }
 
   // const decodeBlobToImageUrl = (blobData) => {
@@ -44,17 +39,20 @@ function Profile() {
   //   return imageUrl;
   // };
 
-  const birthDate = new Date(userData.birthdate);
-  const birthYear = birthDate.getFullYear();
-  const currentYear = date.getFullYear();
+  const birthYear = new Date(userData.birthdate).getFullYear();
+  const currentYear = new Date().getFullYear();
   const age = currentYear - birthYear;
+
+  console.log(age);
 
   return (
     <div className="flex flex-col justify-center mx-auto">
-      <Navbar/>
+      <Navbar />
       <div className="flex md:justify-center justify-between relative ml-10">
         <h1 className=" text-2xl font-medium">โปรไฟล์ของคุณ</h1>
-        <Link to="/Editprofile" className="absolute right-10 border-2 border-black rounded-3xl px-2">แก้ไขประวัติ</Link>
+        <Link to="/Editprofile" className="absolute right-10 border-2 border-black rounded-3xl px-2">
+          แก้ไขประวัติ
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 m-10 gap-10">
@@ -62,11 +60,13 @@ function Profile() {
           {/* <img className="w-[200px] h-[200px] rounded-full mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img> */}
           {userData.img !== null && <SwapImage images={JSON.parse(userData.img)} />}
           <h1 className="mx-auto mt-4">{userData.nickname}</h1>
-          <h1 className="mx-auto mt-4 text-2xl">
-            {userData.fullname}
+          <h1 className="mx-auto mt-4 text-2xl">{userData.fullname}</h1>
+          <h1 className="mx-auto mt-4">
+            {userData.birthdate} อายุ {age} ปี
           </h1>
-          <h1 className="mx-auto mt-4">{userData.birthdate} อายุ {age} ปี</h1>
-          <h1 className="mx-auto ">เพศ {userData.sex} สัญชาติ ไทย</h1>
+          <h1 className="mx-auto ">
+            เพศ {userData.sex} สัญชาติ {userData.national}
+          </h1>
         </div>
 
         <div className="flex flex-col mx-auto justify-center gap-8">
@@ -118,14 +118,14 @@ function Profile() {
             <h1 className="p-10">{userData.talent}</h1>
           </div>
         </div>
-        <div className="relative mx-10">
+        {/* <div className="relative mx-10">
           <div className=" rounded-full bg-slate-400 p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
             <h1>พื้นที่สะดวกรับงาน</h1>
           </div>
           <div className=" rounded-2xl bg-slate-100 h-32">
             <h1 className="p-10">{userData.area}</h1>
           </div>
-        </div>
+        </div> */}
       </div>
       <Footer></Footer>
     </div>
