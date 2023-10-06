@@ -60,7 +60,7 @@ function Profile() {
       <div className="grid grid-cols-1 md:grid-cols-2 m-10 gap-10">
         <div className="flex flex-col mx-auto justify-center md:-mt-56">
           {/* <img className="w-[200px] h-[200px] rounded-full mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img> */}
-          <SwapImage images={JSON.parse(userData.img)} />
+          {userData.img !== null && <SwapImage images={JSON.parse(userData.img)} />}
           <h1 className="mx-auto mt-4">{userData.nickname}</h1>
           <h1 className="mx-auto mt-4 text-2xl">
             {userData.fullname}
