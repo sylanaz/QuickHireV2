@@ -90,7 +90,11 @@ const Createshop = () => {
           console.error("Error uploading image:", error);
         });
     } else {
-      await axios.post(`${process.env.REACT_APP_API}updateJob/${id}`, formData).then(window.location.replace("/"));
+      await axios.post(`${process.env.REACT_APP_API}updateJob/${id}`, formData).then(
+        setTimeout(() => {
+          window.location.replace("/");
+        }, 1000)
+      );
     }
   };
   const MAX_LENGTH = 5;
