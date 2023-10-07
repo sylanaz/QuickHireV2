@@ -50,7 +50,7 @@ function Profile() {
       <Navbar />
       <div className="flex md:justify-center justify-between relative ml-10">
         <h1 className=" text-2xl font-medium">โปรไฟล์ของคุณ</h1>
-        <Link to="/Editprofile" className="absolute right-10 border-2 border-black rounded-3xl px-2">
+        <Link to={`/Editprofile/${userData.id}`} className="absolute right-10 border-2 border-black rounded-3xl px-2">
           แก้ไขประวัติ
         </Link>
       </div>
