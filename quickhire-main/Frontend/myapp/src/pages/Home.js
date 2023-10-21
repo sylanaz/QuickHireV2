@@ -39,7 +39,7 @@ function Home() {
       showNoti(email);
     }, 2000);
   };
-
+ // test
   useEffect(() => {
     showNoti(email);
   }, []);
