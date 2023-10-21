@@ -22,7 +22,6 @@ export const ApproveUser = () => {
       await shopNoti(email).then((data) => setNoti(data));
     }
   };
-  console.log(noti);
 
   useEffect(() => {
     showNoti(email);
@@ -34,7 +33,7 @@ export const ApproveUser = () => {
       <div className="flex justify-center text-2xl mb-6 mt-5 font-medium">คัดเลือกผู้สมัครงาน</div>
       <div>
         <div className="grid grid-cols-2 md:grid-cols-4">
-          {noti !== undefined &&
+          {noti &&
             noti.map((noti, index) => {
               if (role === "user") {
                 return <Mail key={index} email={noti.shop_name} status={noti.status} date={noti.date} role={role} />;

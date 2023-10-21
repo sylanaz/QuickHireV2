@@ -22,9 +22,7 @@ function Card({id, restaurantName, minilocation, position, hourlyIncome, img, la
   const useremail = localStorage.getItem("user");
   const status = "pending";
   const role = localStorage.getItem("role");
-  
   const [user_fullname, setUser_Fullname] = useState("");
-
   const getUserFullname = async () => {
     const userFullName = await axios.get(`${process.env.REACT_APP_API}getUserinfo/${useremail}`);
     setUser_Fullname(userFullName.data.fullname);

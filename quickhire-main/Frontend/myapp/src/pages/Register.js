@@ -13,6 +13,7 @@ export default function Register() {
 
   const onFinish = (event) => {
     // const fullname = firstname + " " + lastname;
+    console.log("KUY")
     event.preventDefault();
     axios
       .post(`${process.env.REACT_APP_API}insertUser`, {

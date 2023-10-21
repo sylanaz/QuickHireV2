@@ -31,21 +31,23 @@ const Createshop = () => {
 
   const getOldData = async () => {
     await axios.get(`${process.env.REACT_APP_API}getSpecificDataShop/${id}`).then((data) => {
-      setFullname(data.data[0].fullname);
-      setTelnumber(data.data[0].telnumber);
-      setShopname(data.data[0].shopname);
-      setLocation(data.data[0].location);
-      setTimework(data.data[0].timework);
-      setMoney(data.data[0].money);
-      setLat(data.data[0].lat);
-      setLong(data.data[0].long);
-      setWelfare(data.data[0].welfare);
-      setEmail(data.data[0].email);
-      setMinilocation(data.data[0].minilocation);
-      setWorkposition(data.data[0].workposition);
-      setJobdesc(data.data[0].jobdesc);
-      setPeopleneed(data.data[0].peopleneed);
-      setImageURL(data.data[0].img);
+      if (data.data[0] !== undefined) {
+        setFullname(data.data[0].fullname);
+        setTelnumber(data.data[0].telnumber);
+        setShopname(data.data[0].shopname);
+        setLocation(data.data[0].location);
+        setTimework(data.data[0].timework);
+        setMoney(data.data[0].money);
+        setLat(data.data[0].lat);
+        setLong(data.data[0].long);
+        setWelfare(data.data[0].welfare);
+        setEmail(data.data[0].email);
+        setMinilocation(data.data[0].minilocation);
+        setWorkposition(data.data[0].workposition);
+        setJobdesc(data.data[0].jobdesc);
+        setPeopleneed(data.data[0].peopleneed);
+        setImageURL(data.data[0].img);
+      }
     });
   };
   useEffect(() => {
@@ -53,6 +55,7 @@ const Createshop = () => {
       getOldData();
     }
   }, []);
+  console.log(id == 0);
   // =====================================================
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -70,13 +73,13 @@ const Createshop = () => {
       peopleneed: peopleneed,
       welfare: welfare,
       location: location,
-      lat: lat,
-      long: long,
+      lats: lat,
+      longs: long,
       minilocation: minilocation,
       img: imageJSON,
       // newuser: "old",
     };
-    if (id === 0) {
+    if (id == 0) {
       await axios
         .post(`${process.env.REACT_APP_API}uploadJobinfo`, formData)
         .then((response) => {
