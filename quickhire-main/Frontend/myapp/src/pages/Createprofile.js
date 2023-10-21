@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -8,8 +8,12 @@ import SwapImage from "./Shop/SwapImage";
 
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import { useParams } from "react-router-dom";
 
 const Createprofile = () => {
+
+  const { id } = useParams();
+
   const stages = ["personalInfo", "educationAndWork", "abilities"]; // Define stage names
   const [currentIndex, setCurrentIndex] = useState(0); // Keep track of the current stage index
   const currentStage = stages[currentIndex]; // Get the current stage name
@@ -41,25 +45,6 @@ const Createprofile = () => {
 
     const imageJSON = JSON.stringify(selectedImage);
     const fullname = firstname + " " + lastname;
-    // Only proceed with the upload if an image is selected
-    // if (Imageblob instanceof Blob) {
-    // const formData = new FormData();
-    // formData.append('file', Imageblob);
-    // formData.append('fullname', fullname);
-    // formData.append('lastname', lastname);
-    // formData.append('nickname', nickname);
-    // formData.append('sex', sex);
-    // formData.append('telnumber', telnumber);
-    // formData.append('birthdate', birthdate);
-    // formData.append('national', national);
-    // formData.append('area', area);
-    // formData.append('degree', degree);
-    // formData.append('workexp', workexp);
-    // formData.append('thailevel', thailevel);
-    // formData.append('englevel', englevel);
-    // formData.append('vehicle', vehicle);
-    // formData.append('talent', talent);
-    // formData.append('email', email);
 
     axios
       .post(`${process.env.REACT_APP_API}uploadUserinfo`, {
@@ -92,21 +77,7 @@ const Createprofile = () => {
     // }
   };
 
-  // const handleCropChange = (newCrop) => {
-  //   setCrop(newCrop);
-  // };
-
-  // const handleImageSelect = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setSelectedImage(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  //   setShowModal(true);
-  // };
+ 
   const MAX_LENGTH = 3;
   const handleImageSelect = (e) => {
     const files = e.target.files;
@@ -140,32 +111,32 @@ const Createprofile = () => {
     }
   };
 
-  // const handleImageCrop = () => {
-  //   if (selectedImage && crop.width && crop.height) {
-  //     const image = new Image();
-  //     image.src = selectedImage;
-  //     image.onload = () => {
-  //       const scaleX = image.naturalWidth / image.width;
-  //       const scaleY = image.naturalHeight / image.height;
-  //       const canvas = document.createElement("canvas");
-  //       canvas.width = crop.width;
-  //       canvas.height = crop.height;
-  //       const ctx = canvas.getContext("2d");
+  const getOldData = async() => {
+    await axios.get(`${process.env.REACT_APP_API}getSpecificDataUser/${id}`).then((data) => {
+      setFirstname(data.data[0].fullname.split(" ")[0]);
+      setLastname(data.data[0].fullname.split(" ")[1]);
+      setTelnumber(data.data[0].telnumber);
+      setNickname(data.data[0].nickname);
+      setSex(data.data[0].sex)
+      setBirthdate(data.data[0].birthdate);
+      setNational(data.data[0].national);
+      setArea(data.data[0].area);
+      setDegree(data.data[0].degree);
+      setWorkexp(data.data[0].workexp);
+      setThailevel(data.data[0].thailevel);
+      setEnglevel(data.data[0].englevel);
+      setVehicle(data.data[0].vehicle);
+      setTalent(data.data[0].talent);
+      setEmail(data.data[0].email);
+      setSelectedImage(data.data[0].img);
+    });
+  };
 
-  //       ctx.drawImage(image, crop.x * scaleX, crop.y * scaleY, crop.width * scaleX, crop.height * scaleY, 0, 0, crop.width, crop.height);
-
-  //       canvas.toBlob((blob) => {
-  //         setImageblob(blob);
-  //         setShowModal(false);
-  //       });
-
-  //       const croppedImageDataURL = canvas.toDataURL(); // Get the data URL of the cropped image
-  //       setSelectedImage(croppedImageDataURL);
-
-  //       setShowModal(false);
-  //     };
-  //   }
-  // };
+  useEffect(() => {
+    if (id !== 0) {
+      getOldData();
+    }
+  },[])
 
   const stageLabels = {
     personalInfo: "ข้อมูลส่วนบุคคล",

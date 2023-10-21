@@ -58,7 +58,7 @@ function App() {
           <Route path="/Home" element={<Home />} />
           <Route path="/Profile" element={<Createprofile />} />
           <Route path="/Apply" element={<Createprofile />} />
-          <Route path="/Editprofile" element={<Createprofile />} />
+          <Route path="/Editprofile/:id" element={<Createprofile />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Job" element={<Createprofile />} />
         </Routes>
@@ -71,8 +71,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Profile" element={<Profile />} />
-          <Route path="/Editprofile" element={<Createprofile />} />
-          <Route path="/Apply" element={<Createprofile />} />
+          <Route path="/Editprofile/:id" element={<Createprofile />} />
+          <Route path="/Apply" element={<ApproveUser />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Job" element={<Createprofile />} />
         </Routes>
