@@ -6,16 +6,19 @@ export const RegisterOrg = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullname, setFullname] = useState("");
-  // const [lastname, setLastname] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [telnumber, setTelnumber] = useState("");
   // const [shop, setShop] = useState("");
-
   const onFinish = async (event) => {
+    const fullname = firstname + " " + lastname;
     event.preventDefault();
     await axios
       .post(`${process.env.REACT_APP_API}insertShop`, {
         email,
         password,
+        firstname,
+        lastname,
         fullname,
         telnumber,
       })
@@ -37,14 +40,14 @@ export const RegisterOrg = () => {
           </h2>
           <form action="" className="flex flex-col" onSubmit={onFinish}>
             <div className="flex gap-3">
-              <input type="text" name="name" placeholder="ชื่อ" className="p-2 mt-8 rounded-xl border w-1/2"></input>
-              <input type="text" name="surname" placeholder="นามสกุล" className="p-2 mt-8 rounded-xl border w-1/2"></input>
+              <input type="text" name="name" placeholder="ชื่อ" className="p-2 mt-8 rounded-xl border w-1/2" value={firstname} onChange={(event) => setFirstname(event.target.value)} required></input>
+              <input type="text" name="surname" placeholder="นามสกุล" className="p-2 mt-8 rounded-xl border w-1/2" value={lastname} onChange={(event) => setLastname(event.target.value)} required></input>
             </div>
             <input type="text" name="storename" placeholder="ชื่อร้านค้า" className="p-2 mt-5 rounded-xl border"></input>
-            <input type="text" name="email" placeholder="อีเมล์" className="p-2 mt-5 rounded-xl border"></input>
-            <input type="text" name="password" placeholder="รหัสผ่าน" className="p-2 mt-5 rounded-xl border"></input>
-            <input type="text" name="password" placeholder="ยืนยันรหัสผ่าน" className="p-2 mt-5 rounded-xl border"></input>
-            <input type="text" name="tel" placeholder="เบอร์โทร" className="p-2 mt-5 rounded-xl border"></input>
+            <input type="text" name="email" placeholder="อีเมล์" className="p-2 mt-5 rounded-xl border" value={email} onChange={(event) => setEmail(event.target.value)} required></input>
+            <input type="text" name="password" placeholder="รหัสผ่าน" className="p-2 mt-5 rounded-xl border" required></input>
+            <input type="text" name="password" placeholder="ยืนยันรหัสผ่าน" className="p-2 mt-5 rounded-xl border" value={password} onChange={(event) => setPassword(event.target.value)} required></input>
+            <input type="text" name="tel" placeholder="เบอร์โทร" className="p-2 mt-5 rounded-xl border" value={telnumber} onChange={(event) => setTelnumber(event.target.value)} required></input>
             <div className="flex justify-center items-center">
               <button type="submit" className="bg-emerald-400 text-cyan-950 mt-5 rounded-full hover:bg-emerald-300 duration-300 w-60 p-2 font-semibold">
                 สมัครสมาชิก
@@ -54,7 +57,7 @@ export const RegisterOrg = () => {
         </div>
       </div>
       <div className="hover:scale-105 duration-300 mt-8">
-        <Link to={"/LoginMain"}>
+        <Link to={"/LoginMain?destination=LOGIN_ORG"}>
           <span className="text-xl">Back to Login</span>
         </Link>
       </div>
