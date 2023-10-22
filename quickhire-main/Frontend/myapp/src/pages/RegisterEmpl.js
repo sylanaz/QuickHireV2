@@ -18,8 +18,6 @@ export const RegisterEmpl = () => {
       .post(`${process.env.REACT_APP_API}insertUser`, {
         email,
         password,
-        firstname,
-        lastname,
         fullname,
         telnumber,
         // occupation,

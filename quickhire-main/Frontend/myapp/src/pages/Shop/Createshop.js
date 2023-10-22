@@ -9,7 +9,6 @@ import SwapImage from "./SwapImage";
 
 const Createshop = () => {
   const { id } = useParams();
-
   // const [firstname, setFirstname] = useState("");
   const [fullname, setFullname] = useState("");
   const [telnumber, setTelnumber] = useState("");
@@ -31,31 +30,28 @@ const Createshop = () => {
 
   const getOldData = async () => {
     await axios.get(`${process.env.REACT_APP_API}getSpecificDataShop/${id}`).then((data) => {
-      if (data.data[0] !== undefined) {
-        setFullname(data.data[0].fullname);
-        setTelnumber(data.data[0].telnumber);
-        setShopname(data.data[0].shopname);
-        setLocation(data.data[0].location);
-        setTimework(data.data[0].timework);
-        setMoney(data.data[0].money);
-        setLat(data.data[0].lat);
-        setLong(data.data[0].long);
-        setWelfare(data.data[0].welfare);
-        setEmail(data.data[0].email);
-        setMinilocation(data.data[0].minilocation);
-        setWorkposition(data.data[0].workposition);
-        setJobdesc(data.data[0].jobdesc);
-        setPeopleneed(data.data[0].peopleneed);
-        setImageURL(data.data[0].img);
-      }
+      setFullname(data.data.fullname);
+      setTelnumber(data.data.telnumber);
+      setShopname(data.data.shopname);
+      setLocation(data.data.location);
+      setTimework(data.data.timework);
+      setMoney(data.data.money);
+      setLat(data.data.lats);
+      setLong(data.data.longs);
+      setWelfare(data.data.welfare);
+      setEmail(data.data.email);
+      setMinilocation(data.data.minilocation);
+      setWorkposition(data.data.workposition);
+      setJobdesc(data.data.jobdesc);
+      setPeopleneed(data.data.peopleneed);
+      setImageURL(JSON.parse(data.data.img));
     });
   };
   useEffect(() => {
-    if (id !== 0) {
+    if (id != 0) {
       getOldData();
     }
   }, []);
-  console.log(id == 0);
   // =====================================================
   const handleSubmit = async (event) => {
     event.preventDefault();

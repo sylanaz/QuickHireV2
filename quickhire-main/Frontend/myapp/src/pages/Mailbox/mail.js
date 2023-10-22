@@ -5,7 +5,6 @@ import CardApproveUser from "./CardApproveUser";
 
 const Mail = ({ useremail, user_fullname, shopname, status, date, role, triggerAccOrDenie }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const day = new Date(date);
 
   const numberDate = day.getDate(); // Look like 1-31 days
@@ -32,8 +31,6 @@ const Mail = ({ useremail, user_fullname, shopname, status, date, role, triggerA
     const data = await axios.get(`${process.env.REACT_APP_API}getUserinfo/${useremail}`);
     setUserData(data.data);
   };
-
-  console.log(userData);
 
   useEffect(() => {
     getUserInfo();

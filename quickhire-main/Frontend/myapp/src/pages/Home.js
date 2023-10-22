@@ -45,14 +45,12 @@ function Home() {
     showNoti(email);
   },[])
 
-  const list = noti.length !== 0 ? noti.map((data) => data.shop_name) : jobs;
+  const list = noti.length !== 0 ? noti.map((data) => data.shopname) : jobs;
   const allJobsUserNotApply = list && jobs ? jobs.filter((data) => !list.includes(data.shopname)) : [];
-  // console.log(allJobsUserNotApply.map((job, index) => job));
   // =====================================
 
   const [searchTerm, setSearchTerm] = useState("");
   const filteredCards = jobs.filter((card) => card.shopname.toLowerCase().includes(searchTerm.toLowerCase()));
-  console.log(filteredCards.map((data) => data));
   return (
     <div className="Home mx-auto min-h-[100vh] relative">
       <Navbar />

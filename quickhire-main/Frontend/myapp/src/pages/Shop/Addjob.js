@@ -13,10 +13,8 @@ const Addjob = () => {
     const fetchData = async () => {
       try {
         // Replace this with the actual API endpoint
-        console.log(user);
         const response = await axios.get(`${process.env.REACT_APP_API}getAllShopinfo/${user}`);
         setUserData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -33,7 +31,6 @@ const Addjob = () => {
       </div>
     );
   }
-  console.log(userData.map((data) => data));
 
   return (
     <div className="flex flex-col justify-center mx-auto">
@@ -44,7 +41,7 @@ const Addjob = () => {
         {userData !== null && (
           <>
             {userData.map((user, index) => (
-              <Card key={index} restaurantName={user.shopname} minilocation={user.minilocation} position={user.workposition} hourlyIncome={user.money} img={user.img} lat={user.lats} long={user.longs} peopleneed={user.peopleneed} jobdesc={user.jobdesc} timework={user.timework} welfare={user.welfare} location={user.location} email={user.email} fullname={user.fullname}/>
+              <Card key={index} id={user._id} restaurantName={user.shopname} minilocation={user.minilocation} position={user.workposition} hourlyIncome={user.money} img={JSON.parse(user.img)} lat={user.lats} long={user.longs} peopleneed={user.peopleneed} jobdesc={user.jobdesc} timework={user.timework} welfare={user.welfare} location={user.location} email={user.email} fullname={user.fullname}/>
             ))}
           </>
         )}

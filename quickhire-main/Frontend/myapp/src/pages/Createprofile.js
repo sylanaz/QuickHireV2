@@ -47,7 +47,7 @@ const Createprofile = () => {
     const fullname = firstname + " " + lastname;
 
     axios
-      .post(`${process.env.REACT_APP_API}uploadUserinfo`, {
+      .post(`${process.env.REACT_APP_API}uploadUserinfo/${email}`, {
         fullname: fullname,
         telnumber: telnumber,
         nickname: nickname,
@@ -110,30 +110,29 @@ const Createprofile = () => {
       }
     }
   };
-
   const getOldData = async() => {
     await axios.get(`${process.env.REACT_APP_API}getSpecificDataUser/${id}`).then((data) => {
-      setFirstname(data.data[0].fullname.split(" ")[0]);
-      setLastname(data.data[0].fullname.split(" ")[1]);
-      setTelnumber(data.data[0].telnumber);
-      setNickname(data.data[0].nickname);
-      setSex(data.data[0].sex)
-      setBirthdate(data.data[0].birthdate);
-      setNational(data.data[0].national);
-      setArea(data.data[0].area);
-      setDegree(data.data[0].degree);
-      setWorkexp(data.data[0].workexp);
-      setThailevel(data.data[0].thailevel);
-      setEnglevel(data.data[0].englevel);
-      setVehicle(data.data[0].vehicle);
-      setTalent(data.data[0].talent);
-      setEmail(data.data[0].email);
-      setSelectedImage(data.data[0].img);
+      setFirstname(data.data.fullname.split(" ")[0]);
+      setLastname(data.data.fullname.split(" ")[1]);
+      setTelnumber(data.data.telnumber);
+      setNickname(data.data.nickname);
+      setSex(data.data.sex)
+      setBirthdate(data.data.birthdate);
+      setNational(data.data.national);
+      setArea(data.data.area);
+      setDegree(data.data.degree);
+      setWorkexp(data.data.workexp);
+      setThailevel(data.data.thailevel);
+      setEnglevel(data.data.englevel);
+      setVehicle(data.data.vehicle);
+      setTalent(data.data.talent);
+      setEmail(data.data.email);
+      setSelectedImage(JSON.parse(data.data.img));
     });
   };
 
   useEffect(() => {
-    if (id !== 0) {
+    if (id !== 0 && localStorage.getItem("newuser") === "old") {
       getOldData();
     }
   },[])
