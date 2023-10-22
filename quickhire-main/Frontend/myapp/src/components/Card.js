@@ -14,7 +14,7 @@ import { EditBTN } from "../pages/Shop/EditBTN";
 import DescBTN from "../pages/BTN/DescBTN";
 import Swal from "sweetalert2";
 
-function Card({id, restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob }) {
+function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob }) {
   const [showModal, setShowModal] = React.useState(false);
   const useremail = localStorage.getItem("user");
   const status = "pending";
@@ -36,17 +36,17 @@ function Card({id, restaurantName, minilocation, position, hourlyIncome, img, la
 
     // Check is it array or not
     // if (Array.isArray(data)) {
-      // Detect user already apply job or not
-      // const includesRestaurant = data.map((item) => item.shop_name.includes(shopname));
-      // const countTrue = includesRestaurant.filter((value) => value === true).length;
-      // If user not ever apply job at this shop
-      // if (countTrue === 0) {
-        // applyJob(useremail, user_fullname, email, restaurantName, status, date);
-      // }
+    // Detect user already apply job or not
+    // const includesRestaurant = data.map((item) => item.shop_name.includes(shopname));
+    // const countTrue = includesRestaurant.filter((value) => value === true).length;
+    // If user not ever apply job at this shop
+    // if (countTrue === 0) {
+    // applyJob(useremail, user_fullname, email, restaurantName, status, date);
+    // }
     // } else if (data === undefined) {
-      applyJob(useremail, user_fullname, email, shopname, status, date);
+    applyJob(useremail, user_fullname, email, shopname, status, date);
     // } else {
-      // console.error("Data is not an array:", data);
+    // console.error("Data is not an array:", data);
     // }
     triggerUserApplyJob();
   };
@@ -108,21 +108,21 @@ function Card({id, restaurantName, minilocation, position, hourlyIncome, img, la
       </div>
       {showModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
             <div className="relative w-auto my-6 mx-10 max-w-[1400px]">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-center justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                <div className="flex items-center justify-between p-3 sm:p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">{restaurantName}</h3>
                 </div>
 
                 {/*body*/}
-                <div className="grid grid-cols-1 xl:grid-cols-2 m-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 m-3 sm:m-5">
                   {/* <img src={img} alt="Restaurant" className=" h-[200px] md:h-[300px] transition-opacity duration-300 ease-in-out rounded-xl mx-auto" /> */}
                   <SwapImage images={img} />
                   {/* Add leaflet tailwind here */}
-                  <MapContainer center={[lat, long]} zoom={14} scrollWheelZoom={false} style={{ width: "500px" }} className="rounded-xl ">
+                  <MapContainer center={[lat, long]} zoom={14} scrollWheelZoom={false} style={{ width: "500px"} } className="rounded-xl ">
                     <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                     <Marker position={[lat, long]} icon={L.icon({ iconUrl: customMarkerIcon, iconSize: [30, 30] })}>
                       <Popup>{restaurantName}</Popup>
@@ -130,7 +130,7 @@ function Card({id, restaurantName, minilocation, position, hourlyIncome, img, la
                   </MapContainer>
                 </div>
 
-                <div className="flex flex-col mx-12 text-lg gap-2">
+                <div className="flex flex-col p-3 sm:p-5 text-sm sm:text-lg gap-2">
                   <div className="flex">
                     <h1 className=" whitespace-nowrap  "> รายละเอียดงาน</h1>
                     <span role="img" aria-label="sheep" className="mr-2">
@@ -162,10 +162,14 @@ function Card({id, restaurantName, minilocation, position, hourlyIncome, img, la
                     </span>
                     <h1 className="">{hourlyIncome} บาท / ชั่วโมง</h1>
 
-                    <h1 className=" whitespace-nowrap ml-3"> จำนวนคน</h1>
-                    <span role="img" aria-label="sheep" className="mr-2">
-                      👨‍🦱:
-                    </span>
+                    <h1 className=" whitespace-nowrap ml-3">
+                      {" "}
+                      จำนวนคน{" "}
+                      <span role="img" aria-label="sheep" className="mr-2">
+                        👨‍🦱:
+                      </span>
+                    </h1>
+
                     <h1 className="">{peopleneed}</h1>
                   </div>
 
@@ -185,30 +189,30 @@ function Card({id, restaurantName, minilocation, position, hourlyIncome, img, la
                       </span>
                       <h1 className="">{email}</h1>
                     </div>
-                    {role === "user" ? (
-                      <div>
-                        <button className="text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setShowModal(false)}>
-                          ปิดหน้าต่าง
-                        </button>
-                        <button
-                          className="bg-orange-400 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                          type="button"
-                          // onClick={() => setShowModal(false)}
-                          onClick={() => checkJob(restaurantName)}
-                        >
-                          สมัครงานด่วน
-                        </button>
-                      </div>
-                    ) : (
-                      <>
-                        {/* { restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email } */}
-                        {email === useremail && <EditBTN id={id}/>}
-                        <button className="bg-red-500 rounded text-white font-bold uppercase px-6 py-3 text-sm outline-none focus:outline-none ease-linear transition-all duration-150 mr-1 mb-1" type="button" onClick={() => setShowModal(false)}>
-                          ปิดหน้าต่าง
-                        </button>
-                      </>
-                    )}
                   </div>
+                  {role === "user" ? (
+                    <div>
+                      <button className="text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setShowModal(false)}>
+                        ปิดหน้าต่าง
+                      </button>
+                      <button
+                        className="bg-orange-400 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        // onClick={() => setShowModal(false)}
+                        onClick={() => checkJob(restaurantName)}
+                      >
+                        สมัครงานด่วน
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="">
+                      {/* { restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email } */}
+                      {email === useremail && <EditBTN id={id} />}
+                      <button className=" bg-red-500 rounded text-white font-bold uppercase px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base outline-none focus:outline-none ease-linear transition-all duration-150 m-2 sm:m-1" type="button" onClick={() => setShowModal(false)}>
+                        ปิดหน้าต่าง
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

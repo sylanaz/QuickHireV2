@@ -28,7 +28,7 @@ export const ApproveUser = () => {
   }, [acceptTriggerAccOrDenie]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col  min-h-[100vh]">
       <Navbar />
       <div className="flex justify-center text-2xl mb-6 mt-5 font-medium">คัดเลือกผู้สมัครงาน</div>
       <div>

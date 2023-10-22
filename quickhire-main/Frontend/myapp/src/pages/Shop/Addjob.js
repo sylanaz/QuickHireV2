@@ -25,23 +25,19 @@ const Addjob = () => {
 
   if (userData == null) {
     // Return a loading state or null while waiting for the data to be fetched
-    return (
-      <div className="flex flex-col justify-center max-w-[1400px] mx-auto">
-        {/* <Navbar></Navbar> */}
-      </div>
-    );
+    return <div className="flex flex-col justify-center max-w-[1400px] mx-auto">{/* <Navbar></Navbar> */}</div>;
   }
 
   return (
-    <div className="flex flex-col justify-center mx-auto">
-      <Navbar></Navbar>
+    <div className="flex flex-col justify-center mx-auto min-h-[100vh]">
+      <Navbar />
       <h1 className="text-2xl flex justify-center mb-6 mt-5 font-medium">สร้างประกาศรับสมัครพนักงาน</h1>
       <div className="grid grid-cols-2 md:grid-cols-4 m-auto gap-3 xl:gap-10 2xl:gap-16">
         <CardAddJob />
         {userData !== null && (
           <>
             {userData.map((user, index) => (
-              <Card key={index} id={user._id} restaurantName={user.shopname} minilocation={user.minilocation} position={user.workposition} hourlyIncome={user.money} img={JSON.parse(user.img)} lat={user.lats} long={user.longs} peopleneed={user.peopleneed} jobdesc={user.jobdesc} timework={user.timework} welfare={user.welfare} location={user.location} email={user.email} fullname={user.fullname}/>
+              <Card key={index} id={user._id} restaurantName={user.shopname} minilocation={user.minilocation} position={user.workposition} hourlyIncome={user.money} img={JSON.parse(user.img)} lat={user.lats} long={user.longs} peopleneed={user.peopleneed} jobdesc={user.jobdesc} timework={user.timework} welfare={user.welfare} location={user.location} email={user.email} fullname={user.fullname} />
             ))}
           </>
         )}
