@@ -42,13 +42,12 @@ function Profile() {
   const birthYear = new Date(userData.birthdate).getFullYear();
   const currentYear = new Date().getFullYear();
   const age = currentYear - birthYear;
-
   return (
     <div className="flex flex-col justify-center mx-auto">
       <Navbar />
       <div className="flex md:justify-center justify-between relative ml-10">
         <h1 className=" text-2xl font-medium">โปรไฟล์ของคุณ</h1>
-        <Link to={`/Editprofile/${userData.id}`} className="absolute right-10 border-2 border-black rounded-3xl px-2">
+        <Link to={`/Editprofile/${userData._id}`} className="absolute right-10 border-2 border-black rounded-3xl px-2">
           แก้ไขประวัติ
         </Link>
       </div>

@@ -38,7 +38,7 @@ export const ApproveUser = () => {
               if (role === "user") {
                 return <Mail key={index} email={noti.shop_name} status={noti.status} date={noti.date} role={role} />;
               } else {
-                return <Mail key={index} useremail={noti.useremail} user_fullname={noti.user_fullname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerAccOrDenie={triggerAccOrDenie}/>;
+                return <Mail key={index} useremail={noti.email} user_fullname={noti.user_fullname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerAccOrDenie={triggerAccOrDenie}/>;
               }
             })}
         </div>

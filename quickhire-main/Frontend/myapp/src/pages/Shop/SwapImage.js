@@ -16,13 +16,13 @@ const SwapImage = ({ images }) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-center">
-      <button onClick={goToPrevious} className="my-auto w-[2rem] bg-[#EF4444] text-white rounded">
+      <button onClick={goToPrevious} className="my-auto w-[2rem] bg-[#EF4444] text-white rounded mx-5">
         <span className="text-2xl font-bold">&#171;</span>
       </button>
       <div className="flex flex-col">
         <img src={images[currentIndex]} alt={`Image ${currentIndex + 1}`} className="w-[125px] h-[125px] md:max-w-[500px] md:max-h-[500px] rounded mx-auto cursor-pointer" />
       </div>
-      <button onClick={goToNext} className="my-auto w-[2rem] bg-[#EF4444] text-white rounded">
+      <button onClick={goToNext} className="my-auto w-[2rem] bg-[#EF4444] text-white rounded mx-5">
         <span className="text-2xl font-bold">&#187;</span>
       </button>
       </div>

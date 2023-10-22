@@ -75,7 +75,7 @@ const CardApproveUser = ({ userData, shopname, date_month_year, hour_minute, tri
               </div>
               <div className="flex flex-row justify-center rounded-b-[20px] mx-2">
                 {bool.map((data) => {
-                  return <AccAndDenie acc_denie={data} shopname={shopname} triggerAccOrDenie={triggerAccOrDenie}/>;
+                  return <AccAndDenie acc_denie={data} user_email={userData.email} user_fullname={userData.fullname} shopname={shopname} triggerAccOrDenie={triggerAccOrDenie}/>;
                 })}
                 {/* <AccAndDenie acc_denie={false} />
                   <AccAndDenie acc_denie={true} /> */}

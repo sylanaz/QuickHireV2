@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import logo from "../img/logo.png";
-import LoginMain from "../pages/LoginMain";
-import Home from "../pages/Home";
 
 function Navbar() {
   const token = localStorage.getItem("accessToken");
   const role = localStorage.getItem("role");
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showNewContent, setShowNewContent] = useState(false);
+  // const [showNewContent, setShowNewContent] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -101,15 +99,22 @@ function Navbar() {
           <Link to="/Job">ค้นหางาน</Link> */}
           {/* {role === "user" && <Link to="/Profile">โปรไฟล์</Link>}
           {role === "shop" && <Link to="/Job">เพิ่มประกาศ</Link>} */}
-          {role === "shop" ? (
+          {role === "user" && (
+            <>
+              <Link to="/Profile" class="transition duration-300 hover:rotate-12">
+                {" "}
+                <h1>โปรไฟล์</h1>
+              </Link>
+              <Link to="/Apply" class="transition duration-300 hover:rotate-12">
+                {" "}
+                <h1>ประวัติการสมัครงาน</h1>
+              </Link>
+            </>
+          )}
+          {role === "shop" && (
             <>
               <Link to="/Add">เพิ่มประกาศ</Link>
               <Link to="/Approve">คัดเลือกผู้สมัคร</Link>
-            </>
-          ) : (
-            <>
-              <Link to="/Profile">โปรไฟล์</Link>
-              <Link to="/Apply">ประวัติการสมัครงาน</Link>
             </>
           )}
           <Link to="/Contact">ติดต่อเรา</Link>
