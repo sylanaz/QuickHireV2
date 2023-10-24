@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import Mymodal from "./modal";
 import axios from "axios";
 import CardApproveUser from "./CardApproveUser";
+import Card from "../../components/Card";
 
-const Mail = ({ useremail, user_fullname, shopname, status, date, role, triggerAccOrDenie }) => {
+const Mail = ({ id, useremail, email_shopname, shopname, status, date, role, triggerAccOrDenie, triggerUserApplyJob }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const day = new Date(date);
 
@@ -18,22 +19,22 @@ const Mail = ({ useremail, user_fullname, shopname, status, date, role, triggerA
 
   const hour_minute = `${hour}:${minute}`;
 
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
-
   const [userData, setUserData] = useState([]);
   const getUserInfo = async () => {
     const data = await axios.get(`${process.env.REACT_APP_API}getUserinfo/${useremail}`);
     setUserData(data.data);
   };
 
+  const getShopInfo = async () => {
+    const data = await axios.get(`${process.env.REACT_APP_API}getShopinfo/${email_shopname}`);
+    setUserData(data.data);
+  };
   useEffect(() => {
-    getUserInfo();
+    if (role === "shop") {
+      getUserInfo();
+    } else {
+      getShopInfo();
+    }
   }, []);
 
   return (
@@ -43,17 +44,13 @@ const Mail = ({ useremail, user_fullname, shopname, status, date, role, triggerA
           {/* User can't open modal but shop can */}
           {role === "user" ? (
             <>
-              <div>{useremail}</div>
-              <div>
-                {status} , {day.getDate()}
+              <div className="flex justify-center items-center">
+                <div className="grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10">{userData && userData.map((data, index) => <Card key={index} id={id} restaurantName={data.shopname} minilocation={data.minilocation} position={data.workposition} hourlyIncome={data.money} img={JSON.parse(data.img)} lat={data.lats} long={data.longs} peopleneed={data.peopleneed} jobdesc={data.jobdesc} timework={data.timework} welfare={data.welfare} location={data.location} email={data.email} triggerUserApplyJob={triggerUserApplyJob} showHistory={true} status_appove={status} date_month_year={date_month_year} />)}</div>
               </div>
             </>
           ) : (
             <>
-              {/* <div onClick={openModal}> */}
-                <CardApproveUser userData={userData} shopname={shopname} date_month_year={date_month_year} hour_minute={hour_minute} triggerAccOrDenie={triggerAccOrDenie}/>
-              {/* </div> */}
-              {/* <Mymodal isOpen={isModalOpen} onClose={closeModal} userData={userData} /> */}
+              <CardApproveUser userData={userData} shopname={shopname} date_month_year={date_month_year} hour_minute={hour_minute} triggerAccOrDenie={triggerAccOrDenie} />
             </>
           )}
         </div>
