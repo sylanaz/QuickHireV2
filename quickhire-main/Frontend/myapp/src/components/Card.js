@@ -14,7 +14,7 @@ import { EditBTN } from "../pages/Shop/EditBTN";
 import DescBTN from "../pages/BTN/DescBTN";
 import Swal from "sweetalert2";
 
-function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob, showHistory, status_appove, date_month_year }) {
+function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob, showHistory, status_appove, date_month_year, editBTN}) {
   const [showModal, setShowModal] = React.useState(false);
   const useremail = localStorage.getItem("user");
   const status = "pending";
@@ -189,7 +189,6 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                             <button
                               className="bg-orange-400 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                               type="button"
-                              // onClick={() => setShowModal(false)}
                               onClick={() => checkJob(restaurantName)}
                             >
                               สมัครงานด่วน
@@ -198,7 +197,6 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                             <button
                               className="bg-orange-400 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                               type="button"
-                              // onClick={() => setShowModal(false)}
                               onClick={() => deleteHistoryJobPending(id)}
                             >
                               ยกเลิกสมัครงาน
@@ -208,7 +206,7 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                       ) : (
                         <>
                           {/* { restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email } */}
-                          {email === useremail && <EditBTN id={id} />}
+                          {email === useremail && editBTN && <EditBTN id={id} />}
                           <button className="bg-red-500 rounded text-white font-bold uppercase px-6 py-3 text-sm outline-none focus:outline-none ease-linear transition-all duration-150 mr-1 mb-1" type="button" onClick={() => setShowModal(false)}>
                             ปิดหน้าต่าง
                           </button>
