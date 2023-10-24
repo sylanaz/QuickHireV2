@@ -42,6 +42,7 @@ export const LoginOrg = ({ onSwitchMode }) => {
       } else {
         setPasswordError("Your password is incorrect");
       }
+      console.log(res.data.role);
     });
   };
 

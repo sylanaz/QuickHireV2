@@ -99,36 +99,36 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
         </div>
         {showModal ? (
           <>
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
               <div className="relative w-auto my-6 mx-10 max-w-[1400px]">
                 {/*content*/}
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                   {/*header*/}
-                  <div className="flex items-center justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <div className="flex items-center justify-between p-3 sm:p-5 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-3xl font-semibold">{restaurantName}</h3>
                   </div>
 
-                  {/*body*/}
-                  <div className="grid grid-cols-1 xl:grid-cols-2 m-10">
-                    {/* <img src={img} alt="Restaurant" className=" h-[200px] md:h-[300px] transition-opacity duration-300 ease-in-out rounded-xl mx-auto" /> */}
-                    <SwapImage images={img} />
-                    {/* Add leaflet tailwind here */}
-                    <MapContainer center={[lat, long]} zoom={14} scrollWheelZoom={false} style={{ width: "500px" }} className="rounded-xl ">
-                      <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                      <Marker position={[lat, long]} icon={L.icon({ iconUrl: customMarkerIcon, iconSize: [30, 30] })}>
-                        <Popup>{restaurantName}</Popup>
-                      </Marker>
-                    </MapContainer>
-                  </div>
+                {/*body*/}
+                <div className="grid grid-cols-1 sm:grid-cols-2 m-3 sm:m-5">
+                  {/* <img src={img} alt="Restaurant" className=" h-[200px] md:h-[300px] transition-opacity duration-300 ease-in-out rounded-xl mx-auto" /> */}
+                  <SwapImage images={img} />
+                  {/* Add leaflet tailwind here */}
+                  <MapContainer center={[lat, long]} zoom={14} scrollWheelZoom={false} style={{ width: "500px"} } className="rounded-xl ">
+                    <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                    <Marker position={[lat, long]} icon={L.icon({ iconUrl: customMarkerIcon, iconSize: [30, 30] })}>
+                      <Popup>{restaurantName}</Popup>
+                    </Marker>
+                  </MapContainer>
+                </div>
 
-                  <div className="flex flex-col mx-12 text-lg gap-2">
-                    <div className="flex">
-                      <h1 className=" whitespace-nowrap  "> รายละเอียดงาน</h1>
-                      <span role="img" aria-label="sheep" className="mr-2">
-                        💼:
-                      </span>
-                      <h1 className="">{jobdesc}</h1>
-                    </div>
+                <div className="flex flex-col p-3 sm:p-5 text-sm sm:text-lg gap-2">
+                  <div className="flex">
+                    <h1 className=" whitespace-nowrap  "> รายละเอียดงาน</h1>
+                    <span role="img" aria-label="sheep" className="mr-2">
+                      💼:
+                    </span>
+                    <h1 className="">{jobdesc}</h1>
+                  </div>
 
                     <div className="flex">
                       <h1 className=" whitespace-nowrap  "> เวลาทำงาน</h1>
@@ -153,12 +153,16 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                       </span>
                       <h1 className="">{hourlyIncome} บาท / ชั่วโมง</h1>
 
-                      <h1 className=" whitespace-nowrap ml-3"> จำนวนคน</h1>
+                    <h1 className=" whitespace-nowrap ml-3">
+                      {" "}
+                      จำนวนคน{" "}
                       <span role="img" aria-label="sheep" className="mr-2">
                         👨‍🦱:
                       </span>
-                      <h1 className="">{peopleneed}</h1>
-                    </div>
+                    </h1>
+
+                    <h1 className="">{peopleneed}</h1>
+                  </div>
 
                     <div className="flex">
                       <h1 className=" whitespace-nowrap  "> สถานที่</h1>
