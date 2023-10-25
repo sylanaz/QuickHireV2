@@ -14,7 +14,7 @@ import { EditBTN } from "../pages/Shop/EditBTN";
 import DescBTN from "../pages/BTN/DescBTN";
 import Swal from "sweetalert2";
 
-function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob, showHistory, status_appove, date_month_year, editBTN}) {
+function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob, showHistory, status_appove, date_month_year, editBTN }) {
   const [showModal, setShowModal] = React.useState(false);
   const useremail = localStorage.getItem("user");
   const status = "pending";
@@ -48,7 +48,7 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        Swal.fire("สมัครงานเสร็จสิ้น", "ข้อมูลของคุณได้ถูกส่งไปยังร้านค้าแล้ว", "success");
         userApplyJob(useremail, shopname);
         setShowModal(false);
       }
@@ -56,9 +56,24 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
   };
 
   const deleteHistoryJobPending = async (id) => {
-    await axios.delete(`${process.env.REACT_APP_API}deleteUserApplyJob/${id}`);
-    setShowModal(false);
-    triggerUserApplyJob();
+    Swal.fire({
+      title: "ยกเลิกการสมัครงาน!",
+      text: "ต้องการยกเลิกสมัครงานนี้หรือไม่",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3EC712",
+      cancelButtonColor: "#D80000",
+      cancelButtonText: "ไม่ต้องการ",
+      confirmButtonText: "ต้องการ!",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("ยกเลิกการสมัครงานสำเร็จ", "ได้ทำการยกเลิกการสมัครงานนี้เรียบร้อย", "success");
+        axios.delete(`${process.env.REACT_APP_API}deleteUserApplyJob/${id}`);
+        setShowModal(false);
+        triggerUserApplyJob();
+      }
+    });
   };
 
   return (
@@ -71,7 +86,7 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
           {/*rounded-b-xl*/}
           <div className="flex flex-row rounded-[20px] md:rounded-[40px]">
             {/* {img !== undefined && <img src={img[0]} alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[130px] md:h-[130px] transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />} */}
-            <img src={img[0]} alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[180px] md:h-[100px]  transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />
+            <img src={img[0]} alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[130px] md:h-[130px]  transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />
             <h2 className="w-full flex justify-center text-center px-2 my-auto text-lg font-bold text-[#224555] md:text-3xl">{restaurantName}</h2>
             {/* <div className="overlay absolute top-0 left-0 w-full h-full bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out rounded-b-xl rounded-t-xl"></div> */}
           </div>
@@ -108,27 +123,27 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                     <h3 className="text-3xl font-semibold">{restaurantName}</h3>
                   </div>
 
-                {/*body*/}
-                <div className="grid grid-cols-1 sm:grid-cols-2 m-3 sm:m-5">
-                  {/* <img src={img} alt="Restaurant" className=" h-[200px] md:h-[300px] transition-opacity duration-300 ease-in-out rounded-xl mx-auto" /> */}
-                  <SwapImage images={img} />
-                  {/* Add leaflet tailwind here */}
-                  <MapContainer center={[lat, long]} zoom={14} scrollWheelZoom={false} style={{ width: "500px"} } className="rounded-xl ">
-                    <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                    <Marker position={[lat, long]} icon={L.icon({ iconUrl: customMarkerIcon, iconSize: [30, 30] })}>
-                      <Popup>{restaurantName}</Popup>
-                    </Marker>
-                  </MapContainer>
-                </div>
-
-                <div className="flex flex-col p-3 sm:p-5 text-sm sm:text-lg gap-2">
-                  <div className="flex">
-                    <h1 className=" whitespace-nowrap  "> รายละเอียดงาน</h1>
-                    <span role="img" aria-label="sheep" className="mr-2">
-                      💼:
-                    </span>
-                    <h1 className="">{jobdesc}</h1>
+                  {/*body*/}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 m-3 sm:m-5">
+                    {/* <img src={img} alt="Restaurant" className=" h-[200px] md:h-[300px] transition-opacity duration-300 ease-in-out rounded-xl mx-auto" /> */}
+                    <SwapImage images={img} />
+                    {/* Add leaflet tailwind here */}
+                    <MapContainer center={[lat, long]} zoom={14} scrollWheelZoom={false} style={{ width: "500px" }} className="rounded-xl ">
+                      <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                      <Marker position={[lat, long]} icon={L.icon({ iconUrl: customMarkerIcon, iconSize: [30, 30] })}>
+                        <Popup>{restaurantName}</Popup>
+                      </Marker>
+                    </MapContainer>
                   </div>
+
+                  <div className="flex flex-col p-3 sm:p-5 text-sm sm:text-lg gap-2">
+                    <div className="flex">
+                      <h1 className=" whitespace-nowrap  "> รายละเอียดงาน</h1>
+                      <span role="img" aria-label="sheep" className="mr-2">
+                        💼:
+                      </span>
+                      <h1 className="">{jobdesc}</h1>
+                    </div>
 
                     <div className="flex">
                       <h1 className=" whitespace-nowrap  "> เวลาทำงาน</h1>
@@ -153,16 +168,16 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                       </span>
                       <h1 className="">{hourlyIncome} บาท / ชั่วโมง</h1>
 
-                    <h1 className=" whitespace-nowrap ml-3">
-                      {" "}
-                      จำนวนคน{" "}
-                      <span role="img" aria-label="sheep" className="mr-2">
-                        👨‍🦱:
-                      </span>
-                    </h1>
+                      <h1 className=" whitespace-nowrap ml-3">
+                        {" "}
+                        จำนวนคน{" "}
+                        <span role="img" aria-label="sheep" className="mr-2">
+                          👨‍🦱:
+                        </span>
+                      </h1>
 
-                    <h1 className="">{peopleneed}</h1>
-                  </div>
+                      <h1 className="">{peopleneed}</h1>
+                    </div>
 
                     <div className="flex">
                       <h1 className=" whitespace-nowrap  "> สถานที่</h1>
@@ -186,31 +201,26 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                             ปิดหน้าต่าง
                           </button>
                           {!showHistory ? (
-                            <button
-                              className="bg-orange-400 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                              type="button"
-                              onClick={() => checkJob(restaurantName)}
-                            >
+                            <button className="bg-orange-400 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => checkJob(restaurantName)}>
                               สมัครงานด่วน
                             </button>
                           ) : (
-                            <button
-                              className="bg-orange-400 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                              type="button"
-                              onClick={() => deleteHistoryJobPending(id)}
-                            >
+                            <button className="bg-orange-400 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => deleteHistoryJobPending(id)}>
                               ยกเลิกสมัครงาน
                             </button>
                           )}
                         </div>
                       ) : (
-                        <>
-                          {/* { restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email } */}
-                          {email === useremail && editBTN && <EditBTN id={id} />}
-                          <button className="bg-red-500 rounded text-white font-bold uppercase px-6 py-3 text-sm outline-none focus:outline-none ease-linear transition-all duration-150 mr-1 mb-1" type="button" onClick={() => setShowModal(false)}>
+                        <div className="flex justify-center">
+                          {email === useremail && editBTN && (
+                            <div className="mr-2">
+                              <EditBTN id={id} />
+                            </div>
+                          )}
+                          <button className=" bg-red-500 rounded text-white font-bold uppercase px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base outline-none focus:outline-none ease-linear transition-all duration-150 m-2 sm:m-1" type="button" onClick={() => setShowModal(false)}>
                             ปิดหน้าต่าง
                           </button>
-                        </>
+                        </div>
                       )}
                     </div>
                   </div>

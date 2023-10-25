@@ -7,6 +7,7 @@ import camera from "../../img/camera.png";
 import "react-image-crop/dist/ReactCrop.css";
 import SwapImage from "./SwapImage";
 import LoadingPage from "../LoadingPage";
+import { TimePicker } from 'antd';
 
 const Createshop = () => {
   const { id } = useParams();
@@ -127,6 +128,10 @@ const Createshop = () => {
     }
   };
 
+  const [startTIme, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  console.log(startTIme.$H);
+
   return (
     <>
       {loading ? (
@@ -183,6 +188,10 @@ const Createshop = () => {
               </div>
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">เวลาทำงาน</h1>
+                <div className="flex">
+                <TimePicker onChange={(event) => setStartTime(event)} format="HH:mm" showSecond={false} minuteStep={5} placeholder="ตั้งแต่"/>
+                <TimePicker onChange={(event) => setEndTime(event)} format="HH:mm" showSecond={false} minuteStep={5} placeholder="ถึง"/>
+                </div>
                 <input onChange={(event) => setTimework(event.target.value)} type="text" value={timework} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
               </div>
               <div className="flex flex-col">

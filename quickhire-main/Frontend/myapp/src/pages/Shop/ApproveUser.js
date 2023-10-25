@@ -12,10 +12,10 @@ export const ApproveUser = () => {
   const [noti, setNoti] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [acceptTriggerAccOrDenie, setAcceptTriggerAccOrDenie] = useState(false);
-  const triggerAccOrDenie = () => {
-    setAcceptTriggerAccOrDenie(!acceptTriggerAccOrDenie);
-  };
+  // const [acceptTriggerAccOrDenie, setAcceptTriggerAccOrDenie] = useState(false);
+  // const triggerAccOrDenie = () => {
+  //   setAcceptTriggerAccOrDenie(!acceptTriggerAccOrDenie);
+  // };
 
   const showNoti = async (email) => {
     if (role === "user") {
@@ -34,17 +34,24 @@ export const ApproveUser = () => {
     }, 2000);
   };
 
+  const triggerAccOrDenie = () => {
+    setTimeout(() => {
+      showNoti(email);
+      setLoading(true);
+    }, 2000);
+  };
+
   useEffect(() => {
-    showNoti(email);
     setLoading(true);
-  }, [acceptTriggerAccOrDenie]);
+    showNoti(email);
+  }, []);
 
   return (
     <>
       {loading ? (
         <LoadingPage />
       ) : (
-        <div className="flex flex-col">
+        <div className="flex flex-col mx-auto min-h-[100vh]">
           <Navbar />
           <div className="flex justify-center text-2xl mb-6 mt-5 font-medium">{role == "shop" ? "คัดเลือกผู้สมัครงาน" : "ประวัติการสมัครงาน"}</div>
           <div>
@@ -59,7 +66,9 @@ export const ApproveUser = () => {
                 })}
             </div>
           </div>
+          <div className="">
           <Footer />
+          </div>
         </div>
       )}
     </>
