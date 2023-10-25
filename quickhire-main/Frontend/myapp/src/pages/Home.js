@@ -66,7 +66,7 @@ function Home() {
             <img src={banner} className="mx-2 mt-2 md:mt-0 md:mx-10" alt="img" />
             <h1 className="mx-auto mt-7 font-semibold md:text-3xl">ค้นหางานพาร์ทไทม์ที่ใช่สำหรับคุณ</h1>
             <h1 className="mx-auto mt-3 font-semibold md:text-2xl">งานทั้งหมด</h1>
-            <h1 className="mx-auto font-semibold md:text-2xl">จำนวน {role === "user" && allJobsUserNotApply.length != 0 && jobs.length != 0 ? allJobsUserNotApply?.length : jobs?.length} งาน</h1>
+            <h1 className="mx-auto font-semibold md:text-2xl">จำนวน {role === "user" && allJobsUserNotApply.length != 0 ? allJobsUserNotApply?.length : 0} งาน</h1>
           </div>
           <div className="flex justify-between my-4 md:text-3xl font-medium items-center ">
             <h1 className="ml-4 my-4 md:text-3xl font-medium md:ml-[6.5rem]">งาน Part time ล่าสุด</h1>

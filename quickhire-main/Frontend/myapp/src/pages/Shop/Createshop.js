@@ -148,7 +148,7 @@ const Createshop = () => {
                   <div className="flex flex-col justify-center">
                     <label htmlFor="imageInput">
                       {imageURL.length > 0 ? (
-                        <SwapImage images={imageURL}></SwapImage>
+                        <SwapImage images={imageURL} forProfile={true}></SwapImage>
                       ) : (
                         // <img src={image} alt="Preview" className="max-w-[200px] max-h-[200px] md:max-w-[400px] md:max-h-[400px] rounded-full mx-auto cursor-pointer" />;
                         <div className="w-[200px] h-[200px] md:w-[400px] md:h-[400px] border-dashed border-4 border-sky-500 rounded-xl mx-auto cursor-pointer">
