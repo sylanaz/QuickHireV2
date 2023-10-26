@@ -6,8 +6,8 @@ import tiktok from "../img/tiktok.png";
 import { Link } from "react-router-dom";
 function Footer() {
   return (
-    <div className="flex flex-shrink-0 ">
-      <div className="grid grid-cols-3 text-xs gap-2 mt-8 bg-cyan-900 text-white rounded-t-2xl pt-4 w-full bottom-0 ">
+    <div className="">
+      <div className="grid grid-cols-3 text-xs gap-2 mt-7  bg-cyan-900 text-white rounded-t-2xl pt-4 w-full bottom-0 ">
         <div className="hidden md:block  md:place-self-center md:px-3">
           <img src={logo} alt="/" className="w-28 -mt-7 mx-auto"></img>
           <div className="md:place-self-center">

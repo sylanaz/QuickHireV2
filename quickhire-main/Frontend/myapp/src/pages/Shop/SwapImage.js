@@ -24,13 +24,13 @@ const SwapImage = ({ images, forProfile }) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row justify-center">
-        <button onClick={goToPrevious} className="my-auto w-[1.5rem] bg-[#EF4444] text-white rounded mr-5">
+        <button onClick={goToPrevious} className="my-auto w-[2.5rem] bg-[#EF4444] text-white rounded mr-5 ">
           <span className="text-2xl font-bold">&#171;</span>
         </button>
         <div className="flex flex-col">
           <img src={images[currentIndex]} alt={`Image ${currentIndex + 1}`} className={`${styleImage} rounded mx-auto cursor-pointer`} />
         </div>
-        <button onClick={goToNext} className="my-auto w-[1.5rem] bg-[#EF4444] text-white rounded ml-5">
+        <button onClick={goToNext} className="my-auto w-[2.5rem] bg-[#EF4444] text-white rounded ml-5">
           <span className="text-2xl font-bold">&#187;</span>
         </button>
       </div>
