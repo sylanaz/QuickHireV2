@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 export const RegisterOrg = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullname, setFullname] = useState("");
-  // const [lastname, setLastname] = useState("");
+  const [secondPassword, setSecondPassword] = useState("");
+  // const [fullname, setFullname] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [telnumber, setTelnumber] = useState("");
   // const [shop, setShop] = useState("");
   const onFinish = async (event) => {
