@@ -6,8 +6,7 @@ export const RegisterOrg = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullname, setFullname] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  // const [lastname, setLastname] = useState("");
   const [telnumber, setTelnumber] = useState("");
   // const [shop, setShop] = useState("");
   const onFinish = async (event) => {
@@ -30,6 +29,19 @@ export const RegisterOrg = () => {
         window.location.replace("/");
       });
   };
+
+  const checkSubmitBTN = () => {
+    if (email === "" && password === "" && secondPassword === "" && firstname === "" && lastname === "" && telnumber === "") {
+      return true;
+    } else {
+      if (password == secondPassword) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
   return (
     <section className="bg-gray-50 min-h-screen flex flex-col items-center justify-center ">
       <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-xs md:max-w-3xl p-5 items-center">
@@ -40,16 +52,16 @@ export const RegisterOrg = () => {
           </h2>
           <form action="" className="flex flex-col" onSubmit={onFinish}>
             <div className="flex gap-3">
-              <input type="text" name="name" placeholder="ชื่อ" className="p-2 mt-8 rounded-xl border w-1/2" value={firstname} onChange={(event) => setFirstname(event.target.value)} required></input>
-              <input type="text" name="surname" placeholder="นามสกุล" className="p-2 mt-8 rounded-xl border w-1/2" value={lastname} onChange={(event) => setLastname(event.target.value)} required></input>
+              <input type="text" onChange={e => setFirstname(e.target.value)} name="name" placeholder="ชื่อ" className="p-2 mt-8 rounded-xl border w-1/2"></input>
+              <input type="text" onChange={e => setLastname(e.target.value)} name="surname" placeholder="นามสกุล" className="p-2 mt-8 rounded-xl border w-1/2"></input>
             </div>
-            <input type="text" name="storename" placeholder="ชื่อร้านค้า" className="p-2 mt-5 rounded-xl border"></input>
-            <input type="text" name="email" placeholder="อีเมล์" className="p-2 mt-5 rounded-xl border" value={email} onChange={(event) => setEmail(event.target.value)} required></input>
-            <input type="text" name="password" placeholder="รหัสผ่าน" className="p-2 mt-5 rounded-xl border" required></input>
-            <input type="text" name="password" placeholder="ยืนยันรหัสผ่าน" className="p-2 mt-5 rounded-xl border" value={password} onChange={(event) => setPassword(event.target.value)} required></input>
-            <input type="text" name="tel" placeholder="เบอร์โทร" className="p-2 mt-5 rounded-xl border" value={telnumber} onChange={(event) => setTelnumber(event.target.value)} required></input>
+            {/* <input type="text" name="storename" placeholder="ชื่อร้านค้า" className="p-2 mt-5 rounded-xl border"></input> */}
+            <input type="text" onChange={e => setEmail(e.target.value)} name="email" placeholder="อีเมล์" className="p-2 mt-5 rounded-xl border"></input>
+            <input type="text" onChange={e => setPassword(e.target.value)} name="password" placeholder="รหัสผ่าน" className="p-2 mt-5 rounded-xl border"></input>
+            <input type="text" onChange={e => setSecondPassword(e.target.value)} name="password2" placeholder="ยืนยันรหัสผ่าน" className="p-2 mt-5 rounded-xl border"></input>
+            <input type="text" onChange={e => setTelnumber(e.target.value)} name="tel" placeholder="เบอร์โทร" className="p-2 mt-5 rounded-xl border"></input>
             <div className="flex justify-center items-center">
-              <button type="submit" className="bg-emerald-400 text-cyan-950 mt-5 rounded-full hover:bg-emerald-300 duration-300 w-60 p-2 font-semibold">
+              <button type="submit" disabled={checkSubmitBTN()} className="bg-emerald-400 text-cyan-950 mt-5 rounded-full hover:bg-emerald-300 duration-300 w-60 p-2 font-semibold">
                 สมัครสมาชิก
               </button>
             </div>

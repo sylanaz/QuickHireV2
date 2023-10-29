@@ -58,7 +58,7 @@ function App() {
           <Route path="/Home" element={<Home />} />
           <Route path="/Profile" element={<Createprofile />} />
           <Route path="/Apply" element={<Createprofile />} />
-          <Route path="/Editprofile/:id" element={<Createprofile />} />
+          {/* <Route path="/Editprofile/:id" element={<Createprofile />} /> */}
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Job" element={<Createprofile />} />
         </Routes>
