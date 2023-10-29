@@ -1,10 +1,11 @@
 import axios from "axios";
 import React from "react";
 import Swal from "sweetalert2";
+import CryptoJS from "crypto-js";
 
 const AccAndDenie = ({ acc_denie, user_email, user_fullname, shopname, triggerAccOrDenie }) => {
-  const email_shopname = localStorage.getItem("user");
-
+ 
+  const email_shopname = localStorage.getItem("user") && CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
   const text = acc_denie ? "ยอมรับ" : "ปฏิเสธ";
   const style = acc_denie ? "text-[#1EC125] border-[#1EC125]" : "text-[#DE3C00] border-[#DE3C00]";
 

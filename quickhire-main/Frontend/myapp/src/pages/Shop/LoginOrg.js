@@ -3,10 +3,11 @@ import org from "../../img/org.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { ScreenMode } from "../LoginMain";
+import CryptoJS from "crypto-js";
 
 export const LoginOrg = ({ onSwitchMode }) => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [getpassword, setPassword] = useState("");
   const [show, setshow] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -27,15 +28,16 @@ export const LoginOrg = ({ onSwitchMode }) => {
       return;
     }
 
-    if (!password) {
+    if (!getpassword) {
       setPasswordError("Please enter your password.");
       return;
     }
 
+    const password = CryptoJS.AES.encrypt(getpassword, process.env.REACT_APP_ENCRYPT_KEY).toString();
     axios.post(`${process.env.REACT_APP_API}validatePasswordShop`, { email, password }).then((res) => {
       if (res.data.validation) {
         localStorage.setItem("accessToken", "Logged In");
-        localStorage.setItem("user", email);
+        localStorage.setItem("user", CryptoJS.AES.encrypt(email, process.env.REACT_APP_ENCRYPT_KEY).toString());
         localStorage.setItem("newuser", res.data.newuser);
         localStorage.setItem("role", res.data.role);
         window.location.replace("/");
@@ -58,7 +60,7 @@ export const LoginOrg = ({ onSwitchMode }) => {
             <input type="text" name="email" placeholder="อีเมล์" className="p-2 mt-8 rounded-xl border" value={email} onChange={(e) => setEmail(e.target.value)}></input>
             <span className="text-red-500">{emailError}</span>
             <div className="relative">
-              <input type={show === false ? "password" : "text"} name="password" placeholder="รหัสผ่าน" className="p-2 rounded-xl border w-full" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+              <input type={show === false ? "password" : "text"} name="password" placeholder="รหัสผ่าน" className="p-2 rounded-xl border w-full" value={getpassword} onChange={(e) => setPassword(e.target.value)}></input>
               <div className="absolute top-1/2 right-3 -translate-y-1/2">
                 {show === false ? (
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-eye " viewBox="0 0 16 16" onClick={toShow}>

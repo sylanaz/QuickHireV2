@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import camera from "../img/camera.png";
 import Datepicker from "flowbite-datepicker/Datepicker";
 import SwapImage from "./Shop/SwapImage";
-
+import CryptoJS from "crypto-js";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { useParams } from "react-router-dom";
@@ -18,35 +18,56 @@ const Createprofile = () => {
   const [currentIndex, setCurrentIndex] = useState(0); // Keep track of the current stage index
   const currentStage = stages[currentIndex]; // Get the current stage name
   const [selectedImage, setSelectedImage] = useState(null);
-  const [Imageblob, setImageblob] = useState(null);
-  const [crop, setCrop] = useState({ aspect: 1 / 1 }); // Set the aspect ratio here
-  const [showModal, setShowModal] = React.useState(false);
+  // const [Imageblob, setImageblob] = useState(null);
+  // const [crop, setCrop] = useState({ aspect: 1 / 1 }); // Set the aspect ratio here
+  // const [showModal, setShowModal] = React.useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [getfirstname, setFirstname] = useState("");
+  const [getlastname, setLastname] = useState("");
   // const [fullname, setFullname] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [sex, setSex] = useState("");
-  const [telnumber, setTelnumber] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [national, setNational] = useState("");
+  const [getnickname, setNickname] = useState("");
+  const [getsex, setSex] = useState("");
+  const [gettelnumber, setTelnumber] = useState("");
+  const [getbirthdate, setBirthdate] = useState("");
+  const [getnational, setNational] = useState("");
   const [area, setArea] = useState("");
-  const [degree, setDegree] = useState("");
-  const [workexp, setWorkexp] = useState("");
-  const [thailevel, setThailevel] = useState("");
-  const [englevel, setEnglevel] = useState("");
-  const [vehicle, setVehicle] = useState("");
-  const [talent, setTalent] = useState("");
+  const [getdegree, setDegree] = useState("");
+  const [getworkexp, setWorkexp] = useState("");
+  const [getthailevel, setThailevel] = useState("");
+  const [getenglevel, setEnglevel] = useState("");
+  const [getvehicle, setVehicle] = useState("");
+  const [gettalent, setTalent] = useState("");
   const [email, setEmail] = useState("");
 
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setEmail(CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8));
+  },[])
+
+  const enCryptData = (data) => {
+    return CryptoJS.AES.encrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString()
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const imageJSON = JSON.stringify(selectedImage);
-    const fullname = firstname + " " + lastname;
+    const getfullname = getfirstname + " " + getlastname;
+
+    const fullname = enCryptData(getfullname);
+    const nickname = enCryptData(getnickname);
+    const sex = enCryptData(getsex);
+    const telnumber = enCryptData(gettelnumber);
+    const birthdate = enCryptData(getbirthdate);
+    const national = enCryptData(getnational);
+    const degree = enCryptData(getdegree);
+    const workexp = enCryptData(getworkexp);
+    const thailevel = enCryptData(getthailevel);
+    const englevel = enCryptData(getenglevel);
+    const vehicle = enCryptData(getvehicle);
+    const talent = enCryptData(gettalent);
 
     axios
       .post(`${process.env.REACT_APP_API}uploadUserinfo/${email}`, {
@@ -111,22 +132,28 @@ const Createprofile = () => {
       }
     }
   };
+
+  const deCryptData = (data) => {
+    return CryptoJS.AES.decrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8)
+  }
+
   const getOldData = async () => {
     await axios.get(`${process.env.REACT_APP_API}getSpecificDataUser/${id}`).then((data) => {
-      setFirstname(data.data.fullname.split(" ")[0]);
-      setLastname(data.data.fullname.split(" ")[1]);
-      setTelnumber(data.data.telnumber);
-      setNickname(data.data.nickname);
-      setSex(data.data.sex);
-      setBirthdate(data.data.birthdate);
-      setNational(data.data.national);
-      setArea(data.data.area);
-      setDegree(data.data.degree);
-      setWorkexp(data.data.workexp);
-      setThailevel(data.data.thailevel);
-      setEnglevel(data.data.englevel);
-      setVehicle(data.data.vehicle);
-      setTalent(data.data.talent);
+      const fullname = deCryptData(data.data.fullname);
+      setFirstname(fullname.split(" ")[0]);
+      setLastname(fullname.split(" ")[1]);
+      setTelnumber(deCryptData(data.data.telnumber));
+      setNickname(deCryptData(data.data.nickname));
+      setSex(deCryptData(data.data.sex));
+      setBirthdate(deCryptData(data.data.birthdate));
+      setNational(deCryptData(data.data.national));
+      setArea(deCryptData(data.data.area));
+      setDegree(deCryptData(data.data.degree));
+      setWorkexp(deCryptData(data.data.workexp));
+      setThailevel(deCryptData(data.data.thailevel));
+      setEnglevel(deCryptData(data.data.englevel));
+      setVehicle(deCryptData(data.data.vehicle));
+      setTalent(deCryptData(data.data.talent));
       setEmail(data.data.email);
       setSelectedImage(JSON.parse(data.data.img));
       setLoading(false);
@@ -166,11 +193,11 @@ const Createprofile = () => {
   };
 
   const isFormComplete = () => {
-    const personalInfoComplete = selectedImage && firstname.trim() !== "" && lastname.trim() !== "" && nickname.trim() !== "" && sex.trim() !== "" && birthdate.trim() !== "" && national.trim() !== "" && email.trim() !== "" && telnumber.trim() !== "";
+    const personalInfoComplete = selectedImage && getfirstname.trim() !== "" && getlastname.trim() !== "" && getnickname.trim() !== "" && getsex.trim() !== "" && getbirthdate.trim() !== "" && getnational.trim() !== "" && email.trim() !== "" && gettelnumber.trim() !== "";
 
-    const educationAndWorkComplete = degree.trim() !== "" && workexp.trim() !== "";
+    const educationAndWorkComplete = getdegree.trim() !== "" && getworkexp.trim() !== "";
 
-    const abilitiesComplete = thailevel.trim() !== "" && englevel.trim() !== "" && vehicle.trim() !== "";
+    const abilitiesComplete = getthailevel.trim() !== "" && getenglevel.trim() !== "" && getvehicle.trim() !== "";
 
     // Check if all stages are complete
     return personalInfoComplete && educationAndWorkComplete && abilitiesComplete;
@@ -267,11 +294,11 @@ const Createprofile = () => {
               <div className="mx-10">
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ชื่อจริง</h1>
-                  <input onChange={(event) => setFirstname(event.target.value)} type="text" value={firstname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setFirstname(event.target.value)} type="text" value={getfirstname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">นามสกุล</h1>
-                  <input onChange={(event) => setLastname(event.target.value)} type="text" value={lastname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setLastname(event.target.value)} type="text" value={getlastname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                   <h1 className="text-orange-400 font-medium mt-2"> โปรดระบุข้อมูลจริงตามบัตรประชาชน เนื่องจากมีผลต่อการสมัครงาน</h1>
                 </div>
                 {/* <div className="flex flex-col">
@@ -282,21 +309,21 @@ const Createprofile = () => {
 
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ชื่อเล่น</h1>
-                  <input onChange={(event) => setNickname(event.target.value)} type="text" value={nickname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setNickname(event.target.value)} type="text" value={getnickname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                 </div>
 
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">เพศ</h1>
-                  <input onChange={(event) => setSex(event.target.value)} type="text" value={sex} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setSex(event.target.value)} type="text" value={getsex} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">วัน/เดือน/ปี เกิด</h1>
-                  <input onChange={(event) => setBirthdate(event.target.value)} type="date" value={birthdate} className="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setBirthdate(event.target.value)} type="date" value={getbirthdate} className="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                   {/* <input onChange={(event) => setBirthdate(event.target.value)} type="text" value={birthdate} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="00/00/0000"></input> */}
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">สัญชาติ</h1>
-                  <input onChange={(event) => setNational(event.target.value)} type="text" value={national} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setNational(event.target.value)} type="text" value={getnational} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                 </div>
                 {/* <div className="flex flex-col">
               <h1 className="m-3 text-xl font-medium">พื้นที่สะดวกรับงาน</h1>
@@ -304,11 +331,12 @@ const Createprofile = () => {
             </div> */}
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">Email</h1>
-                  <input onChange={(event) => setEmail(event.target.value)} type="text" value={email} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input disabled={true} type="text" value={email} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  {/* <input onChange={(event) => setEmail(event.target.value)} type="text" value={email} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input> */}
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">เบอร์โทรศัพท์</h1>
-                  <input onChange={(event) => setTelnumber(event.target.value)} type="text" value={telnumber} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setTelnumber(event.target.value)} type="text" value={gettelnumber} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                 </div>
               </div>
             </div>
@@ -322,7 +350,7 @@ const Createprofile = () => {
                   <input
                     onChange={(event) => setDegree(event.target.value)}
                     type="text"
-                    value={degree}
+                    value={getdegree}
                     className="h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="เช่น จบการศึกษามัธยมศึกษาปีที่6 ที่โรงเรียนชุมแพศึกษา
 จบการศึกษาปริญญาตรีจากคณะวิทยาศาสตร์ สาขาฟิสิกส์ มหาวิทยาลัยขอนแก่น
@@ -335,7 +363,7 @@ const Createprofile = () => {
                 </div>
                 <div className="flex flex-col ">
                   <h1 className="m-3 text-xl font-medium">ประวัติการทำงาน/ฝึกงาน (อธิบายโดยละเอียด)</h1>
-                  <input onChange={(event) => setWorkexp(event.target.value)} type="text" value={workexp} class=" h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ปี 2020-2022 เป็นพนักงานทำความสะอาด ที่โรงพยาบาลขอนแก่น ได้รับหน้าที่ดูแลความสะอาดบริเวณตึกผู้ป่วย A B C เป็นต้น  หากไม่เคยมีประสบการณ์ทำงานให้กรอก ไม่มีประสบการณ์ทำงาน"></input>
+                  <input onChange={(event) => setWorkexp(event.target.value)} type="text" value={getworkexp} class=" h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ปี 2020-2022 เป็นพนักงานทำความสะอาด ที่โรงพยาบาลขอนแก่น ได้รับหน้าที่ดูแลความสะอาดบริเวณตึกผู้ป่วย A B C เป็นต้น  หากไม่เคยมีประสบการณ์ทำงานให้กรอก ไม่มีประสบการณ์ทำงาน"></input>
                 </div>
                 <div>
                   <h1 className="m-3 text-xl font-medium">หลักฐานการฝึกงาน/ทำงาน (ถ้ามี)</h1>
@@ -351,19 +379,19 @@ const Createprofile = () => {
               <div className="mx-10">
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ความสามารถด้านภาษา (ไทย)</h1>
-                  <input onChange={(event) => setThailevel(event.target.value)} type="text" value={thailevel} class="h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ฟัง พูด อ่าน เขียน ได้"></input>
+                  <input onChange={(event) => setThailevel(event.target.value)} type="text" value={getthailevel} class="h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ฟัง พูด อ่าน เขียน ได้"></input>
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ความสามารถด้านภาษา (อังกฤษ)</h1>
-                  <input onChange={(event) => setEnglevel(event.target.value)} type="text" value={englevel} class="h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ฟัง พูด อ่าน เขียน ได้"></input>
+                  <input onChange={(event) => setEnglevel(event.target.value)} type="text" value={getenglevel} class="h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ฟัง พูด อ่าน เขียน ได้"></input>
                 </div>
                 <div className="flex flex-col ">
                   <h1 className="m-3 text-xl font-medium">ความสามารถในการขับรถ</h1>
-                  <input onChange={(event) => setVehicle(event.target.value)} type="text" value={vehicle} class=" h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ไม่มีใบขับขี่ รถจักรยานยนต์ รถยนต์ รถบรรทุก"></input>
+                  <input onChange={(event) => setVehicle(event.target.value)} type="text" value={getvehicle} class=" h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ไม่มีใบขับขี่ รถจักรยานยนต์ รถยนต์ รถบรรทุก"></input>
                 </div>
                 {/* <div className="flex flex-col ">
               <h1 className="m-3 text-xl font-medium">ความสามารถพิเศษ</h1>
-              <input onChange={(event) => setTalent(event.target.value)} type="text" value={talent} class="  h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น คอมพิวเตอร์ ทำอาหาร ว่ายนํ้า เล่นดนตรี"></input>
+              <input onChange={(event) => setTalent(event.target.value)} type="text" value={gettalent} class="  h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น คอมพิวเตอร์ ทำอาหาร ว่ายนํ้า เล่นดนตรี"></input>
             </div> */}
                 <div className="flex mx-auto mt-10">
                   {/* <button className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3" onClick={handleSubmit}>
