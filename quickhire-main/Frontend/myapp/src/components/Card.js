@@ -12,13 +12,15 @@ import axios from "axios";
 import SwapImage from "../pages/Shop/SwapImage";
 import { EditBTN } from "../pages/Shop/EditBTN";
 import DescBTN from "../pages/BTN/DescBTN";
+import DeleteBTN from "../pages/BTN/DeleteBTN";
 import Swal from "sweetalert2";
+import CryptoJS from "crypto-js";
 
-function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob, showHistory, status_appove, date_month_year, editBTN }) {
+function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob, showHistory, status_appove, date_month_year, editBTN, triggerShopDeleteJob }) {
   const [showModal, setShowModal] = React.useState(false);
-  const useremail = localStorage.getItem("user");
+  const useremail = localStorage.getItem("user") && CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);;
   const status = "pending";
-  const role = localStorage.getItem("role");
+  const role = localStorage.getItem("role") && CryptoJS.AES.decrypt(localStorage.getItem("role"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);;
   const [user_fullname, setUser_Fullname] = useState("");
   const getUserFullname = async () => {
     const userFullName = await axios.get(`${process.env.REACT_APP_API}getUserinfo/${useremail}`);
@@ -215,6 +217,7 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                           {email === useremail && editBTN && (
                             <div className="mr-2">
                               <EditBTN id={id} />
+                              <DeleteBTN id={id} triggerShopDeleteJob={triggerShopDeleteJob} onClick={() => setShowModal(false)}/>
                             </div>
                           )}
                           <button className=" bg-red-500 rounded text-white font-bold uppercase px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base outline-none focus:outline-none ease-linear transition-all duration-150 m-2 sm:m-1" type="button" onClick={() => setShowModal(false)}>

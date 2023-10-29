@@ -5,10 +5,11 @@ import Mail from "../Mailbox/mail";
 import { getUserApplyJob } from "../../data/userApplyJob";
 import { shopNoti } from "../../data/shopApplyUsers";
 import LoadingPage from "../LoadingPage";
+import CryptoJS from "crypto-js";
 
 export const ApproveUser = () => {
-  const role = localStorage.getItem("role");
-  const email = localStorage.getItem("user");
+  const role = localStorage.getItem("role") && CryptoJS.AES.decrypt(localStorage.getItem("role"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+  const email = localStorage.getItem("user") && CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
   const [noti, setNoti] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -67,7 +68,7 @@ export const ApproveUser = () => {
             </div>
           </div>
           <div className="">
-          <Footer />
+            <Footer />
           </div>
         </div>
       )}

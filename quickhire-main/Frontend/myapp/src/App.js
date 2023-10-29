@@ -19,13 +19,12 @@ import { LoginEmpl } from "../src/pages/LoginEmpl";
 import { RegisterEmpl } from "../src/pages/RegisterEmpl";
 import { ChooseLogin } from "./pages/ChooseLogin";
 import { RegisterOrg } from "./pages/Shop/RegisterOrg";
+import CryptoJS from "crypto-js";
 
 function App() {
   const token = localStorage.getItem("accessToken");
-  const role = localStorage.getItem("role");
+  const role = localStorage.getItem("role") && CryptoJS.AES.decrypt(localStorage.getItem("role"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
   const newuser = localStorage.getItem("newuser");
-  console.log(newuser);
-  console.log(role);
 
   if (!token) {
     return (

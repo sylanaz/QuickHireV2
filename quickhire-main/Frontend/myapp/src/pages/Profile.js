@@ -6,11 +6,15 @@ import { Link } from "react-router-dom";
 import date from "../data/date";
 import SwapImage from "./Shop/SwapImage";
 import LoadingPage from "./LoadingPage";
+import CryptoJS from "crypto-js";
 
 function Profile() {
-  const user = localStorage.getItem("user");
-
+  const user = CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
   const [userData, setUserData] = useState(null);
+
+  const deCryptoData = (data) => {
+    return CryptoJS.AES.decrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +31,7 @@ function Profile() {
 
     fetchData();
   }, []);
-  const birthYear = userData ? new Date(userData.birthdate).getFullYear() : 0;
+  const birthYear = userData ? new Date(deCryptoData(userData.birthdate)).getFullYear() : 0;
   const currentYear = new Date().getFullYear();
   const age = currentYear - birthYear;
 
@@ -49,13 +53,13 @@ function Profile() {
             <div className="flex flex-col mx-auto justify-center">
               {/* <img className="w-[200px] h-[200px] rounded-full mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img> */}
               <div className="">{userData.img !== null && <SwapImage images={JSON.parse(userData.img)} forProfile={true} />}</div>
-              <h1 className="mx-auto mt-4">{userData.nickname}</h1>
-              <h1 className="mx-auto mt-4 text-2xl">{userData.fullname}</h1>
+              <h1 className="mx-auto mt-4">{deCryptoData(userData.nickname)}</h1>
+              <h1 className="mx-auto mt-4 text-2xl">{deCryptoData(userData.fullname)}</h1>
               <h1 className="mx-auto mt-4">
-                {userData.birthdate} อายุ {age} ปี
+                {deCryptoData(userData.birthdate)} อายุ {age} ปี
               </h1>
               <h1 className="mx-auto ">
-                เพศ {userData.sex} สัญชาติ {userData.national}
+                เพศ {deCryptoData(userData.sex)} สัญชาติ {deCryptoData(userData.national)}
               </h1>
             </div>
 
@@ -65,7 +69,7 @@ function Profile() {
                   <h1>ประวัติการศึกษา</h1>
                 </div>
                 <div className=" rounded-2xl bg-slate-100 h-64 min-w-[250px]">
-                  <h1 className="p-10 ">{userData.degree}</h1>
+                  <h1 className="p-10 ">{deCryptoData(userData.degree)}</h1>
                 </div>
               </div>
 
@@ -74,7 +78,7 @@ function Profile() {
                   <h1>ประวัติการทำงาน / ฝึกงาน</h1>
                 </div>
                 <div className=" rounded-2xl bg-slate-100 h-64">
-                  <h1 className="p-10">{userData.workexp}</h1>
+                  <h1 className="p-10">{deCryptoData(userData.workexp)}</h1>
                 </div>
               </div>
             </div>
@@ -87,7 +91,7 @@ function Profile() {
               </div>
               <div className=" rounded-2xl bg-slate-100 h-32">
                 <h1 className="p-10">
-                  ภาษาไทย : {userData.thailevel} / ภาษาอังกฤษ : {userData.englevel}
+                  ภาษาไทย : {deCryptoData(userData.thailevel)} / ภาษาอังกฤษ : {deCryptoData(userData.englevel)}
                 </h1>
               </div>
             </div>
@@ -97,7 +101,7 @@ function Profile() {
                 <h1>ความสามารถในการขับรถ</h1>
               </div>
               <div className=" rounded-2xl bg-slate-100 h-32">
-                <h1 className="p-10">{userData.vehicle}</h1>
+                <h1 className="p-10">{deCryptoData(userData.vehicle)}</h1>
               </div>
             </div>
             <div className="relative mx-10">
@@ -105,7 +109,7 @@ function Profile() {
                 <h1>ความสามารถพิเศษ</h1>
               </div>
               <div className=" rounded-2xl bg-slate-100 h-32">
-                <h1 className="p-10">{userData.talent}</h1>
+                <h1 className="p-10">{deCryptoData(userData.talent)}</h1>
               </div>
             </div>
           </div>

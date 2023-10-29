@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import logo from "../img/logo.png";
+import CryptoJS from "crypto-js";
 
 function Navbar() {
   const token = localStorage.getItem("accessToken");
-  const role = localStorage.getItem("role");
+  const role = localStorage.getItem("role") && CryptoJS.AES.decrypt(localStorage.getItem("role"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
 
   const [menuOpen, setMenuOpen] = useState(false);
   // const [showNewContent, setShowNewContent] = useState(false);

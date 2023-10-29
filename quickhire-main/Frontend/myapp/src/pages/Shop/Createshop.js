@@ -7,7 +7,11 @@ import camera from "../../img/camera.png";
 import "react-image-crop/dist/ReactCrop.css";
 import SwapImage from "./SwapImage";
 import LoadingPage from "../LoadingPage";
-import { TimePicker } from 'antd';
+import { TimePicker } from "antd";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import dayjs from "dayjs";
+import CryptoJS from "crypto-js";
 
 const Createshop = () => {
   const { id } = useParams();
@@ -27,6 +31,26 @@ const Createshop = () => {
   const [jobdesc, setJobdesc] = useState("");
   const [peopleneed, setPeopleneed] = useState("");
 
+  // Time range picker
+  const [timeFrom, setTimeFrom] = useState(null);
+  const [timeTo, setTimeTo] = useState(null);
+  const [formatTimeFrom, setFormatTimeFrom] = useState(null);
+  const [formatTimeTo, setFormatTimeTo] = useState(null);
+  const [test, setTest] = useState(null);
+  // const [formatTime, setFormatTime] = useState(null);
+  const handleTimeFrom = (value, dateString) => {
+    setTimeFrom(value);
+    setFormatTimeFrom(dateString);
+  };
+  const handleTimeTo = (value, dateString) => {
+    setTimeTo(value);
+    setFormatTimeTo(dateString);
+  };
+
+  useEffect(() => {
+    setEmail(CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8));
+  },[]);
+
   // =====================================================
   const [imageURL, setImageURL] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -38,6 +62,8 @@ const Createshop = () => {
       setShopname(data.data.shopname);
       setLocation(data.data.location);
       setTimework(data.data.timework);
+      setTimeFrom(dayjs(data.data.timeFrom));
+      setTimeTo(dayjs(data.data.timeTo));
       setMoney(data.data.money);
       setLat(data.data.lats);
       setLong(data.data.longs);
@@ -58,6 +84,8 @@ const Createshop = () => {
     }
   }, []);
   // =====================================================
+
+  // =====================================================
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Only proceed with the upload if an image is selected
@@ -69,7 +97,10 @@ const Createshop = () => {
       shopname: shopname,
       workposition: workposition,
       jobdesc: jobdesc,
-      timework: timework,
+      timeFrom: timeFrom,
+      timeTo: timeTo,
+      timework: formatTimeFrom + " - " + formatTimeTo,
+      // formatTime: formatTime,
       money: money,
       peopleneed: peopleneed,
       welfare: welfare,
@@ -78,6 +109,7 @@ const Createshop = () => {
       longs: long,
       minilocation: minilocation,
       img: imageJSON,
+      test: test,
       // newuser: "old",
     };
     if (id == 0) {
@@ -128,10 +160,6 @@ const Createshop = () => {
     }
   };
 
-  const [startTIme, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-  console.log(startTIme.$H);
-
   return (
     <>
       {loading ? (
@@ -172,7 +200,7 @@ const Createshop = () => {
               </div>
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">Email</h1>
-                <input onChange={(event) => setEmail(event.target.value)} type="text" value={email} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                <input type="text" disabled={true} value={email} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
               </div>
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">เบอร์โทรศัพท์</h1>
@@ -189,10 +217,11 @@ const Createshop = () => {
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">เวลาทำงาน</h1>
                 <div className="flex">
-                <TimePicker onChange={(event) => setStartTime(event)} format="HH:mm" showSecond={false} minuteStep={5} placeholder="ตั้งแต่"/>
-                <TimePicker onChange={(event) => setEndTime(event)} format="HH:mm" showSecond={false} minuteStep={5} placeholder="ถึง"/>
+                  {/* <TimePicker.RangePicker onChange={handleChangeTime} value={test} format="HH:mm" showSecond={false} minuteStep={5} className=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" /> */}
+                  <TimePicker format="HH:mm" value={timeFrom} onChange={handleTimeFrom} showNow={false} showSecond={false} minuteStep={5} className=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+                  <TimePicker format="HH:mm" value={timeTo} onChange={handleTimeTo} showNow={false} showSecond={false} minuteStep={5} className=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
                 </div>
-                <input onChange={(event) => setTimework(event.target.value)} type="text" value={timework} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                {/* <input onChange={(event) => setTimework(event.target.value)} type="text" value={timework} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input> */}
               </div>
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">ค่าแรง / ชั่วโมง (บาท)</h1>

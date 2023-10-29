@@ -6,14 +6,25 @@ import banner from "../img/banner.png";
 import Card from "../components/Card";
 import { getUserApplyJob } from "../data/userApplyJob";
 import LoadingPage from "./LoadingPage";
+import CryptoJS from "crypto-js";
 
 function Home() {
   const [jobs, setJobs] = useState();
-  const email = localStorage.getItem("user");
-  const role = localStorage.getItem("role");
-  const [loading, setLoadind] =  useState(false);
+  const email = localStorage.getItem("user") && CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+  const role = localStorage.getItem("role") && CryptoJS.AES.decrypt(localStorage.getItem("role"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+  // const [email, setEmail] = useState();
+  // const [role, setRole] = useState();
+  // useEffect(() => {
+  //   if (localStorage.getItem("user") && localStorage.getItem("role")) {
+  //     setEmail(CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8))
+  //     setRole(CryptoJS.AES.decrypt(localStorage.getItem("role"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8))
+  //   }
+  //   console.log(email);
+  // },[])
+
+  const [loading, setLoadind] = useState(false);
   useEffect(() => {
-    setLoadind(true)
+    setLoadind(true);
     fetchJobs();
   }, []);
 
@@ -21,7 +32,7 @@ function Home() {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API}alljobs`);
       const jobsData = response.data;
-      setLoadind(false)
+      setLoadind(false);
       setJobs(jobsData);
     } catch (error) {
       console.error("Error fetching jobs:", error);
@@ -54,7 +65,7 @@ function Home() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const filteredCards = jobs ? jobs.filter((card) => card.shopname.toLowerCase().includes(searchTerm.toLowerCase())) : [];
-  
+
   return (
     <>
       {loading ? (
@@ -66,7 +77,7 @@ function Home() {
             <img src={banner} className="mx-2 mt-2 md:mt-0 md:mx-10" alt="img" />
             <h1 className="mx-auto mt-7 font-semibold md:text-3xl">ค้นหางานพาร์ทไทม์ที่ใช่สำหรับคุณ</h1>
             <h1 className="mx-auto mt-3 font-semibold md:text-2xl">งานทั้งหมด</h1>
-            <h1 className="mx-auto font-semibold md:text-2xl">จำนวน {role === "user" && allJobsUserNotApply.length != 0 ? allJobsUserNotApply?.length : 0} งาน</h1>
+            <h1 className="mx-auto font-semibold md:text-2xl">จำนวน {role === "user" ? (allJobsUserNotApply.length != 0 ? allJobsUserNotApply?.length : 0) : filteredCards.length != 0 ? filteredCards?.length : 0} งาน</h1>
           </div>
           <div className="flex justify-between my-4 md:text-3xl font-medium items-center ">
             <h1 className="ml-4 my-4 md:text-3xl font-medium md:ml-[6.5rem]">งาน Part time ล่าสุด</h1>

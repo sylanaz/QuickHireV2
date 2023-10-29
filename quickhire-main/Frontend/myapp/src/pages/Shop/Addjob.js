@@ -5,9 +5,10 @@ import axios from "axios";
 import Card from "../../components/Card";
 import CardAddJob from "./CardAddJob";
 import LoadingPage from "../LoadingPage";
+import CryptoJS from "crypto-js";
 
 const Addjob = () => {
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem("user") && CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -15,7 +16,7 @@ const Addjob = () => {
     const fetchData = async () => {
       try {
         // Replace this with the actual API endpoint
-        const response = await axios.get(`${process.env.REACT_APP_API}getAllShopinfo/${user}`);
+        const response = await axios.get(`${process.env.REACT_APP_API}getShopinfo/${user}`);
         setUserData(response.data);
         setLoading(false);
       } catch (error) {
@@ -27,6 +28,14 @@ const Addjob = () => {
     setLoading(true);
   }, []);
 
+  const triggerShopDeleteJob = () => {
+    setTimeout(() => {
+      const response = axios.get(`${process.env.REACT_APP_API}getShopinfo/${user}`);
+      setUserData(response.data);
+    }, 2000);
+  };
+  console.log(userData);
+
   return (
     <>
       {loading ? (
@@ -37,10 +46,10 @@ const Addjob = () => {
           <h1 className="text-2xl flex justify-center mb-6 mt-5 font-medium">สร้างประกาศรับสมัครพนักงาน</h1>
           <div className="grid grid-cols-2 md:grid-cols-4 m-auto gap-3 xl:gap-10 2xl:gap-16">
             <CardAddJob />
-            {userData !== null && (
+            {userData !== null && userData !== undefined && (
               <>
                 {userData.map((user, index) => (
-                  <Card key={index} id={user._id} restaurantName={user.shopname} minilocation={user.minilocation} position={user.workposition} hourlyIncome={user.money} img={JSON.parse(user.img)} lat={user.lats} long={user.longs} peopleneed={user.peopleneed} jobdesc={user.jobdesc} timework={user.timework} welfare={user.welfare} location={user.location} email={user.email} fullname={user.fullname} editBTN={true}/>
+                  <Card key={index} id={user._id} restaurantName={user.shopname} minilocation={user.minilocation} position={user.workposition} hourlyIncome={user.money} img={JSON.parse(user.img)} lat={user.lats} long={user.longs} peopleneed={user.peopleneed} jobdesc={user.jobdesc} timework={user.timework} welfare={user.welfare} location={user.location} email={user.email} fullname={user.fullname} editBTN={true} triggerShopDeleteJob={triggerShopDeleteJob} />
                 ))}
               </>
             )}

@@ -1,40 +1,49 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import CryptoJS from "crypto-js";
 
 export const RegisterOrg = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [secondPassword, setSecondPassword] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [telnumber, setTelnumber] = useState("");
+  const [getpassword, setPassword] = useState("");
+  const [getsecondPassword, setSecondPassword] = useState("");
+  const [getfirstname, setFirstname] = useState("");
+  const [getlastname, setLastname] = useState("");
+  const [gettelnumber, setTelnumber] = useState("");
   // const [shop, setShop] = useState("");
 
   const onFinish = async (event) => {
-    const fullname = firstname + " " + lastname;
+    const getfullname = getfirstname + " " + getlastname;
     event.preventDefault();
+
+    const ciphertextEmail = CryptoJS.AES.encrypt(email, process.env.REACT_APP_ENCRYPT_KEY).toString();
+    const password = CryptoJS.AES.encrypt(getpassword, process.env.REACT_APP_ENCRYPT_KEY).toString();
+    const fullname = CryptoJS.AES.encrypt(getfullname, process.env.REACT_APP_ENCRYPT_KEY).toString();
+    const telnumber = CryptoJS.AES.encrypt(gettelnumber, process.env.REACT_APP_ENCRYPT_KEY).toString();
+    const role = CryptoJS.AES.encrypt("shop", process.env.REACT_APP_ENCRYPT_KEY).toString();
+
     await axios
       .post(`${process.env.REACT_APP_API}insertShop`, {
         email,
         password,
         fullname,
         telnumber,
+        role,
       })
       .then((res) => {
         localStorage.setItem("accessToken", "Logged In");
-        localStorage.setItem("user", email);
-        localStorage.setItem("role", "shop");
+        localStorage.setItem("user", ciphertextEmail);
+        localStorage.setItem("role", role);
         localStorage.setItem("newuser", "new");
         window.location.replace("/");
       });
   };
 
   const checkSubmitBTN = () => {
-    if (email === "" && password === "" && secondPassword === "" && firstname === "" && lastname === "" && telnumber === "") {
+    if (email === "" && getpassword === "" && getsecondPassword === "" && getfirstname === "" && getlastname === "" && gettelnumber === "") {
       return true;
     } else {
-      if (password == secondPassword) {
+      if (getpassword == getsecondPassword) {
         return false;
       } else {
         return true;
