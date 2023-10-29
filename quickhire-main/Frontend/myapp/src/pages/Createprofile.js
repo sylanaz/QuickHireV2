@@ -39,16 +39,38 @@ const Createprofile = () => {
   const [getvehicle, setVehicle] = useState("");
   const [gettalent, setTalent] = useState("");
   const [email, setEmail] = useState("");
-
   const [loading, setLoading] = useState(false);
+  // const [newLanguage, setNewLanguage] = useState("");
+  const [languages, setLanguages] = useState([
+    { name: "", checkboxes: [false, false, false, false] },
+    { name: "", checkboxes: [false, false, false, false] },
+    { name: "", checkboxes: [false, false, false, false] },
+    { name: "", checkboxes: [false, false, false, false] },
+  ]);
+
+  const handleLanguageChange = (index, newName) => {
+    setLanguages((prevLanguages) => {
+      const updatedLanguages = [...prevLanguages];
+      updatedLanguages[index].name = newName;
+      return updatedLanguages;
+    });
+  };
+
+  const handleCheckboxChange = (languageIndex, checkboxIndex) => {
+    setLanguages((prevLanguages) => {
+      const updatedLanguages = [...prevLanguages];
+      updatedLanguages[languageIndex].checkboxes[checkboxIndex] = !updatedLanguages[languageIndex].checkboxes[checkboxIndex];
+      return updatedLanguages;
+    });
+  };
 
   useEffect(() => {
     setEmail(CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8));
-  },[])
+  }, []);
 
   const enCryptData = (data) => {
-    return CryptoJS.AES.encrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString()
-  }
+    return CryptoJS.AES.encrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString();
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -64,10 +86,10 @@ const Createprofile = () => {
     const national = enCryptData(getnational);
     const degree = enCryptData(getdegree);
     const workexp = enCryptData(getworkexp);
-    const thailevel = enCryptData(getthailevel);
-    const englevel = enCryptData(getenglevel);
-    const vehicle = enCryptData(getvehicle);
-    const talent = enCryptData(gettalent);
+    // const thailevel = enCryptData(getthailevel);
+    // const englevel = enCryptData(getenglevel);
+    // const vehicle = enCryptData(getvehicle);
+    // const talent = enCryptData(gettalent);
 
     axios
       .post(`${process.env.REACT_APP_API}uploadUserinfo/${email}`, {
@@ -80,10 +102,10 @@ const Createprofile = () => {
         area: area,
         degree: degree,
         workexp: workexp,
-        thailevel: thailevel,
-        englevel: englevel,
-        vehicle: vehicle,
-        talent: talent,
+        // thailevel: thailevel,
+        // englevel: englevel,
+        // vehicle: vehicle,
+        // talent: talent,
         img: imageJSON,
         email: email,
       })
@@ -134,8 +156,8 @@ const Createprofile = () => {
   };
 
   const deCryptData = (data) => {
-    return CryptoJS.AES.decrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8)
-  }
+    return CryptoJS.AES.decrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+  };
 
   const getOldData = async () => {
     await axios.get(`${process.env.REACT_APP_API}getSpecificDataUser/${id}`).then((data) => {
@@ -170,14 +192,14 @@ const Createprofile = () => {
 
   const stageLabels = {
     personalInfo: "ข้อมูลส่วนบุคคล",
-    educationAndWork: "ประวัติการศึกษาและการทำงาน/ฝึกงาน",
+    educationAndWork: "ประวัติการศึกษา และ การทำงาน/ฝึกงาน",
     abilities: "ความสามารถ",
   };
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
+  //   setSelectedFile(file);
+  // };
 
   const handlePrevClick = () => {
     if (currentIndex > 0) {
@@ -228,10 +250,10 @@ const Createprofile = () => {
       {loading ? (
         <LoadingPage />
       ) : (
-        <div className="Home mx-auto min-h-screen">
+        <div className="Home mx-auto min-h-fit">
           <Navbar></Navbar>
           <h1 className="flex justify-center text-2xl mt-5">กรอกข้อมูลสำหรับผู้สมัครงาน</h1>
-          <div className="flex flex-wrap justify-center gap-5 text-white mt-10 mx-10 text-center">
+          <div className="flex flex-wrap justify-center gap-7 md:gap-3 text-white mt-10 mx-10 text-center">
             {stages.map((stageName, index) => (
               <div
                 key={stageName}
@@ -239,7 +261,7 @@ const Createprofile = () => {
                 onClick={() => setCurrentIndex(index)}
                 style={{ flex: "1 0 calc(33.333% - 1rem)" }} // Adjust the width as needed
               >
-                <h1 className={`p-4 ${currentStage === stageName ? "text-white" : "text-gray-900"}`}>{stageLabels[stageName]}</h1>
+                <h1 className={`p-4 text-xl ${currentStage === stageName ? "text-white" : "text-gray-900"}`}>{stageLabels[stageName]}</h1>
                 <h1 className="text-xl font-bold absolute bg-orange-400 px-4 py-1 rounded-full -top-5 left-1/2 -translate-x-1/2">{index + 1}</h1>
               </div>
             ))}
@@ -294,11 +316,11 @@ const Createprofile = () => {
               <div className="mx-10">
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ชื่อจริง</h1>
-                  <input onChange={(event) => setFirstname(event.target.value)} type="text" value={getfirstname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setFirstname(event.target.value)} type="text" value={getfirstname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">นามสกุล</h1>
-                  <input onChange={(event) => setLastname(event.target.value)} type="text" value={getlastname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setLastname(event.target.value)} type="text" value={getlastname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                   <h1 className="text-orange-400 font-medium mt-2"> โปรดระบุข้อมูลจริงตามบัตรประชาชน เนื่องจากมีผลต่อการสมัครงาน</h1>
                 </div>
                 {/* <div className="flex flex-col">
@@ -309,21 +331,21 @@ const Createprofile = () => {
 
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ชื่อเล่น</h1>
-                  <input onChange={(event) => setNickname(event.target.value)} type="text" value={getnickname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setNickname(event.target.value)} type="text" value={getnickname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                 </div>
 
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">เพศ</h1>
-                  <input onChange={(event) => setSex(event.target.value)} type="text" value={getsex} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setSex(event.target.value)} type="text" value={getsex} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">วัน/เดือน/ปี เกิด</h1>
-                  <input onChange={(event) => setBirthdate(event.target.value)} type="date" value={getbirthdate} className="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setBirthdate(event.target.value)} type="date" value={getbirthdate} className="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                   {/* <input onChange={(event) => setBirthdate(event.target.value)} type="text" value={birthdate} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="00/00/0000"></input> */}
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">สัญชาติ</h1>
-                  <input onChange={(event) => setNational(event.target.value)} type="text" value={getnational} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setNational(event.target.value)} type="text" value={getnational} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                 </div>
                 {/* <div className="flex flex-col">
               <h1 className="m-3 text-xl font-medium">พื้นที่สะดวกรับงาน</h1>
@@ -331,12 +353,12 @@ const Createprofile = () => {
             </div> */}
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">Email</h1>
-                  <input disabled={true} type="text" value={email} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input disabled={true} type="text" value={email} class=" bg-slate-100 border-0  px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                   {/* <input onChange={(event) => setEmail(event.target.value)} type="text" value={email} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input> */}
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">เบอร์โทรศัพท์</h1>
-                  <input onChange={(event) => setTelnumber(event.target.value)} type="text" value={gettelnumber} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input onChange={(event) => setTelnumber(event.target.value)} type="text" value={gettelnumber} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
                 </div>
               </div>
             </div>
@@ -346,30 +368,30 @@ const Createprofile = () => {
             <div className="mt-4 mb-20">
               <div className="mx-10">
                 <div className="flex flex-col">
-                  <h1 className="m-3 text-xl font-medium">ประวัติการศึกษา (กำลังศึกษาอยู่/จบการศึกษา)</h1>
+                  <h1 className="m-3 text-xl font-medium break-words">ประวัติการศึกษา (กำลังศึกษาอยู่/จบการศึกษา)</h1>
                   <input
                     onChange={(event) => setDegree(event.target.value)}
                     type="text"
                     value={getdegree}
-                    className="h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    className="h-[9.5rem] bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="เช่น จบการศึกษามัธยมศึกษาปีที่6 ที่โรงเรียนชุมแพศึกษา
-จบการศึกษาปริญญาตรีจากคณะวิทยาศาสตร์ สาขาฟิสิกส์ มหาวิทยาลัยขอนแก่น
+จบการศึกษาปริญญาตรีจากคณะวิทยาศาสตร์ สาขาฟิสิกส์ 
 กำลังศึกษาปริญญาตรีคณะวิศวกรรมศาสตร์ มหาวิทยาลัยขอนแก่น เป็นต้น"
                   ></input>
                 </div>
-                <div>
+                {/* <div>
                   <h1 className="m-3 text-xl font-medium">หนังสือรับรองผลการศึกษา (ถ้ามี)</h1>
-                  {/* <input type="file" accept=".jpg, .jpeg, .png, .pdf"  onChange={handleFileChange}  className="w-[100%] md:w-full rounded-[10px] border-[1px] solid bg-cyan" /> */}
-                </div>
+                  <input type="file" accept=".jpg, .jpeg, .png, .pdf"  onChange={handleFileChange}  className="w-[100%] md:w-full rounded-[10px] border-[1px] solid bg-cyan" />
+                </div> */}
                 <div className="flex flex-col ">
-                  <h1 className="m-3 text-xl font-medium">ประวัติการทำงาน/ฝึกงาน (อธิบายโดยละเอียด)</h1>
-                  <input onChange={(event) => setWorkexp(event.target.value)} type="text" value={getworkexp} class=" h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ปี 2020-2022 เป็นพนักงานทำความสะอาด ที่โรงพยาบาลขอนแก่น ได้รับหน้าที่ดูแลความสะอาดบริเวณตึกผู้ป่วย A B C เป็นต้น  หากไม่เคยมีประสบการณ์ทำงานให้กรอก ไม่มีประสบการณ์ทำงาน"></input>
+                  <h1 className="m-3 text-xl font-medium break-words  ">ประวัติการทำงาน/ฝึกงาน (อธิบายโดยละเอียด)</h1>
+                  <input onChange={(event) => setWorkexp(event.target.value)} type="text" value={getworkexp} class=" h-[9.5rem] bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 " placeholder="เช่น ปี 2020-2022 เป็นพนักงานทำความสะอาด ที่โรงพยาบาลขอนแก่น ได้รับหน้าที่ดูแลความสะอาดบริเวณตึกผู้ป่วย A B C เป็นต้น  หากไม่เคยมีประสบการณ์ทำงานให้กรอก ไม่มีประสบการณ์ทำงาน"></input>
                 </div>
-                <div>
+                {/* <div>
                   <h1 className="m-3 text-xl font-medium">หลักฐานการฝึกงาน/ทำงาน (ถ้ามี)</h1>
-                  {/* <input type="file" accept=".jpg, .jpeg, .png, .pdf" onChange={handleFileChange} className="w-[100%] md:w-full rounded-[10px] border-[1px] solid bg-cyan" /> */}
-                  {/* {selectedFile && <p>Selected file: {selectedFile.name}</p>} */}
-                </div>
+                  <input type="file" accept=".jpg, .jpeg, .png, .pdf" onChange={handleFileChange} className="w-[100%] md:w-full rounded-[10px] border-[1px] solid bg-cyan" />
+                  {selectedFile && <p>Selected file: {selectedFile.name}</p>}
+                </div> */}
               </div>
             </div>
           )}
@@ -378,26 +400,177 @@ const Createprofile = () => {
             <div className="mt-4 ">
               <div className="mx-10">
                 <div className="flex flex-col">
-                  <h1 className="m-3 text-xl font-medium">ความสามารถด้านภาษา (ไทย)</h1>
-                  <input onChange={(event) => setThailevel(event.target.value)} type="text" value={getthailevel} class="h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ฟัง พูด อ่าน เขียน ได้"></input>
+                  <h1 className="m-3 text-xl font-medium">ความสามารถด้านภาษา</h1>
+                  <div className="flex flex-col gap-5">
+                    <div className="flex gap-5">
+                      
+
+                      {/* <input placeholder="กรอกชื่อภาษา" className="h-20 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4  placeholder-orange-500  text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150"></input>
+                      <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-1/2 md:w-3/4 bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150">
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            ฟัง
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            พูด
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium ">
+                            อ่าน
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            เขียน
+                          </label>
+                        </div>
+                      </div> */}
+                    </div>
+                    <div className="flex gap-5">
+                      <input placeholder="กรอกชื่อภาษา" className="h-20 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4  placeholder-orange-500  text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150"></input>
+                      {/* <span className="font-bold"> ภาษาอังกฤษ : {userData.englevel}</span> */}
+                      <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-1/2 md:w-3/4 bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150">
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            ฟัง
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            พูด
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium ">
+                            อ่าน
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            เขียน
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-5">
+                      <input placeholder="กรอกชื่อภาษา" className="h-20 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4  placeholder-orange-500  text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150"></input>
+                      {/* <span className="font-bold"> ภาษาอังกฤษ : {userData.englevel}</span> */}
+                      <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-1/2 md:w-3/4 bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150">
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            ฟัง
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            พูด
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium ">
+                            อ่าน
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            เขียน
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex gap-5">
+                      <input placeholder="กรอกชื่อภาษา" className="h-20 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4  placeholder-orange-500  text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150"></input>
+                      {/* <span className="font-bold"> ภาษาอังกฤษ : {userData.englevel}</span> */}
+                      <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-1/2 md:w-3/4 bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150">
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            ฟัง
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            พูด
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium ">
+                            อ่าน
+                          </label>
+                        </div>
+                        <div>
+                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                          <label for="checked-checkbox" class="ml-2 font-medium">
+                            เขียน
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* <input onChange={(event) => setThailevel(event.target.value)} type="text" value={getthailevel} class="h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ฟัง พูด อ่าน เขียน ได้"></input> */}
                 </div>
-                <div className="flex flex-col">
+                {/* <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ความสามารถด้านภาษา (อังกฤษ)</h1>
                   <input onChange={(event) => setEnglevel(event.target.value)} type="text" value={getenglevel} class="h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ฟัง พูด อ่าน เขียน ได้"></input>
-                </div>
+                </div> */}
                 <div className="flex flex-col ">
-                  <h1 className="m-3 text-xl font-medium">ความสามารถในการขับรถ</h1>
-                  <input onChange={(event) => setVehicle(event.target.value)} type="text" value={getvehicle} class=" h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ไม่มีใบขับขี่ รถจักรยานยนต์ รถยนต์ รถบรรทุก"></input>
+                  <div>
+                    <h1 className="mx-3 mt-3 b text-xl font-medium">ความสามารถในการขับรถ</h1>
+                    <h1 className="mx-3 text-lg mb-3 font-medium text-orange-500">คุณมีใบขับขี่ชนิดใดบ้าง ?</h1>
+                  </div>
+                  <div className="flex gap-5">
+                    {/* <input placeholder="กรอกชื่อภาษา" className="h-20 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4  placeholder-orange-500  text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150"></input> */}
+                    {/* <span className="font-bold"> ภาษาอังกฤษ : {userData.englevel}</span> */}
+                    <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-full bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150">
+                      <div>
+                        <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                        <label for="checked-checkbox" class="ml-2 font-medium">
+                          ไม่มี
+                        </label>
+                      </div>
+                      <div>
+                        <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                        <label for="checked-checkbox" class="ml-2 font-medium">
+                          รถจักรยานยนต์
+                        </label>
+                      </div>
+                      <div>
+                        <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                        <label for="checked-checkbox" class="ml-2 font-medium ">
+                          รถยนต์สามล้อ
+                        </label>
+                      </div>
+                      <div>
+                        <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                        <label for="checked-checkbox" class="ml-2 font-medium">
+                          รถยนต์
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  {/* <input onChange={(event) => setVehicle(event.target.value)} type="text" value={getvehicle} class=" h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ไม่มีใบขับขี่ รถจักรยานยนต์ รถยนต์ รถบรรทุก"></input> */}
                 </div>
                 {/* <div className="flex flex-col ">
               <h1 className="m-3 text-xl font-medium">ความสามารถพิเศษ</h1>
               <input onChange={(event) => setTalent(event.target.value)} type="text" value={gettalent} class="  h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น คอมพิวเตอร์ ทำอาหาร ว่ายนํ้า เล่นดนตรี"></input>
             </div> */}
-                <div className="flex mx-auto mt-10">
-                  {/* <button className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3" onClick={handleSubmit}>
-                ยืนยันข้อมูล
-              </button> */}
-                </div>
               </div>
             </div>
           )}
