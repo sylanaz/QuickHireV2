@@ -52,24 +52,24 @@ export const ApproveUser = () => {
       {loading ? (
         <LoadingPage />
       ) : (
-        <div className="flex flex-col mx-auto min-h-[100vh]">
-          <Navbar />
-          <div className="flex justify-center text-2xl mb-6 mt-5 font-medium">{role == "shop" ? "คัดเลือกผู้สมัครงาน" : "ประวัติการสมัครงาน"}</div>
-          <div>
-            <div className="grid grid-cols-2 md:grid-cols-4">
-              {noti &&
-                noti.map((noti, index) => {
-                  if (role === "user") {
-                    return <Mail key={index} id={noti._id} email_shopname={noti.email_shopname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerUserApplyJob={triggerUserApplyJob} />;
-                  } else {
-                    return <Mail key={index} useremail={noti.email} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerAccOrDenie={triggerAccOrDenie} />;
-                  }
-                })}
+        <div>
+          <div className="flex flex-col mx-auto min-h-[75vh]">
+            <Navbar />
+            <div className="flex justify-center text-2xl mb-6 mt-5 font-medium">{role === "shop" ? "คัดเลือกผู้สมัครงาน" : "ประวัติการสมัครงาน"}</div>
+            <div className="">
+              <div className="grid grid-cols-2 md:grid-cols-4">
+                {noti &&
+                  noti.map((noti, index) => {
+                    if (role === "user") {
+                      return <Mail key={index} id={noti._id} email_shopname={noti.email_shopname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerUserApplyJob={triggerUserApplyJob} />;
+                    } else {
+                      return <Mail key={index} useremail={noti.email} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerAccOrDenie={triggerAccOrDenie} />;
+                    }
+                  })}
+              </div>
             </div>
           </div>
-          <div className="">
-            <Footer />
-          </div>
+          <Footer />
         </div>
       )}
     </>
