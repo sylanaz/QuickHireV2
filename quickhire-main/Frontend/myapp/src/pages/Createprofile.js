@@ -40,28 +40,55 @@ const Createprofile = () => {
   const [gettalent, setTalent] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  // const [newLanguage, setNewLanguage] = useState("");
-  const [languages, setLanguages] = useState([
-    { name: "", checkboxes: [false, false, false, false] },
-    { name: "", checkboxes: [false, false, false, false] },
-    { name: "", checkboxes: [false, false, false, false] },
-    { name: "", checkboxes: [false, false, false, false] },
-  ]);
+  const [languages, setLanguages] = useState([{ id: Date.now(), name: "", listen: false, talk: false, read: false, write: false }]);
+  const [checkboxValues, setCheckboxValues] = useState({
+    noMotorcycle: false,
+    motorcycle: false,
+    threeWheeler: false,
+    car: false,
+  });
 
-  const handleLanguageChange = (index, newName) => {
-    setLanguages((prevLanguages) => {
-      const updatedLanguages = [...prevLanguages];
-      updatedLanguages[index].name = newName;
-      return updatedLanguages;
+  const handleVehicleChange = (event) => {
+    const { id, checked } = event.target;
+    setCheckboxValues({
+      ...checkboxValues,
+      [id]: checked,
     });
   };
 
-  const handleCheckboxChange = (languageIndex, checkboxIndex) => {
-    setLanguages((prevLanguages) => {
-      const updatedLanguages = [...prevLanguages];
-      updatedLanguages[languageIndex].checkboxes[checkboxIndex] = !updatedLanguages[languageIndex].checkboxes[checkboxIndex];
-      return updatedLanguages;
+  const handleLanguageChange = (id, skill) => {
+    const updatedLanguages = languages.map((language) => {
+      if (language.id === id) {
+        const updatedLanguage = { ...language, [skill]: !language[skill] };
+        console.log("Updated Language:", updatedLanguage);
+        return updatedLanguage;
+      }
+      return language;
     });
+
+    setLanguages(updatedLanguages);
+  };
+
+  const handleInputChange = (id, value) => {
+    const updatedLanguages = languages.map((language) => {
+      if (language.id === id) {
+        return { ...language, name: value };
+      }
+      return language;
+    });
+
+    setLanguages(updatedLanguages);
+  };
+
+  const addLanguage = () => {
+    setLanguages([...languages, { id: Date.now(), name: "", listen: false, talk: false, read: false, write: false }]);
+  };
+
+  const deleteLanguage = () => {
+    if (languages.length > 1) {
+      //! ลบอันแรกไม่ได้
+      setLanguages(languages.slice(0, -1));
+    }
   };
 
   useEffect(() => {
@@ -219,10 +246,14 @@ const Createprofile = () => {
 
     const educationAndWorkComplete = getdegree.trim() !== "" && getworkexp.trim() !== "";
 
-    const abilitiesComplete = getthailevel.trim() !== "" && getenglevel.trim() !== "" && getvehicle.trim() !== "";
+    // const abilitiesComplete = getthailevel.trim() !== "" && getenglevel.trim() !== "" && getvehicle.trim() !== "";
+    const languagesComplete = languages.every((language) => {
+      return (language.listen || language.talk || language.read || language.write) && language.name.trim() !== "";
+    });
 
+    const isAtLeastOneVehicleSelected = Object.values(checkboxValues).some((value) => value);
     // Check if all stages are complete
-    return personalInfoComplete && educationAndWorkComplete && abilitiesComplete;
+    return personalInfoComplete && educationAndWorkComplete && languagesComplete && isAtLeastOneVehicleSelected;
   };
 
   const renderNextButton = () => {
@@ -402,128 +433,48 @@ const Createprofile = () => {
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ความสามารถด้านภาษา</h1>
                   <div className="flex flex-col gap-5">
-                    <div className="flex gap-5">
-                      
-
-                      {/* <input placeholder="กรอกชื่อภาษา" className="h-20 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4  placeholder-orange-500  text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150"></input>
-                      <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-1/2 md:w-3/4 bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150">
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            ฟัง
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            พูด
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium ">
-                            อ่าน
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            เขียน
-                          </label>
-                        </div>
-                      </div> */}
-                    </div>
-                    <div className="flex gap-5">
-                      <input placeholder="กรอกชื่อภาษา" className="h-20 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4  placeholder-orange-500  text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150"></input>
-                      {/* <span className="font-bold"> ภาษาอังกฤษ : {userData.englevel}</span> */}
-                      <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-1/2 md:w-3/4 bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150">
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            ฟัง
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            พูด
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium ">
-                            อ่าน
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            เขียน
-                          </label>
+                    {languages.map((language) => (
+                      <div key={language.id} className="flex gap-5">
+                        <input placeholder="กรอกชื่อภาษา" value={language.name} onChange={(e) => handleInputChange(language.id, e.target.value)} className="h-20 text-orange-500 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4 placeholder-orange-500 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150" />
+                        <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-1/2 md:w-3/4 bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150">
+                          <div>
+                            <input type="checkbox" checked={language.listen} onChange={() => handleLanguageChange(language.id, "listen")} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                            <label htmlFor={`listen-checkbox-${language.id}`} className="ml-2 font-medium">
+                              ฟัง
+                            </label>
+                          </div>
+                          <div>
+                            <input type="checkbox" checked={language.talk} onChange={() => handleLanguageChange(language.id, "talk")} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                            <label htmlFor={`talk-checkbox-${language.id}`} className="ml-2 font-medium">
+                              พูด
+                            </label>
+                          </div>
+                          <div>
+                            <input type="checkbox" checked={language.read} onChange={() => handleLanguageChange(language.id, "read")} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                            <label htmlFor={`read-checkbox-${language.id}`} className="ml-2 font-medium">
+                              อ่าน
+                            </label>
+                          </div>
+                          <div>
+                            <input type="checkbox" checked={language.write} onChange={() => handleLanguageChange(language.id, "write")} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                            <label htmlFor={`write-checkbox-${language.id}`} className="ml-2 font-medium">
+                              เขียน
+                            </label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="flex gap-5">
-                      <input placeholder="กรอกชื่อภาษา" className="h-20 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4  placeholder-orange-500  text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150"></input>
-                      {/* <span className="font-bold"> ภาษาอังกฤษ : {userData.englevel}</span> */}
-                      <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-1/2 md:w-3/4 bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150">
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            ฟัง
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            พูด
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium ">
-                            อ่าน
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            เขียน
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex gap-5">
-                      <input placeholder="กรอกชื่อภาษา" className="h-20 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4  placeholder-orange-500  text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150"></input>
-                      {/* <span className="font-bold"> ภาษาอังกฤษ : {userData.englevel}</span> */}
-                      <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-1/2 md:w-3/4 bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150">
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            ฟัง
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            พูด
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium ">
-                            อ่าน
-                          </label>
-                        </div>
-                        <div>
-                          <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            เขียน
-                          </label>
-                        </div>
-                      </div>
-                    </div>
+                    ))}
                   </div>
+                  <div className="flex gap-3 items-center justify-center mt-5">
+                    {" "}
+                    <button className=" bg-orange-500 text-white border-0 px-3 py-3 rounded-lg text-sm  shadow " onClick={addLanguage}>
+                      เพิ่มภาษา
+                    </button>
+                    <button className=" bg-orange-500 text-white border-0 px-3 py-3 rounded-lg text-sm  shadow " onClick={deleteLanguage}>
+                      ลบภาษา
+                    </button>
+                  </div>
+
                   {/* <input onChange={(event) => setThailevel(event.target.value)} type="text" value={getthailevel} class="h-16 bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น ฟัง พูด อ่าน เขียน ได้"></input> */}
                 </div>
                 {/* <div className="flex flex-col">
@@ -536,29 +487,28 @@ const Createprofile = () => {
                     <h1 className="mx-3 text-lg mb-3 font-medium text-orange-500">คุณมีใบขับขี่ชนิดใดบ้าง ?</h1>
                   </div>
                   <div className="flex gap-5">
-                    {/* <input placeholder="กรอกชื่อภาษา" className="h-20 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4  placeholder-orange-500  text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150"></input> */}
-                    {/* <span className="font-bold"> ภาษาอังกฤษ : {userData.englevel}</span> */}
-                    <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-full bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring  ease-linear transition-all duration-150">
+                    <div className="h-20 p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-full bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150">
                       <div>
-                        <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                        <label for="checked-checkbox" class="ml-2 font-medium">
+                        <input id="noMotorcycle" type="checkbox" checked={checkboxValues.noMotorcycle} onChange={handleVehicleChange} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label htmlFor="noMotorcycle" className="ml-2 font-medium">
                           ไม่มี
                         </label>
                       </div>
+                      {/* Repeat the same structure for other checkboxes, updating id and label accordingly */}
                       <div>
-                        <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                        <input id="motorcycle" type="checkbox" checked={checkboxValues.motorcycle} onChange={handleVehicleChange} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                         <label for="checked-checkbox" class="ml-2 font-medium">
                           รถจักรยานยนต์
                         </label>
                       </div>
                       <div>
-                        <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                        <input id="threeWheeler" type="checkbox" checked={checkboxValues.threeWheeler} onChange={handleVehicleChange} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                         <label for="checked-checkbox" class="ml-2 font-medium ">
                           รถยนต์สามล้อ
                         </label>
                       </div>
                       <div>
-                        <input id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                        <input id="car" type="checkbox" checked={checkboxValues.car} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                         <label for="checked-checkbox" class="ml-2 font-medium">
                           รถยนต์
                         </label>
@@ -574,7 +524,7 @@ const Createprofile = () => {
               </div>
             </div>
           )}
-          <div className="flex justify-center mt-5 ">
+          <div className="flex items-center justify-center  mt-5 ">
             <button onClick={handlePrevClick} className={`p-3 mr-2 rounded-lg ${currentIndex === 0 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === 0}>
               Previous
             </button>
