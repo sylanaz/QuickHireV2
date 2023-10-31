@@ -13,8 +13,8 @@ function Profile() {
   const [userData, setUserData] = useState(null);
 
   const deCryptoData = (data) => {
-    return CryptoJS.AES.decrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8)
-  }
+    return CryptoJS.AES.decrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
+  };
   const [langSkill, setLangSkill] = useState(false);
 
   useEffect(() => {
@@ -36,6 +36,7 @@ function Profile() {
   const currentYear = new Date().getFullYear();
   const age = currentYear - birthYear;
 
+  console.log(userData);
   return (
     <>
       {userData == null ? (
@@ -96,68 +97,41 @@ function Profile() {
                 </div>
                 <div className="flex rounded-2xl bg-blue-300 h-32  items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
                   <div className="grid grid-cols-2 md:gap-3 gap-5">
-                    {/* Thai */}
-                    <div className="md:flex gap-3 md:gap-5">
-                      {/* ภาษาไทย : {userData.thailevel} */}
-                      <span className="flex justify-center font-bold"> ภาษาไทย :</span>
-                      <div className="grid grid-cols-2 md:flex gap-1 md:gap-5">
-                        <div>
-                          <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            ฟัง
-                          </label>
-                        </div>
-                        <div>
-                          <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            พูด
-                          </label>
-                        </div>
-                        <div>
-                          <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium ">
-                            อ่าน
-                          </label>
-                        </div>
-                        <div>
-                          <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            เขียน
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Eng */}
-                    <div className="md:flex gap-3 md:gap-5">
-                      {/* <span className="font-bold"> ภาษาอังกฤษ : {userData.englevel}</span> */}
-                      <span className="flex justify-center font-bold"> ภาษาอังกฤษ : </span>
-                      <div className="grid grid-cols-2 md:flex gap-1 md:gap-5 ">
-                        <div>
-                          <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            ฟัง
-                          </label>
-                        </div>
-                        <div>
-                          <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            พูด
-                          </label>
-                        </div>
-                        <div>
-                          <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium ">
-                            อ่าน
-                          </label>
-                        </div>
-                        <div>
-                          <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                          <label for="checked-checkbox" class="ml-2 font-medium">
-                            เขียน
-                          </label>
-                        </div>
-                      </div>
-                    </div>
+                    {/* Languages */}
+                    {userData.languages &&
+                      userData.languages.map((language) => {
+                        return (
+                          <div className="md:flex gap-3 md:gap-5">
+                            <span className="flex justify-center font-bold"> {language.name} :</span>
+                            <div className="grid grid-cols-2 md:flex gap-1 md:gap-5">
+                              <div>
+                                <input checked={language.listen} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                <label for="checked-checkbox" class="ml-2 font-medium">
+                                  ฟัง
+                                </label>
+                              </div>
+                              <div>
+                                <input checked={language.talk} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                <label for="checked-checkbox" class="ml-2 font-medium">
+                                  พูด
+                                </label>
+                              </div>
+                              <div>
+                                <input checked={language.read} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                <label for="checked-checkbox" class="ml-2 font-medium ">
+                                  อ่าน
+                                </label>
+                              </div>
+                              <div>
+                                <input checked={language.write} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                <label for="checked-checkbox" class="ml-2 font-medium">
+                                  เขียน
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
                   </div>
                 </div>
               </div>
@@ -168,8 +142,46 @@ function Profile() {
                 </div>
                 <div className=" flex rounded-2xl bg-blue-300 h-32  items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
                   {/* <h1 className="p-10">{userData.vehicle}</h1> */}
-                  <div className="grid grid-cols-2 md:flex gap-1 md:gap-5 ">
-                    <div>
+                  {/* <div className="grid grid-cols-2 md:flex gap-1 md:gap-5 "> */}
+                    {/* Vehicles */}
+                    {userData.vehicles &&
+                      userData.vehicles.map((vehicle) => {
+                        return (
+                          <div className="grid grid-cols-2 md:flex gap-1 md:gap-5 ">
+                            <div>
+                              <input checked={vehicle.noMotorcycle} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                              <label for="checked-checkbox" class="ml-2 font-medium">
+                                ไม่มี
+                              </label>
+                            </div>
+                            <div>
+                              <input checked={vehicle.motorcycle} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                              <label for="checked-checkbox" class="ml-2 font-medium">
+                                รถจักรยานยนต์
+                              </label>
+                            </div>
+                            <div>
+                              <input checked={vehicle.threeWheeler} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                              <label for="checked-checkbox" class="ml-2 font-medium">
+                                รถยนต์สามล้อ
+                              </label>
+                            </div>
+                            <div>
+                              <input checked={vehicle.car} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                              <label for="checked-checkbox" class="ml-2 font-medium">
+                                รถยนต์
+                              </label>
+                            </div>
+                            <div>
+                              <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                              <label for="checked-checkbox" class="ml-2 font-medium">
+                                อื่นๆ
+                              </label>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    {/* <div>
                       <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                       <label for="checked-checkbox" class="ml-2 font-medium">
                         ไม่มี
@@ -198,18 +210,18 @@ function Profile() {
                       <label for="checked-checkbox" class="ml-2 font-medium">
                         อื่นๆ
                       </label>
-                    </div>
-                  </div>
+                    </div> */}
+                  {/* </div> */}
                 </div>
               </div>
               {/* talent */}
               <div className="relative mx-10">
-                <div className=" rounded-full bg-blue-500 text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
+                {/* <div className=" rounded-full bg-blue-500 text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
                   <h1>ความสามารถพิเศษ</h1>
                 </div>
                 <div className=" rounded-2xl bg-blue-300 h-32 ">
                   <h1 className="p-10">{deCryptoData(userData.talent)}</h1>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
