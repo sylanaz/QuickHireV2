@@ -34,14 +34,15 @@ const Createprofile = () => {
   const [area, setArea] = useState("");
   const [getdegree, setDegree] = useState("");
   const [getworkexp, setWorkexp] = useState("");
-  const [getthailevel, setThailevel] = useState("");
-  const [getenglevel, setEnglevel] = useState("");
-  const [getvehicle, setVehicle] = useState("");
-  const [gettalent, setTalent] = useState("");
+  const [getthailevel, setThailevel] = useState(""); //! ไม่ได้ใช้
+  const [getenglevel, setEnglevel] = useState("");//! ไม่ได้ใช้
+  const [getvehicle, setVehicle] = useState("");//! ไม่ได้ใช้
+  const [gettalent, setTalent] = useState("");//! ไม่ได้ใช้
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [languages, setLanguages] = useState([{ id: Date.now(), name: "", listen: false, talk: false, read: false, write: false }]);
-  const [checkboxValues, setCheckboxValues] = useState({
+  const [languages, setLanguages] = useState([{ id: Date.now(), name: "", listen: false, talk: false, read: false, write: false }]); //!เก็บข้อมูลภาษาที่กรอกมา
+  //? เก็บใบรับรองการขับ
+  const [checkboxValues, setCheckboxValues] = useState({ //!ยังไม่เปลี่ยนชื่อเพราะมันจะซ้ำกับอันบนที่บอกไป
     noMotorcycle: false,
     motorcycle: false,
     threeWheeler: false,
@@ -54,6 +55,7 @@ const Createprofile = () => {
       ...checkboxValues,
       [id]: checked,
     });
+    console.log(checkboxValues)
   };
 
   const handleLanguageChange = (id, skill) => {
@@ -76,7 +78,6 @@ const Createprofile = () => {
       }
       return language;
     });
-
     setLanguages(updatedLanguages);
   };
 
@@ -502,13 +503,13 @@ const Createprofile = () => {
                         </label>
                       </div>
                       <div>
-                        <input id="threeWheeler" type="checkbox" checked={checkboxValues.threeWheeler} onChange={handleVehicleChange} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                        <input id="threeWheeler" type="checkbox" checked={checkboxValues.threeWheeler} onChange={handleVehicleChange}   class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                         <label for="checked-checkbox" class="ml-2 font-medium ">
                           รถยนต์สามล้อ
                         </label>
                       </div>
                       <div>
-                        <input id="car" type="checkbox" checked={checkboxValues.car} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                        <input id="car" type="checkbox" checked={checkboxValues.car} onChange={handleVehicleChange} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                         <label for="checked-checkbox" class="ml-2 font-medium">
                           รถยนต์
                         </label>
@@ -524,7 +525,7 @@ const Createprofile = () => {
               </div>
             </div>
           )}
-          <div className="flex items-center justify-center  mt-5 ">
+          <div className="flex items-center justify-center my-20 ">
             <button onClick={handlePrevClick} className={`p-3 mr-2 rounded-lg ${currentIndex === 0 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === 0}>
               Previous
             </button>

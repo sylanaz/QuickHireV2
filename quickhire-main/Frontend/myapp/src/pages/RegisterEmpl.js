@@ -88,9 +88,7 @@ export const RegisterEmpl = () => {
             {passwordsvalidate ? null : <div className="text-red-500 font-bold text-sm">รหัสผ่านควรมีความยาวตั้งแต่ 8-20 ตัวอักษร ประกอบด้วยตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว ตัวพิมพ์เล็กอย่างน้อย 1 ตัว ตัวเลขอย่างน้อย 1 ตัว ตัวอักษรพิเศษอย่างน้อย 1 ตัว</div>}
             <input type="text" name="password2" placeholder="ยืนยันรหัสผ่าน" className="p-2 mt-5 rounded-xl border w-full" value={getsecondPassword} onChange={(event) => setSecondPassword(event.target.value)} required></input>
             {passwordsMatch ? null : <div className="text-red-500 font-bold text-sm">รหัสผ่านไม่ตรงกัน</div>}
-            <input type="text" name="email" placeholder="อีเมล์" className="p-2 mt-5 rounded-xl border" value={email} onChange={(event) => setEmail(event.target.value)} required></input>
-            <input type="text" name="password" placeholder="รหัสผ่าน" className="p-2 mt-5 rounded-xl border" required></input>
-            <input type="text" name="password" placeholder="ยืนยันรหัสผ่าน" className="p-2 mt-5 rounded-xl border" value={getpassword} onChange={(event) => setPassword(event.target.value)} required></input>
+            
             <input type="text" name="tel" placeholder="เบอร์โทร" className="p-2 mt-5 rounded-xl border" value={gettelnumber} onChange={(event) => setTelnumber(event.target.value)} required></input>
             <div className="flex justify-center items-center">
               <button type="submit" disabled={checkSubmitBTN()} className="bg-emerald-400 text-cyan-950 mt-5 rounded-full hover:bg-emerald-300 duration-300 w-60 p-2 font-semibold">
