@@ -95,14 +95,16 @@ function Profile() {
                 <div className=" rounded-full bg-blue-500 text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
                   <h1>ความสามารถด้านภาษา</h1>
                 </div>
-                <div className="flex rounded-2xl bg-blue-300 h-32  items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
+                <div className="flex rounded-2xl bg-blue-300 h-auto py-7 items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
                   <div className="grid grid-cols-2 md:gap-3 gap-5">
                     {/* Languages */}
                     {userData.languages &&
                       userData.languages.map((language) => {
                         return (
                           <div className="md:flex gap-3 md:gap-5">
-                            <span className="flex justify-center font-bold"> {language.name} :</span>
+  
+                            <span className="flex font-bold w-20 justify-start"> {language.name} :</span>
+                        
                             <div className="grid grid-cols-2 md:flex gap-1 md:gap-5">
                               <div>
                                 <input checked={language.listen} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
@@ -143,86 +145,48 @@ function Profile() {
                 <div className=" flex rounded-2xl bg-blue-300 h-32  items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
                   {/* <h1 className="p-10">{userData.vehicle}</h1> */}
                   {/* <div className="grid grid-cols-2 md:flex gap-1 md:gap-5 "> */}
-                    {/* Vehicles */}
-                    {userData.vehicles &&
-                      userData.vehicles.map((vehicle) => {
-                        return (
-                          <div className="grid grid-cols-2 md:flex gap-1 md:gap-5 ">
-                            <div>
-                              <input checked={vehicle.noMotorcycle} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                              <label for="checked-checkbox" class="ml-2 font-medium">
-                                ไม่มี
-                              </label>
-                            </div>
-                            <div>
-                              <input checked={vehicle.motorcycle} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                              <label for="checked-checkbox" class="ml-2 font-medium">
-                                รถจักรยานยนต์
-                              </label>
-                            </div>
-                            <div>
-                              <input checked={vehicle.threeWheeler} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                              <label for="checked-checkbox" class="ml-2 font-medium">
-                                รถยนต์สามล้อ
-                              </label>
-                            </div>
-                            <div>
-                              <input checked={vehicle.car} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                              <label for="checked-checkbox" class="ml-2 font-medium">
-                                รถยนต์
-                              </label>
-                            </div>
-                            <div>
-                              <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                              <label for="checked-checkbox" class="ml-2 font-medium">
-                                อื่นๆ
-                              </label>
-                            </div>
+                  {/* Vehicles */}
+                  {userData.vehicles &&
+                    userData.vehicles.map((vehicle) => {
+                      return (
+                        <div className="grid grid-cols-2 md:flex gap-1 md:gap-5 ">
+                          <div>
+                            <input checked={vehicle.noMotorcycle} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                            <label for="checked-checkbox" class="ml-2 font-medium">
+                              ไม่มี
+                            </label>
                           </div>
-                        );
-                      })}
-                    {/* <div>
-                      <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                      <label for="checked-checkbox" class="ml-2 font-medium">
-                        ไม่มี
-                      </label>
-                    </div>
-                    <div>
-                      <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                      <label for="checked-checkbox" class="ml-2 font-medium">
-                        รถจักรยานยนต์
-                      </label>
-                    </div>
-                    <div>
-                      <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                      <label for="checked-checkbox" class="ml-2 font-medium">
-                        รถยนต์สามล้อ
-                      </label>
-                    </div>
-                    <div>
-                      <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                      <label for="checked-checkbox" class="ml-2 font-medium">
-                        รถยนต์
-                      </label>
-                    </div>
-                    <div>
-                      <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                      <label for="checked-checkbox" class="ml-2 font-medium">
-                        อื่นๆ
-                      </label>
-                    </div> */}
-                  {/* </div> */}
+                          <div>
+                            <input checked={vehicle.motorcycle} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                            <label for="checked-checkbox" class="ml-2 font-medium">
+                              รถจักรยานยนต์
+                            </label>
+                          </div>
+                          <div>
+                            <input checked={vehicle.threeWheeler} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                            <label for="checked-checkbox" class="ml-2 font-medium">
+                              รถยนต์สามล้อ
+                            </label>
+                          </div>
+                          <div>
+                            <input checked={vehicle.car} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                            <label for="checked-checkbox" class="ml-2 font-medium">
+                              รถยนต์
+                            </label>
+                          </div>
+                          <div>
+                            <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                            <label for="checked-checkbox" class="ml-2 font-medium">
+                              อื่นๆ
+                            </label>
+                          </div>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
               {/* talent */}
-              <div className="relative mx-10">
-                {/* <div className=" rounded-full bg-blue-500 text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
-                  <h1>ความสามารถพิเศษ</h1>
-                </div>
-                <div className=" rounded-2xl bg-blue-300 h-32 ">
-                  <h1 className="p-10">{deCryptoData(userData.talent)}</h1>
-                </div> */}
-              </div>
+              <div className="relative mx-10"></div>
             </div>
           </div>
           <Footer />
