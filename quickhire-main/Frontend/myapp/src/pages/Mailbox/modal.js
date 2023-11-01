@@ -25,11 +25,11 @@ const Mymodal = ({ isOpen, onClose, userData }) => {
           <div>เบอร์โทรศัพท์ : {deCryptData(userData.telnumber)}</div>
           <div>วันเกิด : {deCryptData(userData.birthdate)}</div>
           <div>สัญชาติ : {deCryptData(userData.national)}</div>
-          <div>ความสามารถพิเศษ : {deCryptData(userData.talent)}</div>
+          {/* <div>ความสามารถพิเศษ : {deCryptData(userData.talent)}</div> */}
           <div>การศึกษา : {deCryptData(userData.degree)}</div>
-          <div>ระดับภาษาไทย : {deCryptData(userData.thailevel)}</div>
-          <div>ระดับภาษาอังกฤษ : {deCryptData(userData.englevel)}</div>
-          <div>ทักษาการขับรถ : {deCryptData(userData.vehicle)}</div>
+          {/* <div>ระดับภาษาไทย : {deCryptData(userData.thailevel)}</div> */}
+          {/* <div>ระดับภาษาอังกฤษ : {deCryptData(userData.englevel)}</div> */}
+          {/* <div>ทักษาการขับรถ : {deCryptData(userData.vehicle)}</div> */}
           <div>ประสบการณ์ทำงาน : {deCryptData(userData.workexp)}</div>
         </div>
         <div className="flex flex-col">
