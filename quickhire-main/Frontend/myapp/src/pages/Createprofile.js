@@ -32,21 +32,42 @@ const Createprofile = () => {
   const [loading, setLoading] = useState(false);
   const [languages, setLanguages] = useState([{ id: Date.now(), name: "", listen: false, talk: false, read: false, write: false }]); //!เก็บข้อมูลภาษาที่กรอกมา
   //? เก็บใบรับรองการขับ
-  const [checkboxValues, setCheckboxValues] = useState({
-    //!ยังไม่เปลี่ยนชื่อเพราะมันจะซ้ำกับอันบนที่บอกไป
-    noMotorcycle: false,
-    motorcycle: false,
-    threeWheeler: false,
-    car: false,
-  });
-
-  const handleVehicleChange = (event) => {
-    const { id, checked } = event.target;
-    setCheckboxValues({
-      ...checkboxValues,
-      [id]: checked,
+  // const [checkboxValues, setCheckboxValues] = useState({
+  //   //!ยังไม่เปลี่ยนชื่อเพราะมันจะซ้ำกับอันบนที่บอกไป
+  //   noMotorcycle: false,
+  //   motorcycle: false,
+  //   threeWheeler: false,
+  //   car: false,
+  // });
+  const [checkboxValues, setCheckboxValues] = useState([
+    {
+      id: "noMotorcycle",
+      noMotorcycle: false,
+      motorcycle: false,
+      threeWheeler: false,
+      car: false,
+    },
+    // Add other vehicle objects here
+  ]);
+  // const handleVehicleChange = (event) => {
+  //   const { id, checked } = event.target;
+  //   setCheckboxValues({
+  //     ...checkboxValues,
+  //     [id]: checked,
+  //   });
+  //   console.log(checkboxValues);
+  // };
+  const handleVehicleChange = (id, check) => {
+    const updatedValues = checkboxValues.map((vehicle) => {
+      if (vehicle.id === id) {
+        return {
+          ...vehicle,
+          [check]: !vehicle[check],
+        };
+      }
+      return vehicle;
     });
-    console.log(checkboxValues);
+    setCheckboxValues(updatedValues);
   };
 
   const handleLanguageChange = (id, skill) => {
@@ -193,6 +214,7 @@ const Createprofile = () => {
       setLoading(false);
     });
   };
+  console.log(checkboxValues.map((data) => data.car));
 
   useEffect(() => {
     if (id != undefined && localStorage.getItem("newuser") === "old") {
@@ -449,30 +471,30 @@ const Createprofile = () => {
                   </div>
                   <div className="flex gap-5">
                     <div className="w-full">
-                      {id !== undefined ? (
+                      {id !== undefined && checkboxValues ? (
                         checkboxValues.map((vehicle) => {
                           return (
                             <div className="h-20 p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-full bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150">
                               <div>
-                                <input id="noMotorcycle" type="checkbox" checked={vehicle.noMotorcycle} onChange={handleVehicleChange} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                <input id="noMotorcycle" type="checkbox" checked={vehicle.noMotorcycle} onChange={() => handleVehicleChange(vehicle.id, "noMotorcycle")} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                 <label htmlFor="noMotorcycle" className="ml-2 font-medium">
                                   ไม่มี
                                 </label>
                               </div>
                               <div>
-                                <input id="motorcycle" type="checkbox" checked={vehicle.motorcycle} onChange={handleVehicleChange} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                <input id="motorcycle" type="checkbox" checked={vehicle.motorcycle} onChange={() => handleVehicleChange(vehicle.id, "motorcycle")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                                 <label for="checked-checkbox" class="ml-2 font-medium">
                                   รถจักรยานยนต์
                                 </label>
                               </div>
                               <div>
-                                <input id="threeWheeler" type="checkbox" checked={vehicle.threeWheeler} onChange={handleVehicleChange} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                <input id="threeWheeler" type="checkbox" checked={vehicle.threeWheeler} onChange={() => handleVehicleChange(vehicle.id, "threeWheeler")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                                 <label for="checked-checkbox" class="ml-2 font-medium ">
                                   รถยนต์สามล้อ
                                 </label>
                               </div>
                               <div>
-                                <input id="car" type="checkbox" checked={vehicle.car} onChange={handleVehicleChange} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                <input id="car" type="checkbox" checked={vehicle.car} onChange={() => handleVehicleChange(vehicle.id, "car")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                                 <label for="checked-checkbox" class="ml-2 font-medium">
                                   รถยนต์
                                 </label>
