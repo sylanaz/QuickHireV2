@@ -12,6 +12,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs from "dayjs";
 import CryptoJS from "crypto-js";
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
+import useOnclickOutside from "react-cool-onclickoutside";
+import GoogleMapAPI from "../GoogleMap/GoogleMapAPI";
+import PlaceAutocomplete from "../GoogleMap/PlaceAutocomplete";
+import { center } from "../GoogleMap/CenterMarker";
 
 const Createshop = () => {
   const { id } = useParams();
@@ -36,8 +42,22 @@ const Createshop = () => {
   const [timeTo, setTimeTo] = useState(null);
   const [formatTimeFrom, setFormatTimeFrom] = useState(null);
   const [formatTimeTo, setFormatTimeTo] = useState(null);
-  const [test, setTest] = useState(null);
+  // const [test, setTest] = useState(null);
   // const [formatTime, setFormatTime] = useState(null);
+
+  // ============== Google Map ==================
+  const [marker, setMarker] = useState(center);
+  //? Handle when user type input and select place it will send a new lat and lng to marker
+  const setNewMarker = (marker) => {
+    setMarker(marker);
+  };
+
+  //? Handle when user click on google map api it will send a new lat and lng to marker
+  const setNewMarkerFromGGMapAPI = (marker) => {
+    setMarker(marker);
+  };
+  // ========================================================
+
   const handleTimeFrom = (value, dateString) => {
     setTimeFrom(value);
     setFormatTimeFrom(dateString);
@@ -49,7 +69,7 @@ const Createshop = () => {
 
   useEffect(() => {
     setEmail(CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8));
-  },[]);
+  }, []);
 
   // =====================================================
   const [imageURL, setImageURL] = useState([]);
@@ -105,11 +125,10 @@ const Createshop = () => {
       peopleneed: peopleneed,
       welfare: welfare,
       location: location,
-      lats: lat,
-      longs: long,
+      lats: marker.lat,
+      longs: marker.lng,
       minilocation: minilocation,
       img: imageJSON,
-      test: test,
       // newuser: "old",
     };
     if (id == 0) {
@@ -235,7 +254,7 @@ const Createshop = () => {
                 <h1 className="m-3 text-xl font-medium">สวัสดิการ</h1>
                 <input onChange={(event) => setWelfare(event.target.value)} type="text" value={welfare} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
               </div>
-              <div className="flex flex-col">
+              {/* <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">ที่อยู่ร้าน</h1>
                 <input
                   onChange={(event) => setLocation(event.target.value)}
@@ -245,18 +264,14 @@ const Createshop = () => {
                   placeholder="เช่น 
 123 หมู่ 16 ถ.มิตรภาพ ต.ในเมือง อ.เมือง จ.ขอนแก่น 40000"
                 ></input>
-              </div>
+              </div> */}
+              {/* Google Map API */}
               <div className="flex flex-col">
-                <h1 className="m-3 text-xl font-medium">ตำแหน่งร้าน GPS (Latitude)</h1>
-                <input onChange={(event) => setLat(event.target.value)} type="text" value={lat} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น 16.2912"></input>
+                <h1 className="m-3 text-xl font-medium">ที่อยู่ร้าน</h1>
+                <PlaceAutocomplete setDataMarker={setNewMarker} />
               </div>
-              <div className="flex flex-col">
-                <h1 className="m-3 text-xl font-medium">ตำแหน่งร้าน GPS (Longitude)</h1>
-                <input onChange={(event) => setLong(event.target.value)} type="text" value={long} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น 102.6162"></input>
-                <a href="https://www.iphone-droid.net/how-to-get-the-coordinates-or-search-by-latitude-longitude-on-google-maps/">
-                  <h1 className="text-orange-400 font-medium mt-2"> วิธีหา Latitude Longitude ใน Google maps</h1>
-                </a>
-              </div>
+              <GoogleMapAPI newMarker={marker} sendNewMarker={setNewMarkerFromGGMapAPI} />
+              {/*  */}
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">สถานที่ (บริเวณ)</h1>
                 <input onChange={(event) => setMinilocation(event.target.value)} type="text" placeholder="เช่น หลัง มข." value={minilocation} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
