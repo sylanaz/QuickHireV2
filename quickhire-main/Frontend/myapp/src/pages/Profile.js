@@ -102,9 +102,7 @@ function Profile() {
                       userData.languages.map((language) => {
                         return (
                           <div className="md:flex gap-3 md:gap-5">
-  
-                            <span className="flex font-bold w-20 justify-start"> {language.name} :</span>
-                        
+                            <span className="flex font-bold justify-start"> {language.name} :</span>
                             <div className="grid grid-cols-2 md:flex gap-1 md:gap-5">
                               <div>
                                 <input checked={language.listen} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
@@ -174,12 +172,7 @@ function Profile() {
                               รถยนต์
                             </label>
                           </div>
-                          <div>
-                            <input checked id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                            <label for="checked-checkbox" class="ml-2 font-medium">
-                              อื่นๆ
-                            </label>
-                          </div>
+                        
                         </div>
                       );
                     })}
