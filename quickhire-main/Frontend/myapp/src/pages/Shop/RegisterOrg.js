@@ -43,14 +43,10 @@ export const RegisterOrg = () => {
   };
 
   const checkSubmitBTN = () => {
-    if (email === "" && getpassword === "" && getsecondPassword === "" && getfirstname === "" && getlastname === "" && gettelnumber === "") {
+    if (email === "" || getpassword === "" || getsecondPassword === "" || getfirstname === "" || getlastname === "" || gettelnumber === "") {
+      return true; // One or more fields are empty, prevent submission.
+    } else if (passwordsvalidate === false || passwordsMatch === false) {
       return true;
-    } else {
-      if (getpassword == getsecondPassword) {
-        return false;
-      } else {
-        return true;
-      }
     }
   };
 
@@ -66,18 +62,17 @@ export const RegisterOrg = () => {
           </h2>
           <form action="" className="flex flex-col gap-2 md:gap-4" onSubmit={onFinish}>
             <div className="flex gap-3">
-              <input type="text" onChange={(e) => setFirstname(e.target.value)} name="name" placeholder="ชื่อ" className="p-2 mt-8 rounded-xl border w-1/2" value={getfirstname} required></input>
+              <input type="text"  onChange={(e) => setFirstname(e.target.value)} name="name" placeholder="ชื่อ" className="p-2 mt-8 rounded-xl border w-1/2" value={getfirstname} required></input>
               <input type="text" onChange={(e) => setLastname(e.target.value)} name="surname" placeholder="นามสกุล" className="p-2 mt-8 rounded-xl border w-1/2" value={getlastname} required></input>
             </div>
-            {/* <input type="text" name="storename" placeholder="ชื่อร้านค้า" className="p-2 mt-5 rounded-xl border"></input> */}
-            <input type="text" onChange={(e) => setEmail(e.target.value)} name="email" placeholder="อีเมล์" className="p-2 mt-5 rounded-xl border"></input>
-            <input type="text" onChange={(e) => setPassword(e.target.value)} name="password" placeholder="รหัสผ่าน" className="p-2 mt-5 rounded-xl border" required></input>
+            <input type="text" onChange={(e) => setEmail(e.target.value)} name="email" placeholder="อีเมล์" className="p-2 mt-5 rounded-xl border" value={email} required></input>
+            <input type="text" onChange={(e) => setPassword(e.target.value)} name="password" placeholder="รหัสผ่าน" className="p-2 mt-5 rounded-xl border" value={getpassword} required></input>
             {passwordsvalidate ? null : <div className="text-red-500 font-bold text-sm">รหัสผ่านควรมีความยาวตั้งแต่ 8-20 ตัวอักษร ประกอบด้วยตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว ตัวพิมพ์เล็กอย่างน้อย 1 ตัว ตัวเลขอย่างน้อย 1 ตัว ตัวอักษรพิเศษอย่างน้อย 1 ตัว</div>}
-            <input type="text" onChange={(e) => setSecondPassword(e.target.value)} name="password2" placeholder="ยืนยันรหัสผ่าน" className="p-2 mt-5 rounded-xl border" value={getpassword} required></input>
+            <input type="text" onChange={(e) => setSecondPassword(e.target.value)} name="password2" placeholder="ยืนยันรหัสผ่าน" className="p-2 mt-5 rounded-xl border" value={getsecondPassword} required></input>
             {passwordsMatch ? null : <div className="text-red-500 font-bold text-sm">รหัสผ่านไม่ตรงกัน</div>}
             <input type="text" onChange={(e) => setTelnumber(e.target.value)} name="tel" placeholder="เบอร์โทร" className="p-2 mt-5 rounded-xl border" value={gettelnumber} required></input>
             <div className="flex justify-center items-center">
-              <button type="submit" disabled={checkSubmitBTN()} className="bg-emerald-400 text-cyan-950 mt-5 rounded-full hover:bg-emerald-300 duration-300 w-60 p-2 font-semibold">
+              <button type="submit" disabled={checkSubmitBTN()} className={`${!checkSubmitBTN() ? "bg-emerald-400 hover:bg-emerald-300" : "bg-gray-400"} text-cyan-950 mt-5 rounded-full duration-300 w-60 p-2 font-semibold`}>
                 สมัครสมาชิก
               </button>
             </div>

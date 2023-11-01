@@ -449,7 +449,7 @@ const Createprofile = () => {
                   </div>
                   <div className="flex gap-5">
                     <div className="h-20 p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-full bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150">
-                      {id != undefined ? (
+                      {id !== undefined ? (
                         checkboxValues.map((vehicle) => {
                           return (
                             <>
