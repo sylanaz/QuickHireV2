@@ -364,7 +364,7 @@ const Createprofile = () => {
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ความสามารถด้านภาษา</h1>
                   <div className="flex flex-col gap-5">
-                    {id != undefined ? (
+                    {id !== undefined ? (
                       languages.map((language) => (
                         <div key={language.id} className="flex gap-5">
                           <input placeholder="กรอกชื่อภาษา" value={language.name} onChange={(e) => handleInputChange(language.id, e.target.value)} className="h-20 text-orange-500 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4 placeholder-orange-500 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150" />
@@ -399,7 +399,7 @@ const Createprofile = () => {
                     ) : (
                       <div>
                         {languages.map((language) => (
-                          <div key={language.id} className="flex gap-5">
+                          <div key={language.id} className="flex gap-5 my-5">
                             <input placeholder="กรอกชื่อภาษา" value={language.name} onChange={(e) => handleInputChange(language.id, e.target.value)} className="h-20 text-orange-500 bg-slate-100 border-0 px-3 py-3 w-1/2 md:w-1/4 placeholder-orange-500 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150" />
                             <div className="p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-1/2 md:w-3/4 bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150">
                               <div>
@@ -448,11 +448,11 @@ const Createprofile = () => {
                     <h1 className="mx-3 text-lg mb-3 font-medium text-orange-500">คุณมีใบขับขี่ชนิดใดบ้าง ?</h1>
                   </div>
                   <div className="flex gap-5">
-                    <div className="h-20 p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-full bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150">
+                    <div className="w-full">
                       {id !== undefined ? (
                         checkboxValues.map((vehicle) => {
                           return (
-                            <>
+                            <div className="h-20 p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-full bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150">
                               <div>
                                 <input id="noMotorcycle" type="checkbox" checked={vehicle.noMotorcycle} onChange={handleVehicleChange} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                 <label htmlFor="noMotorcycle" className="ml-2 font-medium">
@@ -477,7 +477,7 @@ const Createprofile = () => {
                                   รถยนต์
                                 </label>
                               </div>
-                            </>
+                            </div>
                           );
                         })
                       ) : (
@@ -501,7 +501,7 @@ const Createprofile = () => {
                             </label>
                           </div>
                           <div>
-                            <input id="car" type="checkbox" checked={checkboxValues.car} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                            <input id="car" type="checkbox" checked={checkboxValues.car} onChange={handleVehicleChange} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                             <label for="checked-checkbox" class="ml-2 font-medium">
                               รถยนต์
                             </label>
