@@ -45,7 +45,7 @@ const Mail = ({ id, useremail, email_shopname, shopname, status, date, role, tri
           {role === "user" ? (
             <>
               <div className="flex justify-center items-center">
-                <div className="grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10">{userData && userData.map((data, index) => <Card key={index} id={id} restaurantName={data.shopname} minilocation={data.minilocation} position={data.workposition} hourlyIncome={data.money} img={JSON.parse(data.img)} lat={data.lats} long={data.longs} peopleneed={data.peopleneed} jobdesc={data.jobdesc} timework={data.timework} welfare={data.welfare} location={data.location} email={data.email} triggerUserApplyJob={triggerUserApplyJob} showHistory={true} status_appove={status} date_month_year={date_month_year} />)}</div>
+                <div className="grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10">{userData && userData.map((data, index) => <Card key={index} id={id} restaurantName={data.shopname} minilocation={data.minilocation} position={data.workposition} hourlyIncome={data.money} img={JSON.parse(data.img)} lat={data.marker.lat} long={data.marker.lng} peopleneed={data.peopleneed} jobdesc={data.jobdesc} timework={data.timework} welfare={data.welfare} location={data.location} email={data.email} triggerUserApplyJob={triggerUserApplyJob} showHistory={true} status_appove={status} date_month_year={date_month_year} />)}</div>
               </div>
             </>
           ) : (

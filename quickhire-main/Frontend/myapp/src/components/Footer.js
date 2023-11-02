@@ -42,7 +42,7 @@ function Footer() {
           <h1 className=" md:text-xl">คำถามที่พบบ่อย</h1>
           <h1 className=" md:text-xl">วิธีใช้งาน</h1>
         </div>
-        <div className="text-center bg-cyan-500 text-white col-span-3 gap-2 rounded-t-2xl bottom-0 p-3">@ 2023 All Rights Reserved by Quickhire</div>
+        <div className="text-center bg-[#419DBB] text-white col-span-3 gap-2 rounded-t-2xl bottom-0 p-3">@ 2023 All Rights Reserved by Quickhire</div>
       </div>
     </div>
   );

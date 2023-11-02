@@ -366,7 +366,7 @@ const Createprofile = () => {
                     onChange={(event) => setDegree(event.target.value)}
                     type="text"
                     value={getdegree}
-                    className="h-[9.5rem] bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    className=" h-[9.5rem] bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="เช่น จบการศึกษามัธยมศึกษาปีที่6 ที่โรงเรียนชุมแพศึกษา
 จบการศึกษาปริญญาตรีจากคณะวิทยาศาสตร์ สาขาฟิสิกส์ 
 กำลังศึกษาปริญญาตรีคณะวิศวกรรมศาสตร์ มหาวิทยาลัยขอนแก่น เป็นต้น"

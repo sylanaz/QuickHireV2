@@ -46,10 +46,10 @@ function Profile() {
             <Navbar />
             <div className="flex md:justify-center justify-between relative ml-10 mt-5">
               <h1 className=" text-2xl font-medium">
-                <span className="text-orange-400">โปรไฟล์</span>
-                <span className="text-cyan-700">ของคุณ</span>
+                <span className="text-[#F17F0D]">โปรไฟล์</span>
+                <span className="text-[#419DBB]">ของคุณ</span>
               </h1>
-              <Link to={`/Editprofile/${userData._id}`} className="absolute right-10 rounded-3xl px-2 bg-orange-400 text-white">
+              <Link to={`/Editprofile/${userData._id}`} className="absolute right-10 rounded-3xl px-2 bg-[#F17F0D] text-white">
                 แก้ไขประวัติ
               </Link>
             </div>
@@ -58,7 +58,7 @@ function Profile() {
               <div className="flex flex-col mx-auto justify-center bg-[#C7EFF6] rounded-2xl w-[80%] py-5">
                 {/* <img className="w-[200px] h-[200px] rounded-full mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img> */}
                 <div className="m-5">{userData.img !== null && <SwapImage images={JSON.parse(userData.img)} forProfile={true} />}</div>
-                <h1 className="mx-auto mt-2 text-xl md:text-2xl  font-bold text-orange-600">{deCryptoData(userData.nickname)}</h1>
+                <h1 className="mx-auto mt-2 text-xl md:text-2xl  font-bold text-[#F17F0D]">{deCryptoData(userData.nickname)}</h1>
                 <h1 className="mx-auto mt-2 text-xl md:text-2xl">{deCryptoData(userData.fullname)}</h1>
                 <h1 className="mx-auto mt-2 text-lg md:text-xl">
                   {deCryptoData(userData.birthdate)} อายุ {age} ปี
@@ -69,12 +69,12 @@ function Profile() {
               </div>
 
               <div className="flex flex-col mx-auto justify-center gap-10 w-[80%] ">
-                <div className="relative">
+                <div className="relative ">
                   <div className=" rounded-full bg-[#419DBB] text-white p-2 w-40 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
                     <h1 className="font-bold">ประวัติการศึกษา</h1>
                   </div>
-                  <div className=" rounded-2xl bg-[#c7eff6]  h-64 ">
-                    <h1 className="p-10 text-xl break-words">{deCryptoData(userData.degree)}</h1>
+                  <div className=" rounded-2xl bg-[#c7eff6]  h-64 overflow-y-auto ">
+                    <h1 className="p-10 text-lg md:text-xl break-words ">{deCryptoData(userData.degree)}</h1>
                   </div>
                 </div>
 
@@ -82,8 +82,8 @@ function Profile() {
                   <div className=" rounded-full  bg-[#419dbb] text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
                     <h1 className="font-bold">ประวัติการทำงาน / ฝึกงาน</h1>
                   </div>
-                  <div className=" rounded-2xl bg-[#c7eff6] h-64">
-                    <h1 className="p-10 break-words text-xl">{deCryptoData(userData.workexp)}</h1>
+                  <div className=" rounded-2xl bg-[#c7eff6] h-64 overflow-y-auto ">
+                    <h1 className="p-10  text-lg md:text-xl break-words ">{deCryptoData(userData.workexp)}</h1>
                   </div>
                 </div>
               </div>
@@ -94,82 +94,84 @@ function Profile() {
                 <div className=" rounded-full bg-[#419dbb] text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
                   <h1>ความสามารถด้านภาษา</h1>
                 </div>
-                <div className="flex rounded-2xl bg-[#c7eff6] h-auto py-7 items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
-        {userData.languages.length !== 1 ? <div className="grid grid-cols-2 md:gap-3 gap-5">
-                    {/* Languages */}
-                    {userData.languages &&
-                      userData.languages.map((language) => {
-                        return (
-                          <div className="md:flex gap-3 md:gap-5">
-                            <span className="flex font-bold justify-start"> {language.name} :</span>
-                            <div className="grid grid-cols-2 md:flex gap-1 md:gap-5">
-                              <div>
-                                <input checked={language.listen} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                <label for="checked-checkbox" class="ml-2 font-medium">
-                                  ฟัง
-                                </label>
-                              </div>
-                              <div>
-                                <input checked={language.talk} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                <label for="checked-checkbox" class="ml-2 font-medium">
-                                  พูด
-                                </label>
-                              </div>
-                              <div>
-                                <input checked={language.read} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                <label for="checked-checkbox" class="ml-2 font-medium ">
-                                  อ่าน
-                                </label>
-                              </div>
-                              <div>
-                                <input checked={language.write} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                <label for="checked-checkbox" class="ml-2 font-medium">
-                                  เขียน
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                  </div>: <div className="grid grid-cols-1 md:gap-3 gap-5">
-                    {/* Languages */}
-                    {userData.languages &&
-                      userData.languages.map((language) => {
-                        return (
-                          <div className="md:flex gap-3 md:gap-5">
-                            <span className="flex font-bold justify-start"> {language.name} :</span>
-                            <div className="grid grid-cols-2 md:flex gap-1 md:gap-5">
-                              <div>
-                                <input checked={language.listen} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                <label for="checked-checkbox" class="ml-2 font-medium">
-                                  ฟัง
-                                </label>
-                              </div>
-                              <div>
-                                <input checked={language.talk} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                <label for="checked-checkbox" class="ml-2 font-medium">
-                                  พูด
-                                </label>
-                              </div>
-                              <div>
-                                <input checked={language.read} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                <label for="checked-checkbox" class="ml-2 font-medium ">
-                                  อ่าน
-                                </label>
-                              </div>
-                              <div>
-                                <input checked={language.write} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                <label for="checked-checkbox" class="ml-2 font-medium">
-                                  เขียน
-                                </label>
+                <div className="flex rounded-2xl bg-[#c7eff6] h-32 items-center justify-center text-sm  md:px-5   md:text-xl  ">
+                  {userData.languages.length !== 1 ? (
+                    <div className="grid grid-cols-2 md:gap-3 gap-5">
+                      {/* Languages */}
+                      {userData.languages &&
+                        userData.languages.map((language) => {
+                          return (
+                            <div className="md:flex gap-3 md:gap-5">
+                              <span className="flex font-bold justify-start"> {language.name} :</span>
+                              <div className="grid grid-cols-2 md:flex gap-1 md:gap-5">
+                                <div>
+                                  <input checked={language.listen} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium">
+                                    ฟัง
+                                  </label>
+                                </div>
+                                <div>
+                                  <input checked={language.talk} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium">
+                                    พูด
+                                  </label>
+                                </div>
+                                <div>
+                                  <input checked={language.read} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium ">
+                                    อ่าน
+                                  </label>
+                                </div>
+                                <div>
+                                  <input checked={language.write} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium">
+                                    เขียน
+                                  </label>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        );
-                      })}
-                  </div>}
-
-                  
+                          );
+                        })}
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1">
+                      {/* Languages */}
+                      {userData.languages &&
+                        userData.languages.map((language) => {
+                          return (
+                            <div className="grid md:flex gap-3 md:gap-5">
+                              <span className="flex font-bold justify-center"> {language.name}</span>
+                              <div className="grid grid-cols-2 md:flex gap-1 md:gap-5">
+                                <div>
+                                  <input checked={language.listen} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium">
+                                    ฟัง
+                                  </label>
+                                </div>
+                                <div>
+                                  <input checked={language.talk} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium">
+                                    พูด
+                                  </label>
+                                </div>
+                                <div>
+                                  <input checked={language.read} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium ">
+                                    อ่าน
+                                  </label>
+                                </div>
+                                <div>
+                                  <input checked={language.write} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium">
+                                    เขียน
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  )}
                 </div>
               </div>
               {/* license driving */}
