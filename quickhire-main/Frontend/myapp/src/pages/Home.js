@@ -7,6 +7,7 @@ import Card from "../components/Card";
 import { getUserApplyJob } from "../data/userApplyJob";
 import LoadingPage from "./LoadingPage";
 import CryptoJS from "crypto-js";
+import PaginatedPage from "./PaginatedPage";
 
 function Home() {
   const [jobs, setJobs] = useState();
@@ -65,6 +66,18 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const filteredCards = jobs ? jobs.filter((card) => card.shopname.toLowerCase().includes(searchTerm.toLowerCase())) : [];
 
+  // ============== Paginated list ==============
+  const itemsPerPage = 8;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = allJobsUserNotApply && itemsPerPage && (role == "user" ? Math.ceil(allJobsUserNotApply.length / itemsPerPage) : Math.ceil(filteredCards.length / itemsPerPage));
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const paginatedData = allJobsUserNotApply && itemsPerPage && (role == "user" ? allJobsUserNotApply.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : filteredCards.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+
   return (
     <>
       {loading ? (
@@ -85,7 +98,11 @@ function Home() {
             </div>
           </div>
           <div className="flex justify-center items-center">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10"> {role === "user" ? allJobsUserNotApply.map((job, index) => <Card key={index} id={job._id} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.marker.lat} long={job.marker.lng} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} triggerUserApplyJob={triggerUserApplyJob} />) : filteredCards.map((job, index) => <Card key={index} id={job._id} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.marker.lat} long={job.marker.lng} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} editBTN={false} />)}</div>
+            {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10"> {role === "user" ? allJobsUserNotApply.map((job, index) => <Card key={index} id={job._id} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.marker.lat} long={job.marker.lng} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} triggerUserApplyJob={triggerUserApplyJob} />) : filteredCards.map((job, index) => <Card key={index} id={job._id} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.marker.lat} long={job.marker.lng} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} editBTN={false} />)}</div> */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10"> {role === "user" ? paginatedData.map((job, index) => <Card key={index} id={job._id} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.marker.lat} long={job.marker.lng} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} triggerUserApplyJob={triggerUserApplyJob} />) : paginatedData.map((job, index) => <Card key={index} id={job._id} restaurantName={job.shopname} minilocation={job.minilocation} position={job.workposition} hourlyIncome={job.money} img={JSON.parse(job.img)} lat={job.marker.lat} long={job.marker.lng} peopleneed={job.peopleneed} jobdesc={job.jobdesc} timework={job.timework} welfare={job.welfare} location={job.location} email={job.email} editBTN={false} />)}</div>
+          </div>
+          <div className="flex justify-center mt-3">
+          <PaginatedPage totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
           </div>
           <Footer />
         </div>
