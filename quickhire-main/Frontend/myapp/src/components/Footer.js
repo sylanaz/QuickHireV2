@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <div className="">
-      <div className="grid grid-cols-3 text-xs gap-2 mt-7  bg-cyan-900 text-white rounded-t-2xl pt-4 w-full bottom-0 ">
+      <div className="grid grid-cols-3 text-xs gap-2 mt-7  bg-[#0A3F5A] text-white rounded-t-2xl pt-4 w-full bottom-0 ">
         <div className="hidden md:block  md:place-self-center md:px-3">
           <img src={logo} alt="/" className="w-28 -mt-7 mx-auto"></img>
           <div className="md:place-self-center">
@@ -42,7 +42,7 @@ function Footer() {
           <h1 className=" md:text-xl">คำถามที่พบบ่อย</h1>
           <h1 className=" md:text-xl">วิธีใช้งาน</h1>
         </div>
-        <div className="text-center bg-cyan-500 text-white col-span-3 gap-2 rounded-t-2xl bottom-0 p-3">@ 2023 All Rights Reserved by Quickhire</div>
+        <div className="text-center bg-[#419DBB] text-white col-span-3 gap-2 rounded-t-2xl bottom-0 p-3">@ 2023 All Rights Reserved by Quickhire</div>
       </div>
     </div>
   );

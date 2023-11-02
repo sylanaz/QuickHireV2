@@ -23,7 +23,7 @@ function Navbar() {
   };
 
   return (
-    <div className="Navbar flex justify-center relative sm:m-0 sm:justify-between sm:rounded-none md:rounded-xl md:m-5 items-center bg-cyan-900 flex-wrap text-lg md:text-xl lg:text-2xl">
+    <div className="Navbar flex justify-center relative sm:m-0 sm:justify-between sm:rounded-none md:rounded-xl md:m-5 items-center bg-[#0A3F5A] flex-wrap text-lg md:text-xl lg:text-2xl">
       <div className="flex gap-5 md:gap-10 mx-10 items-center text-white">
         <Link to="/Home" class="transition duration-300 hover:scale-125">
           {" "}
@@ -95,7 +95,9 @@ function Navbar() {
 
       {menuOpen && (
         <div className="flex basis-full flex-col items-center flex-wrap gap-5 text-white mb-10">
-          <Link to="/Home">หน้าแรก</Link>
+          <Link to="/Home" className="transition duration-300 hover:rotate-12">
+            หน้าแรก
+          </Link>
           {/* <Link to="/Profile">โปรไฟล์</Link>
           <Link to="/Job">ค้นหางาน</Link> */}
           {/* {role === "user" && <Link to="/Profile">โปรไฟล์</Link>}
@@ -118,7 +120,9 @@ function Navbar() {
               <Link to="/Approve">คัดเลือกผู้สมัคร</Link>
             </>
           )}
-          <Link to="/Contact">ติดต่อเรา</Link>
+          <Link to="/Contact" className="transition duration-300 hover:rotate-12">
+            ติดต่อเรา
+          </Link>
           {token ? (
             <button onClick={handleLogout} className="transition duration-300 hover:scale-12">
               ออกจากระบบ

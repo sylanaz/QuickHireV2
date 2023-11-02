@@ -217,7 +217,7 @@ const Createprofile = () => {
   console.log(checkboxValues.map((data) => data.car));
 
   useEffect(() => {
-    if (id != undefined && localStorage.getItem("newuser") === "old") {
+    if (id !== undefined && localStorage.getItem("newuser") === "old") {
       getOldData();
       setLoading(true);
     }
@@ -262,13 +262,13 @@ const Createprofile = () => {
     const isComplete = isFormComplete();
     if (currentStage === "abilities") {
       return (
-        <button className={`p-3 rounded-lg ${currentIndex === stages.length - 1 && !isComplete ? "bg-gray-400" : isComplete ? "bg-cyan-700 text-white" : "bg-cyan-700 text-white"}`} onClick={isComplete ? handleSubmit : undefined} disabled={!isComplete && currentIndex !== stages.length - 1}>
+        <button className={`p-3 rounded-lg ${currentIndex === stages.length - 1 && !isComplete ? "bg-gray-400" : isComplete ? "bg-[#F27F0C] text-white" : "bg-[#F5993D] text-white"}`} onClick={isComplete ? handleSubmit : undefined} disabled={!isComplete && currentIndex !== stages.length - 1}>
           {isComplete ? "ยืนยันข้อมูล" : "กรุณากรอกข้อมูล"}
         </button>
       );
     } else {
       return (
-        <button className={`p-3 ml-2 rounded-lg ${currentIndex === stages.length - 1 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === stages.length - 1} onClick={handleNextClick}>
+        <button className={`p-3 ml-2 rounded-lg ${currentIndex === stages.length - 1 ? "bg-gray-400" : "bg-[#F27F0C] text-white"}`} disabled={currentIndex === stages.length - 1} onClick={handleNextClick}>
           Next
         </button>
       );
@@ -287,7 +287,7 @@ const Createprofile = () => {
             {stages.map((stageName, index) => (
               <div
                 key={stageName}
-                className={`w-full sm:w-auto relative cursor-pointer rounded-xl ${currentStage === stageName ? "bg-cyan-700" : "bg-gray-400"}`}
+                className={`w-full sm:w-auto relative cursor-pointer rounded-xl ${currentStage === stageName ? "bg-[#419DBB]" : "bg-[#83BFD3]"}`}
                 onClick={() => setCurrentIndex(index)}
                 style={{ flex: "1 0 calc(33.333% - 1rem)" }} // Adjust the width as needed
               >
@@ -325,7 +325,7 @@ const Createprofile = () => {
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">นามสกุล</h1>
                   <input onChange={(event) => setLastname(event.target.value)} type="text" value={getlastname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
-                  <h1 className="text-orange-400 font-medium mt-2"> โปรดระบุข้อมูลจริงตามบัตรประชาชน เนื่องจากมีผลต่อการสมัครงาน</h1>
+                  <h1 className="text-orange-400  mt-2 font-bold"> โปรดระบุข้อมูลจริงตามบัตรประชาชน เนื่องจากมีผลต่อการสมัครงาน</h1>
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ชื่อเล่น</h1>
@@ -366,7 +366,7 @@ const Createprofile = () => {
                     onChange={(event) => setDegree(event.target.value)}
                     type="text"
                     value={getdegree}
-                    className="h-[9.5rem] bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    className=" h-[9.5rem] bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="เช่น จบการศึกษามัธยมศึกษาปีที่6 ที่โรงเรียนชุมแพศึกษา
 จบการศึกษาปริญญาตรีจากคณะวิทยาศาสตร์ สาขาฟิสิกส์ 
 กำลังศึกษาปริญญาตรีคณะวิศวกรรมศาสตร์ มหาวิทยาลัยขอนแก่น เป็นต้น"
@@ -537,8 +537,8 @@ const Createprofile = () => {
             </div>
           )}
           <div className="flex items-center justify-center my-20 ">
-            <button onClick={handlePrevClick} className={`p-3 mr-2 rounded-lg ${currentIndex === 0 ? "bg-gray-400" : "bg-cyan-700 text-white"}`} disabled={currentIndex === 0}>
-              Previous
+            <button onClick={handlePrevClick} className={`p-3 mr-2 rounded-lg ${currentIndex === 0 ? "bg-gray-400 text-black" : "bg-[#F27F0C] text-white"}`} disabled={currentIndex === 0}>
+              ย้อนกลับ
             </button>
             {renderNextButton()}
           </div>
