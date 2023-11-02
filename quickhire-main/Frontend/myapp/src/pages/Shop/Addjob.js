@@ -49,7 +49,7 @@ const Addjob = () => {
             {userData !== null && userData !== undefined && (
               <>
                 {userData.map((user, index) => (
-                  <Card key={index} id={user._id} restaurantName={user.shopname} minilocation={user.minilocation} position={user.workposition} hourlyIncome={user.money} img={JSON.parse(user.img)} lat={user.lats} long={user.longs} peopleneed={user.peopleneed} jobdesc={user.jobdesc} timework={user.timework} welfare={user.welfare} location={user.location} email={user.email} fullname={user.fullname} editBTN={true} triggerShopDeleteJob={triggerShopDeleteJob} />
+                  <Card key={index} id={user._id} restaurantName={user.shopname} minilocation={user.minilocation} position={user.workposition} hourlyIncome={user.money} img={JSON.parse(user.img)} lat={user.marker.lat} long={user.marker.lng} peopleneed={user.peopleneed} jobdesc={user.jobdesc} timework={user.timework} welfare={user.welfare} location={user.location} email={user.email} fullname={user.fullname} editBTN={true} triggerShopDeleteJob={triggerShopDeleteJob} />
                 ))}
               </>
             )}
