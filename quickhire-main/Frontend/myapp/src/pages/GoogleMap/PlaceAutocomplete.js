@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 
-const PlaceAutocomplete = ({ setDataMarker }) => {
+const PlaceAutocomplete = ({ getOldAddress, setDataMarker,sendAddress }) => {
+  
   const {
     ready,
     value,
@@ -20,7 +21,12 @@ const PlaceAutocomplete = ({ setDataMarker }) => {
   const handleInput = (e) => {
     // Update the keyword of the input element
     setValue(e.target.value);
+    sendAddress(e.target.value);
   };
+
+  useEffect(() => {
+    setValue(getOldAddress);
+  },[getOldAddress])
 
   const handleSelect =
     ({ description }) =>
@@ -28,6 +34,7 @@ const PlaceAutocomplete = ({ setDataMarker }) => {
       // When the user selects a place, we can replace the keyword without request data from API
       // by setting the second parameter to "false"
       setValue(description, false);
+      sendAddress(description);
       clearSuggestions();
 
       // Get latitude and longitude via utility functions

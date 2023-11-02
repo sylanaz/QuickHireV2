@@ -26,7 +26,7 @@ const Createshop = () => {
   const [telnumber, setTelnumber] = useState("");
   const [shopname, setShopname] = useState("");
   const [location, setLocation] = useState("");
-  const [timework, setTimework] = useState("");
+  // const [timework, setTimework] = useState("");
   const [money, setMoney] = useState("");
   const [lat, setLat] = useState("");
   const [long, setLong] = useState("");
@@ -36,7 +36,6 @@ const Createshop = () => {
   const [workposition, setWorkposition] = useState("");
   const [jobdesc, setJobdesc] = useState("");
   const [peopleneed, setPeopleneed] = useState("");
-
   // Time range picker
   const [timeFrom, setTimeFrom] = useState(null);
   const [timeTo, setTimeTo] = useState(null);
@@ -55,6 +54,10 @@ const Createshop = () => {
   //? Handle when user click on google map api it will send a new lat and lng to marker
   const setNewMarkerFromGGMapAPI = (marker) => {
     setMarker(marker);
+  };
+
+  const setAddress = (address) => {
+    setLocation(address);
   };
   // ========================================================
 
@@ -77,16 +80,18 @@ const Createshop = () => {
 
   const getOldData = async () => {
     await axios.get(`${process.env.REACT_APP_API}getSpecificDataShop/${id}`).then((data) => {
+      console.log(data.data);
       setFullname(data.data.fullname);
       setTelnumber(data.data.telnumber);
       setShopname(data.data.shopname);
       setLocation(data.data.location);
-      setTimework(data.data.timework);
+      // setTimework(data.data.timework);
       setTimeFrom(dayjs(data.data.timeFrom));
       setTimeTo(dayjs(data.data.timeTo));
       setMoney(data.data.money);
       setLat(data.data.lats);
       setLong(data.data.longs);
+      setMarker({ lat: Number(data.data.lats), lng: Number(data.data.longs) });
       setWelfare(data.data.welfare);
       setEmail(data.data.email);
       setMinilocation(data.data.minilocation);
@@ -254,21 +259,10 @@ const Createshop = () => {
                 <h1 className="m-3 text-xl font-medium">สวัสดิการ</h1>
                 <input onChange={(event) => setWelfare(event.target.value)} type="text" value={welfare} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
               </div>
-              {/* <div className="flex flex-col">
-                <h1 className="m-3 text-xl font-medium">ที่อยู่ร้าน</h1>
-                <input
-                  onChange={(event) => setLocation(event.target.value)}
-                  type="text"
-                  value={location}
-                  class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  placeholder="เช่น 
-123 หมู่ 16 ถ.มิตรภาพ ต.ในเมือง อ.เมือง จ.ขอนแก่น 40000"
-                ></input>
-              </div> */}
               {/* Google Map API */}
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">ที่อยู่ร้าน</h1>
-                <PlaceAutocomplete setDataMarker={setNewMarker} />
+                <PlaceAutocomplete getOldAddress={location} setDataMarker={setNewMarker} sendAddress={setAddress} />
               </div>
               <GoogleMapAPI newMarker={marker} sendNewMarker={setNewMarkerFromGGMapAPI} />
               {/*  */}

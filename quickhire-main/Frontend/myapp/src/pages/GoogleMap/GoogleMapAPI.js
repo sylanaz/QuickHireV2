@@ -5,11 +5,10 @@ import { center } from "./CenterMarker";
 const GoogleMapAPI = ({ newMarker, sendNewMarker }) => {
   // Set google map libraries
   const [libraries] = useState(["places"]);
-
   // Load google map script
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API,
+    googleMapsApiKey: "AIzaSyB6Xu3rpJ_RKOn4qJR-lmXQHIOXQGMd9dY",
     libraries,
   });
 
@@ -29,7 +28,9 @@ const GoogleMapAPI = ({ newMarker, sendNewMarker }) => {
 
   // Set new marker when user type place and select
   useEffect(() => {
-    setMarker(newMarker);
+    if (newMarker) {
+      setMarker(newMarker);
+    }
   }, [newMarker]);
 
   return (
