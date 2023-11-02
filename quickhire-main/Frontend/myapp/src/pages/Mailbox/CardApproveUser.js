@@ -11,15 +11,15 @@ const CardApproveUser = ({ userData, shopname, date_month_year, hour_minute, tri
     return CryptoJS.AES.decrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
   };
 
-  const birthDate = userData.length != 0 && new Date(deCryptData(userData.birthdate));
-  const birthYear = userData.length != 0 && birthDate.getFullYear();
+  const birthDate = userData.length !== 0 && new Date(deCryptData(userData.birthdate));
+  const birthYear = userData.length !== 0 && birthDate.getFullYear();
   const currentYear = date.getFullYear();
   const age = currentYear - birthYear;
 
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   useEffect(() => {
-    if (userData !== undefined && userData.fullname !== undefined && userData.length != 0) {
+    if (userData !== undefined && userData.fullname !== undefined && userData.length !== 0) {
       const [firstname, lastname] = deCryptData(userData.fullname).split(" ");
       setFirstname(firstname);
       setLastname(lastname);
@@ -56,7 +56,7 @@ const CardApproveUser = ({ userData, shopname, date_month_year, hour_minute, tri
                 </p>
               </div>
               <div className="flex mx-2">
-                <DescBTN text="ดูโปรไฟล์เพิ่มเติม" userData={userData} />
+                <DescBTN  text="ดูโปรไฟล์เพิ่มเติม" userData={userData} />
               </div>
               <div className="flex flex-row justify-center rounded-b-[20px] mx-2">
                 {bool.map((data) => {

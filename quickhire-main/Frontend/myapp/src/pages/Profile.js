@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import date from "../data/date";
 import SwapImage from "./Shop/SwapImage";
 import LoadingPage from "./LoadingPage";
 import CryptoJS from "crypto-js";
@@ -15,7 +14,6 @@ function Profile() {
   const deCryptoData = (data) => {
     return CryptoJS.AES.decrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
   };
-  const [langSkill, setLangSkill] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +34,8 @@ function Profile() {
   const currentYear = new Date().getFullYear();
   const age = currentYear - birthYear;
 
-  console.log(userData);
+  // console.log(userData);
+  // console.log(userData.languages.length)
   return (
     <>
       {userData == null ? (
@@ -72,19 +71,19 @@ function Profile() {
               <div className="flex flex-col mx-auto justify-center gap-10 w-[80%] ">
                 <div className="relative">
                   <div className=" rounded-full bg-[#419DBB] text-white p-2 w-40 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
-                    <h1>ประวัติการศึกษา</h1>
+                    <h1 className="font-bold">ประวัติการศึกษา</h1>
                   </div>
                   <div className=" rounded-2xl bg-[#c7eff6]  h-64 ">
-                    <h1 className="p-10 ">{deCryptoData(userData.degree)}</h1>
+                    <h1 className="p-10 text-xl break-words">{deCryptoData(userData.degree)}</h1>
                   </div>
                 </div>
 
                 <div className="relative">
-                  <div className=" rounded-full bg-[#419dbb] text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
-                    <h1>ประวัติการทำงาน / ฝึกงาน</h1>
+                  <div className=" rounded-full  bg-[#419dbb] text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
+                    <h1 className="font-bold">ประวัติการทำงาน / ฝึกงาน</h1>
                   </div>
                   <div className=" rounded-2xl bg-[#c7eff6] h-64">
-                    <h1 className="p-10">{deCryptoData(userData.workexp)}</h1>
+                    <h1 className="p-10 break-words text-xl">{deCryptoData(userData.workexp)}</h1>
                   </div>
                 </div>
               </div>
@@ -96,7 +95,7 @@ function Profile() {
                   <h1>ความสามารถด้านภาษา</h1>
                 </div>
                 <div className="flex rounded-2xl bg-[#c7eff6] h-auto py-7 items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
-                  <div className="grid grid-cols-2 md:gap-3 gap-5">
+        {userData.languages.length !== 1 ? <div className="grid grid-cols-2 md:gap-3 gap-5">
                     {/* Languages */}
                     {userData.languages &&
                       userData.languages.map((language) => {
@@ -132,7 +131,45 @@ function Profile() {
                           </div>
                         );
                       })}
-                  </div>
+                  </div>: <div className="grid grid-cols-1 md:gap-3 gap-5">
+                    {/* Languages */}
+                    {userData.languages &&
+                      userData.languages.map((language) => {
+                        return (
+                          <div className="md:flex gap-3 md:gap-5">
+                            <span className="flex font-bold justify-start"> {language.name} :</span>
+                            <div className="grid grid-cols-2 md:flex gap-1 md:gap-5">
+                              <div>
+                                <input checked={language.listen} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                <label for="checked-checkbox" class="ml-2 font-medium">
+                                  ฟัง
+                                </label>
+                              </div>
+                              <div>
+                                <input checked={language.talk} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                <label for="checked-checkbox" class="ml-2 font-medium">
+                                  พูด
+                                </label>
+                              </div>
+                              <div>
+                                <input checked={language.read} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                <label for="checked-checkbox" class="ml-2 font-medium ">
+                                  อ่าน
+                                </label>
+                              </div>
+                              <div>
+                                <input checked={language.write} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                <label for="checked-checkbox" class="ml-2 font-medium">
+                                  เขียน
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>}
+
+                  
                 </div>
               </div>
               {/* license driving */}
@@ -172,7 +209,6 @@ function Profile() {
                               รถยนต์
                             </label>
                           </div>
-                        
                         </div>
                       );
                     })}
