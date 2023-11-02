@@ -28,8 +28,8 @@ const Createshop = () => {
   const [location, setLocation] = useState("");
   // const [timework, setTimework] = useState("");
   const [money, setMoney] = useState("");
-  const [lat, setLat] = useState("");
-  const [long, setLong] = useState("");
+  // const [lat, setLat] = useState("");
+  // const [long, setLong] = useState("");
   const [welfare, setWelfare] = useState("");
   const [email, setEmail] = useState("");
   const [minilocation, setMinilocation] = useState("");
@@ -85,13 +85,13 @@ const Createshop = () => {
       setTelnumber(data.data.telnumber);
       setShopname(data.data.shopname);
       setLocation(data.data.location);
-      // setTimework(data.data.timework);
       setTimeFrom(dayjs(data.data.timeFrom));
       setTimeTo(dayjs(data.data.timeTo));
+      // setTimework(data.data.timework);
+      setFormatTimeFrom(data.data.timework.split(" - ")[0]);
+      setFormatTimeTo(data.data.timework.split(" - ")[1]);
       setMoney(data.data.money);
-      setLat(data.data.lats);
-      setLong(data.data.longs);
-      setMarker({ lat: Number(data.data.lats), lng: Number(data.data.longs) });
+      setMarker(data.data.marker);
       setWelfare(data.data.welfare);
       setEmail(data.data.email);
       setMinilocation(data.data.minilocation);
@@ -125,16 +125,13 @@ const Createshop = () => {
       timeFrom: timeFrom,
       timeTo: timeTo,
       timework: formatTimeFrom + " - " + formatTimeTo,
-      // formatTime: formatTime,
       money: money,
       peopleneed: peopleneed,
       welfare: welfare,
       location: location,
-      lats: marker.lat,
-      longs: marker.lng,
+      marker: marker,
       minilocation: minilocation,
       img: imageJSON,
-      // newuser: "old",
     };
     if (id == 0) {
       await axios

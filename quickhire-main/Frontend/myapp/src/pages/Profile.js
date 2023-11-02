@@ -56,7 +56,7 @@ function Profile() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 m-10 gap-10">
-              <div className="flex flex-col mx-auto justify-center bg-blue-300 rounded-2xl w-[80%] py-5">
+              <div className="flex flex-col mx-auto justify-center bg-[#C7EFF6] rounded-2xl w-[80%] py-5">
                 {/* <img className="w-[200px] h-[200px] rounded-full mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img> */}
                 <div className="m-5">{userData.img !== null && <SwapImage images={JSON.parse(userData.img)} forProfile={true} />}</div>
                 <h1 className="mx-auto mt-2 text-xl md:text-2xl  font-bold text-orange-600">{deCryptoData(userData.nickname)}</h1>
@@ -71,19 +71,19 @@ function Profile() {
 
               <div className="flex flex-col mx-auto justify-center gap-10 w-[80%] ">
                 <div className="relative">
-                  <div className=" rounded-full bg-blue-500 text-white p-2 w-40 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
+                  <div className=" rounded-full bg-[#419DBB] text-white p-2 w-40 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
                     <h1>ประวัติการศึกษา</h1>
                   </div>
-                  <div className=" rounded-2xl bg-blue-300  h-64 ">
+                  <div className=" rounded-2xl bg-[#c7eff6]  h-64 ">
                     <h1 className="p-10 ">{deCryptoData(userData.degree)}</h1>
                   </div>
                 </div>
 
                 <div className="relative">
-                  <div className=" rounded-full bg-blue-500 text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
+                  <div className=" rounded-full bg-[#419dbb] text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
                     <h1>ประวัติการทำงาน / ฝึกงาน</h1>
                   </div>
-                  <div className=" rounded-2xl bg-blue-300 h-64">
+                  <div className=" rounded-2xl bg-[#c7eff6] h-64">
                     <h1 className="p-10">{deCryptoData(userData.workexp)}</h1>
                   </div>
                 </div>
@@ -92,10 +92,10 @@ function Profile() {
 
             <div className="flex flex-col mx-auto justify-center gap-8 w-[90%] ">
               <div className="relative mx-10">
-                <div className=" rounded-full bg-blue-500 text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
+                <div className=" rounded-full bg-[#419dbb] text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
                   <h1>ความสามารถด้านภาษา</h1>
                 </div>
-                <div className="flex rounded-2xl bg-blue-300 h-auto py-7 items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
+                <div className="flex rounded-2xl bg-[#c7eff6] h-auto py-7 items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
                   <div className="grid grid-cols-2 md:gap-3 gap-5">
                     {/* Languages */}
                     {userData.languages &&
@@ -137,10 +137,10 @@ function Profile() {
               </div>
               {/* license driving */}
               <div className="relative mx-10 ">
-                <div className=" rounded-full bg-blue-500 text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5 ">
+                <div className=" rounded-full bg-[#419dbb] text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5 ">
                   <h1>ความสามารถในการขับรถ</h1>
                 </div>
-                <div className=" flex rounded-2xl bg-blue-300 h-32  items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
+                <div className=" flex rounded-2xl bg-[#c7eff6] h-32  items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
                   {/* <h1 className="p-10">{userData.vehicle}</h1> */}
                   {/* <div className="grid grid-cols-2 md:flex gap-1 md:gap-5 "> */}
                   {/* Vehicles */}

@@ -23,7 +23,7 @@ function Navbar() {
   };
 
   return (
-    <div className="Navbar flex justify-center relative sm:m-0 sm:justify-between sm:rounded-none md:rounded-xl md:m-5 items-center bg-cyan-900 flex-wrap text-lg md:text-xl lg:text-2xl">
+    <div className="Navbar flex justify-center relative sm:m-0 sm:justify-between sm:rounded-none md:rounded-xl md:m-5 items-center bg-[#0A3F5A] flex-wrap text-lg md:text-xl lg:text-2xl">
       <div className="flex gap-5 md:gap-10 mx-10 items-center text-white">
         <Link to="/Home" class="transition duration-300 hover:scale-125">
           {" "}
