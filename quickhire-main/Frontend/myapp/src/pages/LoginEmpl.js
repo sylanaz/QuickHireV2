@@ -12,6 +12,9 @@ export const LoginEmpl = ({ onSwitchMode }) => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
+  const role = CryptoJS.AES.encrypt("user", process.env.REACT_APP_ENCRYPT_KEY).toString()
+  const encodedRole = encodeURIComponent(role);
+
   const toShow = () => {
     setshow(!show);
   };
@@ -45,6 +48,7 @@ export const LoginEmpl = ({ onSwitchMode }) => {
       }
     });
   };
+
   return (
     <section className="bg-gray-50 min-h-screen flex flex-col items-center justify-center ">
       {/* {currMode === ScreenMode.LOGIN_EMPL ? <LoginEmpl onSwitchMode={onSwitchMode} /> : <LoginOrg onSwitchMode={onSwitchMode} />} */}
@@ -77,7 +81,10 @@ export const LoginEmpl = ({ onSwitchMode }) => {
             </div>
             <span className="text-red-500">{passwordError}</span>
 
-            <div className="flex justify-end -mt-3 text-xs text-yellow-500 mb-3 font-semibold">ลืมรหัสผ่าน?</div>
+            {/* <div className="flex justify-end -mt-3 text-xs text-yellow-500 mb-3 font-semibold">ลืมรหัสผ่าน?</div> */}
+            <Link to={`/ResetPassword/${encodedRole}`}>
+              <div className="flex justify-end -mt-3 text-xs text-yellow-500 mb-3 font-semibold cursor-pointer">ลืมรหัสผ่าน?</div>
+            </Link>
             <button className="bg-white rounded-full text-xl text-orange-500 py-2 hover:scale-105 duration-300" type="submit">
               เข้าสู่ระบบ
             </button>

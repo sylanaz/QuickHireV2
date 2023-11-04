@@ -19,6 +19,8 @@ import { LoginEmpl } from "../src/pages/LoginEmpl";
 import { RegisterEmpl } from "../src/pages/RegisterEmpl";
 import { ChooseLogin } from "./pages/ChooseLogin";
 import { RegisterOrg } from "./pages/Shop/RegisterOrg";
+import ResetPassword from "./pages/ResetPass/ResetPassword";
+import Reset from "./pages/ResetPass/Reset";
 import CryptoJS from "crypto-js";
 
 function App() {
@@ -46,6 +48,8 @@ function App() {
           <Route path="/RegisterEmpl" element={<RegisterEmpl />} />
           <Route path="/RegisterOrg" element={<RegisterOrg />} />
           <Route path="/ChooseLogin" element={<ChooseLogin />} />
+          <Route path="/ResetPassword/:role" element={<ResetPassword />} />
+          <Route path="/Reset/:getEmail/:role" element={<Reset/>} />
         </Routes>
       </div>
     );
