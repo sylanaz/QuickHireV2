@@ -35,7 +35,7 @@ export const LoginEmpl = ({ onSwitchMode }) => {
       setPasswordError("Please enter your password.");
       return;
     }
-    const password = CryptoJS.AES.encrypt(getpassword, "i-tried-to-work-hard-every-days.").toString();
+    const password = CryptoJS.AES.encrypt(getpassword, process.env.REACT_APP_ENCRYPT_KEY).toString();
     axios.post(`${process.env.REACT_APP_API}validatePassword`, { email, password }).then((res) => {
       if (res.data.validation) {
         localStorage.setItem("accessToken", "Logged In");
@@ -103,14 +103,7 @@ export const LoginEmpl = ({ onSwitchMode }) => {
 
           <div className="flex justify-center text-center text-red-400 hover:scale-125 duration-300" onClick={() => onSwitchMode(ScreenMode.LOGIN_ORG)}>
             หาใจที่รักงาน
-            {/* <Link to="/LoginOrg">หาใจที่รักงาน</Link> */}
           </div>
-
-          {/* <Link to={"/Home"}>
-          <div className="flex justify-center bg-white rounded-full py-2 hover:scale-105 duration-300">
-            <span className="text-center text-xl"> Back to Homepage</span>
-          </div>
-        </Link> */}
         </div>
         {/* image something */}
         <div className="md:block hidden w-1/2 p-5 ">
