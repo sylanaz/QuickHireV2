@@ -23,7 +23,7 @@ const Reset = () => {
     <>
       {!alreadyResetPass ? (
         <div className="flex flex-col justify-center h-screen items-center">
-          <div className="flex flex-col bg-gray-100 rounded-2xl shadow-lg w-8/12 h-[23%] p-5 mb-8">
+          <div className="flex flex-col bg-gray-100 rounded-2xl shadow-lg w-8/12 h-[23%] md:h-[27%] p-5 mb-8">
             <div className="mb-2 text-2xl">รีเซ็ตรหัสผ่าน!</div>
             <TextField
               id="standard-basic"
