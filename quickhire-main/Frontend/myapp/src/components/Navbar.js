@@ -23,8 +23,8 @@ function Navbar() {
   };
 
   return (
-    <div className="Navbar flex justify-center relative sm:m-0 sm:justify-between sm:rounded-none md:rounded-xl md:m-5 items-center bg-[#0A3F5A] flex-wrap text-lg md:text-xl lg:text-2xl">
-      <div className="flex gap-5 md:gap-10 mx-10 items-center text-white">
+    <div className="Navbar flex justify-center relative m-0 sm:justify-between sm:rounded-none md:rounded-xl md:m-2 items-center bg-[#0A3F5A] flex-wrap text-lg md:text-lg xl:text-2xl">
+      <div className="flex gap-5 mx-5 lg:gap-10 lg:mx-10 items-center text-white">
         <Link to="/Home" class="transition duration-300 hover:scale-125">
           {" "}
           <img src={logo} alt="" className="w-24 "></img>
@@ -67,13 +67,13 @@ function Navbar() {
       </div>
 
       {token ? (
-        <div className="md:flex gap-5 md:gap-10 items-center mx-10 text-white hidden">
+        <div className="md:flex items-center mx-auto lg:mx-5  text-white hidden">
           <Link to="/" onClick={handleLogout} class="transition duration-300 hover:scale-125 border-red-500 border-4 p-2 rounded-xl">
             ออกจากระบบ
           </Link>
         </div>
       ) : (
-        <div className="md:flex gap-5 md:gap-10 items-center mx-10 text-white hidden">
+        <div className="md:flex  items-center mx-auto md:mx-10 lg:mx-5 text-white hidden">
           {/* <button onClick={toggleContent}>เข้าสู่ระบบ</button>
           {showNewContent ? <LoginMain /> : null} */}
 

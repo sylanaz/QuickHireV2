@@ -53,11 +53,11 @@ export const ApproveUser = () => {
         <LoadingPage />
       ) : (
         <div>
-          <div className="flex flex-col mx-auto min-h-[75vh]">
+          <div className="flex flex-col mx-auto min-h-[90vh]">
             <Navbar />
             <div className="flex justify-center text-2xl mb-6 mt-5 font-medium">{role === "shop" ? "คัดเลือกผู้สมัครงาน" : "ประวัติการสมัครงาน"}</div>
             <div className="">
-              <div className="grid grid-cols-2 md:grid-cols-4">
+              <div className="grid grid-cols-2 lg:grid-cols-3md:grid-cols-3 xl:grid-cols-4">
                 {noti &&
                   noti.map((noti, index) => {
                     if (role === "user") {

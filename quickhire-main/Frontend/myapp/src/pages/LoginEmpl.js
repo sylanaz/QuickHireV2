@@ -53,7 +53,7 @@ export const LoginEmpl = ({ onSwitchMode }) => {
     <section className="bg-gray-50 min-h-screen flex flex-col items-center justify-center ">
       {/* {currMode === ScreenMode.LOGIN_EMPL ? <LoginEmpl onSwitchMode={onSwitchMode} /> : <LoginOrg onSwitchMode={onSwitchMode} />} */}
 
-      <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center mb-8">
+      <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 md:mx-10 items-center mb-8">
         {/* form */}
         <div className="md:w-1/2 px-8 md:px-16">
           <h2 className="font-bold text-2xl text-center text-[#002D74]">

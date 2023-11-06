@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const SwapImage = ({ images, forProfile }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,11 +13,11 @@ const SwapImage = ({ images, forProfile }) => {
     setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
   };
 
-  const [styleImage, setStyleImage] = useState("w-[125px] h-[125px] md:max-w-[500px] md:max-h-[500px]");
+  const [styleImage, setStyleImage] = useState("w-[125px] h-[125px] ");
 
-  useState(() => {
+  useEffect(() => {
     if (forProfile) {
-      setStyleImage("w-[200px] h-[200px] md:w-[300px] md:h-[300px]");
+      setStyleImage("w-full h-full md:w-[300px] md:h-[300px]");
     }
   }, [forProfile]);
 

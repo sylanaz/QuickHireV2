@@ -18,9 +18,9 @@ import CryptoJS from "crypto-js";
 
 function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob, showHistory, status_appove, date_month_year, editBTN, triggerShopDeleteJob }) {
   const [showModal, setShowModal] = React.useState(false);
-  const useremail = localStorage.getItem("user") && CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);;
+  const useremail = localStorage.getItem("user") && CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
   const status = "pending";
-  const role = localStorage.getItem("role") && CryptoJS.AES.decrypt(localStorage.getItem("role"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);;
+  const role = localStorage.getItem("role") && CryptoJS.AES.decrypt(localStorage.getItem("role"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
   const [user_fullname, setUser_Fullname] = useState("");
   const getUserFullname = async () => {
     const userFullName = await axios.get(`${process.env.REACT_APP_API}getUserinfo/${useremail}`);
@@ -80,7 +80,7 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
 
   return (
     <div>
-      <div className="w-44 h-60 xl:w-80 xl:h-[23rem] md:max-h-[40rem] border-4 border-[#6C8C9C] rounded-[20px] md:rounded-[40px] cursor-pointer bg-[#C7EFF6]">
+      <div className="w-44 h-60 md:h-[19rem] md:w-56 xl:w-80 xl:h-[23rem] border-4 border-[#6C8C9C] rounded-[20px] md:rounded-[40px] cursor-pointer bg-[#C7EFF6]">
         {" "}
         {/* max-w-xs */}
         <div className="flex flex-col rounded-[20px] md:rounded-[40px] relative group" onClick={() => setShowModal(true)}>
@@ -88,7 +88,7 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
           {/*rounded-b-xl*/}
           <div className="flex flex-row rounded-[20px] md:rounded-[40px]">
             {/* {img !== undefined && <img src={img[0]} alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[130px] md:h-[130px] transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />} */}
-            <img src={img[0]} alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[130px] md:h-[130px]  transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />
+            <img src={img[0]} alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[70px] md:h-[70px] xl:w-[130px] xl:h-[130px]  transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />
             <h2 className="w-full flex justify-center text-center px-2 my-auto text-lg font-bold text-[#224555] md:text-3xl">{restaurantName}</h2>
             {/* <div className="overlay absolute top-0 left-0 w-full h-full bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out rounded-b-xl rounded-t-xl"></div> */}
           </div>
@@ -126,11 +126,11 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                   </div>
 
                   {/*body*/}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 m-3 sm:m-5">
+                  <div className="grid grid-cols-1 md:grid md:grid-cols-2 m-3 md:m-5">
                     {/* <img src={img} alt="Restaurant" className=" h-[200px] md:h-[300px] transition-opacity duration-300 ease-in-out rounded-xl mx-auto" /> */}
                     <SwapImage images={img} />
                     {/* Add leaflet tailwind here */}
-                    <MapContainer center={[lat, long]} zoom={14} scrollWheelZoom={false} style={{ width: "500px" }} className="rounded-xl ">
+                    <MapContainer center={[lat, long]} zoom={14} scrollWheelZoom={false} className="rounded-xl md:w-[300px] lg:w-[350px] xl:w-[500px]  ">
                       <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                       <Marker position={[lat, long]} icon={L.icon({ iconUrl: customMarkerIcon, iconSize: [30, 30] })}>
                         <Popup>{restaurantName}</Popup>
@@ -219,7 +219,7 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                           {email === useremail && editBTN && (
                             <div className="mr-2">
                               <EditBTN id={id} />
-                              <DeleteBTN id={id} triggerShopDeleteJob={triggerShopDeleteJob} onClick={() => setShowModal(false)}/>
+                              <DeleteBTN id={id} triggerShopDeleteJob={triggerShopDeleteJob} onClick={() => setShowModal(false)} />
                             </div>
                           )}
                           <button className=" bg-red-500 rounded text-white font-bold uppercase px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base outline-none focus:outline-none ease-linear transition-all duration-150 m-2 sm:m-1" type="button" onClick={() => setShowModal(false)}>

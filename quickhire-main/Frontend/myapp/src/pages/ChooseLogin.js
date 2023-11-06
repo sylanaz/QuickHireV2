@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 export const ChooseLogin = () => {
   return (
     <section className="bg-gray-50 min-h-screen flex flex-col  items-center justify-center ">
-      <div className="bg-gray-100 flex rounded-2xl flex-col md:flex-row shadow-lg max-w-fit p-3 md:p-5 items-center hover:bg-blue-200 transition duration-500 ">
+      <div className="bg-gray-100 flex rounded-2xl flex-col lg:flex-row shadow-lg max-w-fit p-3 md:p-12 items-center hover:bg-blue-200 transition duration-500 ">
         {/* form */}
         <div className="mb-5 mt-5">
-          <div className="md:flex md:flex-col-reverse ">
+          <div className="lg:flex lg:flex-col-reverse ">
             <Link to="/LoginMain?destination=LOGIN_EMPL" className="flex justify-center items-center">
               <div className="border-2 rounded-full text-center py-3 px-6 bg-[#419DBB] text-white text-2xl md:text-5xl ">หางานที่รู้ใจ</div>
             </Link>
