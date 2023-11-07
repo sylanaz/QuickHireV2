@@ -72,8 +72,30 @@ export const RegisterEmpl = () => {
           </h2>
           <form action="" className="flex flex-col " onSubmit={onFinish}>
             <div className="flex gap-3">
-              <input type="text" name="name" placeholder="ชื่อ" className="p-2 mt-8 rounded-xl border w-1/2" value={getfirstname} onChange={(event) => setFirstname(event.target.value)} required></input>
-              <input type="text" name="surname" placeholder="นามสกุล" className="p-2 mt-8 rounded-xl border w-1/2" value={getlastname} onChange={(event) => setLastname(event.target.value)} required></input>
+              <input
+                type="text"
+                name="name"
+                placeholder="ชื่อ"
+                className="p-2 mt-8 rounded-xl border w-1/2"
+                value={getfirstname}
+                onChange={(event) => {
+                  const alphabeticValue = event.target.value.replace(/[^A-Za-zก-๙]/g, "");
+                  setFirstname(alphabeticValue);
+                }}
+                required
+              ></input>
+              <input
+                type="text"
+                name="surname"
+                placeholder="นามสกุล"
+                className="p-2 mt-8 rounded-xl border w-1/2"
+                value={getlastname}
+                onChange={(event) => {
+                  const alphabeticValue = event.target.value.replace(/[^A-Za-zก-๙]/g, "");
+                  setLastname(alphabeticValue);
+                }}
+                required
+              ></input>
             </div>
             <div className="flex flex-col gap-1">
               <input type="email" name="email" placeholder="อีเมล์" className="p-2 mt-5 rounded-xl border" value={email} onChange={(event) => setEmail(event.target.value)} required></input>
@@ -83,7 +105,20 @@ export const RegisterEmpl = () => {
               {passwordsvalidate ? null : <div className="text-red-500 font-bold text-sm">รหัสผ่านควรมีความยาวตั้งแต่ 8-20 ตัวอักษร ประกอบด้วยตัวพิมพ์ใหญ่อย่างน้อย 1 ตัว ตัวพิมพ์เล็กอย่างน้อย 1 ตัว ตัวเลขอย่างน้อย 1 ตัว ตัวอักษรพิเศษอย่างน้อย 1 ตัว</div>}
               <input type="text" name="password2" placeholder="ยืนยันรหัสผ่าน" className="p-2 mt-5 rounded-xl border w-full" value={getsecondPassword} onChange={(event) => setSecondPassword(event.target.value)} required></input>
               {passwordsMatch ? null : <div className="text-red-500 font-bold text-sm">รหัสผ่านไม่ตรงกัน</div>}
-              <input type="tel" name="tel" placeholder="เบอร์โทร" className="p-2 mt-5 rounded-xl border" value={gettelnumber} onChange={(event) => setTelnumber(event.target.value)} required></input>
+              <input
+                maxLength={10}
+                type="tel"
+                name="tel"
+                placeholder="เบอร์โทร"
+                className="p-2 mt-5 rounded-xl border"
+                value={gettelnumber}
+                onChange={(event) => {
+                  const numericValue = event.target.value.replace(/[^0-9]/g, "");
+                  const limitedValue = numericValue.slice(0, 10);
+                  setTelnumber(limitedValue);
+                }}
+                required
+              ></input>
               {telnumbervalidate ? null : <div className="text-red-500 font-bold text-sm">กรุณากรอกเลขเบอร์โทร10หลัก</div>}
             </div>
             <div className="flex justify-center items-center">
