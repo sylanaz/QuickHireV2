@@ -254,7 +254,8 @@ const Createshop = () => {
                 <input onChange={(event) => setJobdesc(event.target.value)} type="text" value={jobdesc} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
               </div>
               <div className="flex flex-col">
-                <h1 className="m-3 text-xl font-medium">เวลาทำงาน</h1>
+                <h1 className="mx-3 mt-3 text-xl font-medium">เวลาทำงาน</h1>
+                <div className="flex mx-3 text-red-500">กดปุ่ม OK เพื่อยืนยันเวลา</div>
                 <div className="flex">
                   {/* <TimePicker.RangePicker onChange={handleChangeTime} value={test} format="HH:mm" showSecond={false} minuteStep={5} className=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" /> */}
                   <TimePicker format="HH:mm" value={timeFrom} onChange={handleTimeFrom} showNow={false} showSecond={false} minuteStep={5} className=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
