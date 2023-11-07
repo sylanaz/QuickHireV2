@@ -88,9 +88,10 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
           {/*rounded-b-xl*/}
           <div className="flex flex-row rounded-[20px] md:rounded-[40px]">
             {/* {img !== undefined && <img src={img[0]} alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[130px] md:h-[130px] transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />} */}
-            <img src={img[0]} loading="lazy" alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[70px] md:h-[70px] xl:w-[130px] xl:h-[130px]  transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />
+            {/* <img src={img[0]} loading="lazy" alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[70px] md:h-[70px] xl:w-[130px] xl:h-[130px]  transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" /> */}
+            <img src={img[0]} loading="lazy" alt="Restaurant" className="rounded-full m-2 mb-1 mr-0  w-[50px] h-[50px] md:w-[70px] md:h-[70px] xl:w-[130px] xl:h-[130px]  transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />
             <h2 className="w-full flex justify-center text-center px-2 my-auto text-lg font-bold text-[#224555] md:text-3xl">{restaurantName}</h2>
-            {/* <div className="overlay absolute top-0 left-0 w-full h-full bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out rounded-b-xl rounded-t-xl"></div> */}
+            {/* <div className="overlay absolute top-0 left-0 w-full h-full bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out rounded-b-xl rounded-t-xl">หฟกฟหก</div> */}
           </div>
           <div className="px-2 pt-1 rounded-[20px] md:rounded-[40px] text-xs md:text-base">
             {" "}
@@ -123,6 +124,9 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                   {/*header*/}
                   <div className="flex items-center justify-between p-3 sm:p-5 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-3xl font-semibold">{restaurantName}</h3>
+                    <button className=" ml-auto bg-transparent border-0 text-black opacity-90  float-right text-3xl leading-none font-semibold outline-none focus:outline-none" onClick={() => setShowModal(false)}>
+                      <span className="bg-transparent text-black opacity-90 h-6 w-6 text-2xl block outline-none focus:outline-none">×</span>
+                    </button>
                   </div>
 
                   {/*body*/}
@@ -169,8 +173,9 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                         💵:
                       </span>
                       <h1 className="">{hourlyIncome} บาท / ชั่วโมง</h1>
-
-                      <h1 className=" whitespace-nowrap ml-3">
+                    </div>
+                    <div className="flex">
+                      <h1 className=" whitespace-nowrap">
                         {" "}
                         จำนวนคน{" "}
                         <span role="img" aria-label="sheep" className="mr-2">
@@ -180,7 +185,6 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
 
                       <h1 className="">{peopleneed}</h1>
                     </div>
-
                     <div className="flex">
                       <h1 className=" whitespace-nowrap  "> สถานที่</h1>
                       <span role="img" aria-label="sheep" className="mr-2">
@@ -198,12 +202,12 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                         <h1 className="">{email}</h1>
                       </div>
                     </div>
-                    <div className="flex">
+                    <div>
                       {role === "user" ? (
-                        <div>
-                          <button className="text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setShowModal(false)}>
+                        <div className="flex justify-end">
+                          {/* <button className="text-red-500 font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => setShowModal(false)}>
                             ปิดหน้าต่าง
-                          </button>
+                          </button> */}
                           {!showHistory ? (
                             <button className="bg-orange-400 text-white active:bg-orange-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onClick={() => checkJob(restaurantName)}>
                               สมัครงานด่วน
@@ -215,16 +219,16 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
                           )}
                         </div>
                       ) : (
-                        <div className="flex justify-center">
+                        <div className="flex justify-start">
                           {email === useremail && editBTN && (
-                            <div className="mr-2">
+                            <div className="flex">
                               <EditBTN id={id} />
                               <DeleteBTN id={id} triggerShopDeleteJob={triggerShopDeleteJob} onClick={() => setShowModal(false)} />
                             </div>
                           )}
-                          <button className=" bg-red-500 rounded text-white font-bold uppercase px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base outline-none focus:outline-none ease-linear transition-all duration-150 m-2 sm:m-1" type="button" onClick={() => setShowModal(false)}>
+                          {/* <button className=" bg-red-500 rounded text-white font-bold uppercase px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base outline-none focus:outline-none ease-linear transition-all duration-150 m-2 sm:m-1" type="button" onClick={() => setShowModal(false)}>
                             ปิดหน้าต่าง
-                          </button>
+                          </button> */}
                         </div>
                       )}
                     </div>

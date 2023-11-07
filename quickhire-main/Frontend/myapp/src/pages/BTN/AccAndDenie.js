@@ -18,8 +18,8 @@ const AccAndDenie = ({ acc_denie, user_email, user_fullname, shopname, triggerAc
         showCancelButton: true,
         confirmButtonColor: "#3EC712",
         cancelButtonColor: "#D80000",
-        cancelButtonText: "ไม่รับ",
-        confirmButtonText: "รับ!",
+        cancelButtonText: "ยกเลิก",
+        confirmButtonText: "ยืนยัน",
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {

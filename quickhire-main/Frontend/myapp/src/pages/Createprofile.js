@@ -335,7 +335,8 @@ const Createprofile = () => {
 
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">เพศ</h1>
-                  <input onChange={(event) => setSex(event.target.value)} type="text" value={getsex} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  
+                  {/* <input onChange={(event) => setSex(event.target.value)} type="text" value={getsex} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input> */}
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">วัน/เดือน/ปี เกิด</h1>

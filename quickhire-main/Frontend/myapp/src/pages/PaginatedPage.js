@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const PaginatedPage = ({ totalPages, currentPage, onPageChange }) => {
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
