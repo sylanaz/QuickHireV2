@@ -5,8 +5,7 @@ import AccAndDenie from "../BTN/AccAndDenie";
 import Mymodal from "./modal";
 import CryptoJS from "crypto-js";
 
-const CardApproveUser = ({ userData, shopname, date_month_year, hour_minute, triggerAccOrDenie }) => {
-  console.log(userData);
+const CardApproveUser = ({ userData, shopname, date_month_year, hour_minute, status, triggerAccOrDenie }) => {
   const deCryptData = (data) => {
     return CryptoJS.AES.decrypt(data, process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
   };
@@ -25,7 +24,11 @@ const CardApproveUser = ({ userData, shopname, date_month_year, hour_minute, tri
       setLastname(lastname);
     }
   }, [userData]);
+
   const bool = [false, true];
+
+  const style = status == "ยินดีด้วยนะ" ? "bg-green-500" : "bg-red-500";
+  const text = status == "ยินดีด้วยนะ" ? "ยอมรับแล้ว" : "ปฏิเสธแล้ว";
 
   return (
     // <div className="flex flex-col max-w-xs max-h-[19rem] md:max-h-[40rem] mx-3 my-3 md:my-5 border-4 border-[#6C8C9C] rounded-[20px] bg-[#C7EFF6] cursor-pointer">
@@ -56,12 +59,19 @@ const CardApproveUser = ({ userData, shopname, date_month_year, hour_minute, tri
                 </p>
               </div>
               <div className="flex mx-2">
-                <DescBTN  text="ดูโปรไฟล์เพิ่มเติม" userData={userData} />
+                <DescBTN text="ดูโปรไฟล์เพิ่มเติม" userData={userData} />
               </div>
               <div className="flex flex-row justify-center rounded-b-[20px] mx-2">
-                {bool.map((data) => {
-                  return <AccAndDenie acc_denie={data} user_email={userData.email} user_fullname={deCryptData(userData.fullname)} shopname={shopname} triggerAccOrDenie={triggerAccOrDenie} />;
-                })}
+                {status == "รอดำเนินการ" ? (
+                  bool.map((data) => {
+                    return <AccAndDenie acc_denie={data} user_email={userData.email} user_fullname={deCryptData(userData.fullname)} shopname={shopname} triggerAccOrDenie={triggerAccOrDenie} />;
+                  })
+                ) : (
+                  <div className="flex mb-2 w-full justify-center mx-1">
+                    <div className={`flex ${style} justify-center items-center py-[0.20rem] px-[0.20rem] text-sm font-bold w-full rounded-[16rem] md:text-2xl md:w-11/12`}>{text}</div>
+                  </div>
+                  // <AccAndDenie acc_denie={data} user_email={userData.email} user_fullname={deCryptData(userData.fullname)} shopname={shopname} triggerAccOrDenie={triggerAccOrDenie} />
+                )}
               </div>
             </>
           )}

@@ -7,7 +7,6 @@ import Card from "../../components/Card";
 const Mail = ({ id, useremail, email_shopname, shopname, status, date, role, triggerAccOrDenie, triggerUserApplyJob }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const day = new Date(date);
-
   const numberDate = day.getDate(); // Look like 1-31 days
   const month = day.getMonth(); // Look like 0-12 months
   const year = day.getFullYear(); // Look like 2023
@@ -27,7 +26,6 @@ const Mail = ({ id, useremail, email_shopname, shopname, status, date, role, tri
 
   const getShopInfo = async () => {
     const data = await axios.get(`${process.env.REACT_APP_API}userViewJobHistory/${email_shopname}/${shopname}`);
-    console.log("Yee",data.data.marker)
     setUserData(data.data);
   };
   useEffect(() => {
@@ -44,9 +42,9 @@ const Mail = ({ id, useremail, email_shopname, shopname, status, date, role, tri
         <div>
           {/* User can't open modal but shop can */}
           {role === "user" ? (
-              <Card id={userData._id} restaurantName={userData.shopname} minilocation={userData.minilocation} position={userData.workposition} hourlyIncome={userData.money} img={JSON.parse(userData.img)} lat={userData.marker.lat} long={userData.marker.lng} peopleneed={userData.peopleneed} jobdesc={userData.jobdesc} timework={userData.timework} welfare={userData.welfare} location={userData.location} email={userData.email} triggerUserApplyJob={triggerUserApplyJob} showHistory={true} status_appove={status} date_month_year={date_month_year} />
+              <Card id={id} restaurantName={userData.shopname} minilocation={userData.minilocation} position={userData.workposition} hourlyIncome={userData.money} img={JSON.parse(userData.img)} lat={userData.marker.lat} long={userData.marker.lng} peopleneed={userData.peopleneed} jobdesc={userData.jobdesc} timework={userData.timework} welfare={userData.welfare} location={userData.location} email={userData.email} triggerUserApplyJob={triggerUserApplyJob} showHistory={true} status_appove={status} date_month_year={date_month_year} />
           ) : (
-              <CardApproveUser userData={userData} shopname={shopname} date_month_year={date_month_year} hour_minute={hour_minute} triggerAccOrDenie={triggerAccOrDenie} />
+              <CardApproveUser userData={userData} shopname={shopname} date_month_year={date_month_year} hour_minute={hour_minute} status={status} triggerAccOrDenie={triggerAccOrDenie} />
           )}
         </div>
       )}

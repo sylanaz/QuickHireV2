@@ -19,7 +19,7 @@ import CryptoJS from "crypto-js";
 function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, lat, long, peopleneed, jobdesc, timework, welfare, location, email, triggerUserApplyJob, showHistory, status_appove, date_month_year, editBTN, triggerShopDeleteJob }) {
   const [showModal, setShowModal] = React.useState(false);
   const useremail = localStorage.getItem("user") && CryptoJS.AES.decrypt(localStorage.getItem("user"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
-  const status = "pending";
+  const status = "รอดำเนินการ";
   const role = localStorage.getItem("role") && CryptoJS.AES.decrypt(localStorage.getItem("role"), process.env.REACT_APP_ENCRYPT_KEY).toString(CryptoJS.enc.Utf8);
   const [user_fullname, setUser_Fullname] = useState("");
   const getUserFullname = async () => {
@@ -45,8 +45,8 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
       showCancelButton: true,
       confirmButtonColor: "#3EC712",
       cancelButtonColor: "#D80000",
-      cancelButtonText: "ไม่ต้องการ",
-      confirmButtonText: "ต้องการ!",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "ยืนยัน",
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
@@ -58,6 +58,8 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
   };
 
   const deleteHistoryJobPending = async (id) => {
+    console.log("id", id);
+
     Swal.fire({
       title: "ยกเลิกการสมัครงาน!",
       text: "ต้องการยกเลิกสมัครงานนี้หรือไม่",
@@ -65,8 +67,8 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
       showCancelButton: true,
       confirmButtonColor: "#3EC712",
       cancelButtonColor: "#D80000",
-      cancelButtonText: "ไม่ต้องการ",
-      confirmButtonText: "ต้องการ!",
+      cancelButtonText: "ยกเลิก",
+      confirmButtonText: "ยืนยัน",
       reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
