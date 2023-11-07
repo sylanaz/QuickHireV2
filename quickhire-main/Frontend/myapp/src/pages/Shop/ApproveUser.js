@@ -28,8 +28,6 @@ export const ApproveUser = () => {
     }
   };
 
-  console.log(noti);
-
   const triggerUserApplyJob = () => {
     setTimeout(() => {
       showNoti(email);
@@ -49,6 +47,15 @@ export const ApproveUser = () => {
     showNoti(email);
   }, []);
 
+  const priorityOrder = ["รอดำเนินการ", "ยินดีด้วยนะ", "เสียใจด้วยนะ"];
+
+  const sortedItems = noti.sort((a, b) => {
+    const priorityA = priorityOrder.indexOf(a.status);
+    const priorityB = priorityOrder.indexOf(b.status);
+
+    return priorityA - priorityB;
+  });
+
   return (
     <>
       {loading ? (
@@ -58,24 +65,38 @@ export const ApproveUser = () => {
           <div className="flex flex-col mx-auto min-h-[90vh]">
             <Navbar />
             <div className="flex justify-center text-2xl mb-6 mt-5 font-medium">{role === "shop" ? "คัดเลือกผู้สมัครงาน" : "ประวัติการสมัครงาน"}</div>
-            <div className="">
-              <div className="grid grid-cols-2 lg:grid-cols-3md:grid-cols-3 xl:grid-cols-4">
-                {noti &&
-                  noti.map((noti, index) => {
-                    if (role === "user") {
-                      return (
-                        <div className="flex justify-center items-center">
+            {/* <div className=""> */}
+            <div className="grid grid-cols-2 lg:grid-cols-3md:grid-cols-3 xl:grid-cols-4">
+              {/* {noti &&
+                noti.map((noti, index) => {
+                  if (role === "user") {
+                    return (
+                      <div className="flex justify-center items-center">
                         <div className="grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10">
-                          <Mail key={index} id={noti._id} email_shopname={noti.email_shopname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerUserApplyJob={triggerUserApplyJob}/>
-                    </div>
-                    </div>
-                      )
-                    } else {
-                      return <Mail key={index} useremail={noti.email} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerAccOrDenie={triggerAccOrDenie} />;
-                    }
-                  })}
-              </div>
+                          <Mail key={index} id={noti._id} email_shopname={noti.email_shopname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerUserApplyJob={triggerUserApplyJob} />
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return <Mail key={index} useremail={noti.email} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerAccOrDenie={triggerAccOrDenie} />;
+                  }
+                })} */}
+              {sortedItems &&
+                sortedItems.map((noti, index) => {
+                  if (role === "user") {
+                    return (
+                      <div className="flex justify-center items-center">
+                        <div className="grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10">
+                          <Mail key={index} id={noti._id} email_shopname={noti.email_shopname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerUserApplyJob={triggerUserApplyJob} />
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return <Mail key={index} useremail={noti.email} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerAccOrDenie={triggerAccOrDenie} />;
+                  }
+                })}
             </div>
+            {/* </div> */}
           </div>
           <Footer />
         </div>

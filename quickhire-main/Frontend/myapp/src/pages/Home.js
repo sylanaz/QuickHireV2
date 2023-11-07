@@ -64,7 +64,8 @@ function Home() {
   // =====================================
 
   const [searchTerm, setSearchTerm] = useState("");
-  const filteredCards = jobs ? jobs.filter((card) => card.shopname.toLowerCase().includes(searchTerm.toLowerCase())) : [];
+  // const filteredCards = jobs ? jobs.filter((card) => card.shopname.toLowerCase().includes(searchTerm.toLowerCase())) : [];
+  const filteredCards = (jobs && allJobsUserNotApply && (role == "shop")) ? jobs.filter((card) => card.shopname.toLowerCase().includes(searchTerm.toLowerCase())) : allJobsUserNotApply.filter((card) => card.shopname.toLowerCase().includes(searchTerm.toLowerCase()));
 
   // ============== Paginated list ==============
   const itemsPerPage = 8;
@@ -76,8 +77,13 @@ function Home() {
     setCurrentPage(page);
   };
 
-  const paginatedData = allJobsUserNotApply && itemsPerPage && (role == "user" ? allJobsUserNotApply.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : filteredCards.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
-
+  // const paginatedData = allJobsUserNotApply && itemsPerPage && (role == "user" ? allJobsUserNotApply.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) : filteredCards.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+  const paginatedData = filteredCards.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  
+  const yay = allJobsUserNotApply && itemsPerPage && (role == "user" ? true : false);
+  
+  console.log("paginatedData", paginatedData);
+  console.log("yay", yay);
   return (
     <>
       {loading ? (
