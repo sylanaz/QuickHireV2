@@ -321,25 +321,66 @@ const Createprofile = () => {
               <div className="mx-10">
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ชื่อจริง</h1>
-                  <input onChange={(event) => setFirstname(event.target.value)} type="text" value={getfirstname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  {/* <input onChange={(event) => setFirstname(event.target.value)} type="text" value={getfirstname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input> */}
+                  <input
+                    onChange={(event) => {
+                      const alphabeticValue = event.target.value.replace(/[^A-Za-zก-๙]/g, "");
+                      setFirstname(alphabeticValue);
+                    }}
+                    type="text"
+                    value={getfirstname}
+                    class="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  />
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">นามสกุล</h1>
-                  <input onChange={(event) => setLastname(event.target.value)} type="text" value={getlastname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input
+                    onChange={(event) => {
+                      const alphabeticValue = event.target.value.replace(/[^A-Za-zก-๙]/g, "");
+                      setLastname(alphabeticValue);
+                    }}
+                    type="text"
+                    value={getlastname}
+                    class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  ></input>
                   <h1 className="text-orange-400  mt-2 font-bold"> โปรดระบุข้อมูลจริงตามบัตรประชาชน เนื่องจากมีผลต่อการสมัครงาน</h1>
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">ชื่อเล่น</h1>
-                  <input onChange={(event) => setNickname(event.target.value)} type="text" value={getnickname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input
+                    onChange={(event) => {
+                      const alphabeticValue = event.target.value.replace(/[^A-Za-zก-๙]/g, "");
+                      setNickname(alphabeticValue);
+                    }}
+                    type="text"
+                    value={getnickname}
+                    class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  ></input>
                 </div>
 
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">เพศ</h1>
                   {/* <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> */}
-                  <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                  <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    Default radio
-                  </label>
+                  <div className="flex justify-around ">
+                    <div className="flex gap-5">
+                      <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-7 h-7 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                      <h1 for="default-radio-1" class="text-xl font-medium">
+                        หญิง
+                      </h1>
+                    </div>
+                    <div className="flex gap-5">
+                      <input id="default-radio-2" type="radio" value="" name="default-radio" class="w-7 h-7 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                      <h1 for="default-radio-2" class="text-xl font-medium">
+                        ชาย
+                      </h1>
+                    </div>
+                    <div className="flex gap-5">
+                      <input id="default-radio-2" type="radio" value="" name="default-radio" class="w-7 h-7 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                      <h1 for="default-radio-2" class="text-xl font-medium">
+                        อื่นๆ
+                      </h1>
+                    </div>
+                  </div>
 
                   {/* <input onChange={(event) => setSex(event.target.value)} type="text" value={getsex} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input> */}
                 </div>
@@ -349,7 +390,16 @@ const Createprofile = () => {
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">สัญชาติ</h1>
-                  <input onChange={(event) => setNational(event.target.value)} type="text" value={getnational} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+
+                  <input
+                    onChange={(event) => {
+                      const alphabeticValue = event.target.value.replace(/[^A-Za-zก-๙]/g, "");
+                      setNational(alphabeticValue);
+                    }}
+                    type="text"
+                    value={getnational}
+                    class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  ></input>
                 </div>
 
                 <div className="flex flex-col">
@@ -358,7 +408,19 @@ const Createprofile = () => {
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">เบอร์โทรศัพท์</h1>
-                  <input onChange={(event) => setTelnumber(event.target.value)} type="text" value={gettelnumber} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input
+                    maxLength={10}
+                    onChange={(event) => {
+                      const numericValue = event.target.value.replace(/[^0-9]/g, "");
+                      const limitedValue = numericValue.slice(0, 10);
+                      setTelnumber(limitedValue);
+                    }}
+                    type="text" // Use text type
+                    value={gettelnumber}
+                    class="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  />
+
+                  {/* <input maxLength={10} onChange={(event) => setTelnumber(event.target.value)} type="text" value={gettelnumber} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input> */}
                 </div>
               </div>
             </div>
