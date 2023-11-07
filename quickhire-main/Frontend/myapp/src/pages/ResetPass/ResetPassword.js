@@ -32,9 +32,6 @@ const ResetPassword = () => {
     });
   };
 
-  console.log(location);
-  console.log(location.state);
-  // console.log(location.state.from);
   return (
     <>
       {!alreadyResetPass ? (
