@@ -22,6 +22,10 @@
   }
 }
 
+.ant-btn-sm {
+  background-color: #1677ff !important  ;
+}
+
 /* .backdrop {
   position: fixed;
   width: 100%;
