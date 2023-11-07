@@ -8,14 +8,14 @@ const ResetPassword = () => {
   const [getEmail, setGetEmail] = React.useState(""); // Email user who want to reset password
   const [alreadyResetPass, setAlreadyResetPass] = useState(false); // Email user who want to reset password
   const location = useLocation();
-  const previousPage = location.state ? location.state.from : "/";
-  console.log(location);
-  console.log(location.state);
+  const query = new URLSearchParams(location.search);
+  const previousPage = query.get("from") || "/";
 
   const handleEmailChange = (event) => {
     setGetEmail(event.target.value);
   };
 
+  console.log(location.pathname);
   const resetPass = () => {
     setAlreadyResetPass(true);
     const email = CryptoJS.AES.encrypt(getEmail, process.env.REACT_APP_ENCRYPT_KEY).toString();
@@ -25,6 +25,9 @@ const ResetPassword = () => {
     Axios.post(`${process.env.REACT_APP_API}resetPassword/${encodedRole}/${encodedEmail}`);
   };
 
+  console.log(location);
+  console.log(location.state);
+  // console.log(location.state.from);
   return (
     <>
       {!alreadyResetPass ? (
@@ -51,15 +54,9 @@ const ResetPassword = () => {
           </div>
           <div className="text-center text-xl flex gap-2">
             <span>จำรหัสผ่านได้แล้ว?</span>
-            {<Link to="/LoginMain?destination=LOGIN_EMPL"/> ? (
-              <Link to="/LoginMain?destination=LOGIN_EMPL">
-                <div className="hover:scale-105 duration-300">Back to login</div>
-              </Link>
-            ) : (
-              <Link to="/LoginMain?destination=LOGIN_ORG">
-                <div className="hover:scale-105 duration-300">Back to login</div>
-              </Link>
-            )}
+            <Link to={previousPage} className="hover:scale-105 duration-300">
+              Back to login
+            </Link>
           </div>
         </div>
       ) : (
