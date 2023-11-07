@@ -26,7 +26,8 @@ const Mail = ({ id, useremail, email_shopname, shopname, status, date, role, tri
   };
 
   const getShopInfo = async () => {
-    const data = await axios.get(`${process.env.REACT_APP_API}getShopinfo/${email_shopname}`);
+    const data = await axios.get(`${process.env.REACT_APP_API}userViewJobHistory/${email_shopname}/${shopname}`);
+    console.log("Yee",data.data.marker)
     setUserData(data.data);
   };
   useEffect(() => {
@@ -39,19 +40,13 @@ const Mail = ({ id, useremail, email_shopname, shopname, status, date, role, tri
 
   return (
     <>
-      {userData !== undefined && (
+      {userData.length != 0 && (
         <div>
           {/* User can't open modal but shop can */}
           {role === "user" ? (
-            <>
-              <div className="flex justify-center items-center">
-                <div className="grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10">{userData && userData.map((data, index) => <Card key={index} id={id} restaurantName={data.shopname} minilocation={data.minilocation} position={data.workposition} hourlyIncome={data.money} img={JSON.parse(data.img)} lat={data.marker.lat} long={data.marker.lng} peopleneed={data.peopleneed} jobdesc={data.jobdesc} timework={data.timework} welfare={data.welfare} location={data.location} email={data.email} triggerUserApplyJob={triggerUserApplyJob} showHistory={true} status_appove={status} date_month_year={date_month_year} />)}</div>
-              </div>
-            </>
+              <Card id={userData._id} restaurantName={userData.shopname} minilocation={userData.minilocation} position={userData.workposition} hourlyIncome={userData.money} img={JSON.parse(userData.img)} lat={userData.marker.lat} long={userData.marker.lng} peopleneed={userData.peopleneed} jobdesc={userData.jobdesc} timework={userData.timework} welfare={userData.welfare} location={userData.location} email={userData.email} triggerUserApplyJob={triggerUserApplyJob} showHistory={true} status_appove={status} date_month_year={date_month_year} />
           ) : (
-            <>
               <CardApproveUser userData={userData} shopname={shopname} date_month_year={date_month_year} hour_minute={hour_minute} triggerAccOrDenie={triggerAccOrDenie} />
-            </>
           )}
         </div>
       )}

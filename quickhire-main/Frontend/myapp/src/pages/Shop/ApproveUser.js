@@ -28,6 +28,8 @@ export const ApproveUser = () => {
     }
   };
 
+  console.log(noti);
+
   const triggerUserApplyJob = () => {
     setTimeout(() => {
       showNoti(email);
@@ -61,7 +63,7 @@ export const ApproveUser = () => {
                 {noti &&
                   noti.map((noti, index) => {
                     if (role === "user") {
-                      return <Mail key={index} id={noti._id} email_shopname={noti.email_shopname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerUserApplyJob={triggerUserApplyJob} />;
+                      return <Mail key={index} id={noti._id} email_shopname={noti.email_shopname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerUserApplyJob={triggerUserApplyJob}/>;
                     } else {
                       return <Mail key={index} useremail={noti.email} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerAccOrDenie={triggerAccOrDenie} />;
                     }
