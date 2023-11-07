@@ -217,7 +217,15 @@ const Createshop = () => {
               </div>
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">ชื่อจริง - นามสกุล (เจ้าของร้าน)</h1>
-                <input onChange={(event) => setFullname(event.target.value)} type="text" value={fullname} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                <input
+                  onChange={(event) => {
+                    const alphabeticValue = event.target.value.replace(/[^A-Za-zก-๙]/g, "");
+                    setFullname(alphabeticValue);
+                  }}
+                  type="text"
+                  value={fullname}
+                  class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                ></input>
               </div>
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">Email</h1>
@@ -225,7 +233,17 @@ const Createshop = () => {
               </div>
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">เบอร์โทรศัพท์</h1>
-                <input onChange={(event) => setTelnumber(event.target.value)} type="text" value={telnumber} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                <input
+                  maxLength={10}
+                  onChange={(event) => {
+                    const numericValue = event.target.value.replace(/[^0-9]/g, "");
+                    const limitedValue = numericValue.slice(0, 10);
+                    setTelnumber(limitedValue);
+                  }}
+                  type="text"
+                  value={telnumber}
+                  class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                ></input>
               </div>
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">ตำแหน่งงาน</h1>
@@ -246,11 +264,27 @@ const Createshop = () => {
               </div>
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">ค่าแรง / ชั่วโมง (บาท)</h1>
-                <input onChange={(event) => setMoney(event.target.value)} type="text" value={money} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                <input
+                  onChange={(event) => {
+                    const numericValue = event.target.value.replace(/[^0-9]/g, "");
+                    setMoney(numericValue);
+                  }}
+                  type="text"
+                  value={money}
+                  class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                ></input>
               </div>
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">จำนวนคนที่ต้องการจ้าง</h1>
-                <input onChange={(event) => setPeopleneed(event.target.value)} type="text" value={peopleneed} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                <input
+                  onChange={(event) => {
+                    const numericValue = event.target.value.replace(/[^0-9]/g, "");
+                    setPeopleneed(numericValue);
+                  }}
+                  type="text"
+                  value={peopleneed}
+                  class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                ></input>
               </div>
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">สวัสดิการ</h1>
