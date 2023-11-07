@@ -53,7 +53,7 @@ export const LoginOrg = ({ onSwitchMode }) => {
 
   return (
     <section className="bg-gray-50 min-h-screen flex flex-col items-center justify-center ">
-      <div className="bg-gray-100 flex flex-row-reverse rounded-2xl shadow-lg max-w-3xl p-5 md:mx-10 items-center mb-8">
+      <div className="bg-[#F27F0C] flex flex-row-reverse rounded-2xl shadow-lg max-w-3xl p-5 md:mx-10 items-center mb-8">
         {/* form */}
         <div className="md:w-1/2 px-8 md:px-16">
           <h2 className="font-bold text-2xl text-center text-[#002D74]">
@@ -81,7 +81,7 @@ export const LoginOrg = ({ onSwitchMode }) => {
             </div>
             <span className="text-red-500">{passwordError}</span>
             <Link to={`/ResetPassword/${encodedRole}?from=${encodeURIComponent(location.pathname)}`}>
-              <div className="flex justify-end -mt-3 text-xs text-yellow-500 mb-3 font-semibold cursor-pointer">ลืมรหัสผ่าน?</div>
+              <div className="flex justify-end -mt-3 text-xs text-[#002D74] mb-3 font-semibold cursor-pointer">ลืมรหัสผ่าน?</div>
             </Link>
             <button className="bg-white rounded-full text-xl text-orange-500 py-2 hover:scale-105 duration-300" type="submit">
               เข้าสู่ระบบ
@@ -89,22 +89,22 @@ export const LoginOrg = ({ onSwitchMode }) => {
             <div className="flex justify-center">
               ยังไม่มีบัญชี ?{" "}
               <Link to="/RegisterOrg">
-                <span className="mx-2 text-yellow-500 text-center">สมัครเลย !</span>
+                <span className="mx-2 text-[#002D74] text-center">สมัครเลย !</span>
               </Link>
             </div>
           </form>
-          <div className="mt-10 mb-10 grid grid-cols-3 items-center text-gray-500">
-            <hr class=" border-gray-400" />
+          <div className="mt-10 mb-10 grid grid-cols-3 items-center text-black">
+            <hr class=" border-black" />
             <p className="text-center">หรือ</p>
-            <hr class=" border-gray-400" />
+            <hr class=" border-black" />
           </div>
 
-          <div className="flex justify-center text-center text-red-400 hover:scale-125 duration-300" onClick={() => onSwitchMode(ScreenMode.LOGIN_EMPL)}>
+          <div className="flex justify-center text-center text-black hover:scale-125 duration-300" onClick={() => onSwitchMode(ScreenMode.LOGIN_EMPL)}>
             หางานที่รู้ใจ
           </div>
         </div>
         {/* image something */}
-        <div className="md:block hidden w-1/2 p-5">
+        <div className="md:block hidden w-1/2 rounded-2xl p-5 bg-gray-100">
           <img src={org} className="rounded-2xl" alt="" />
         </div>
       </div>
