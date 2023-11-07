@@ -89,7 +89,20 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
           <div className="flex flex-row rounded-[20px] md:rounded-[40px]">
             {/* {img !== undefined && <img src={img[0]} alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[130px] md:h-[130px] transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />} */}
             {/* <img src={img[0]} loading="lazy" alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 w-[50px] h-[50px] md:w-[70px] md:h-[70px] xl:w-[130px] xl:h-[130px]  transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" /> */}
-            <img src={img[0]} loading="lazy" alt="Restaurant" className="rounded-full m-2 mb-1 mr-0  w-[50px] h-[50px] md:w-[70px] md:h-[70px] xl:w-[130px] xl:h-[130px]  transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" />
+            {/* <img src={img[0]} loading="lazy" alt="Restaurant" className="rounded-full m-2 mb-1 mr-0 max-w-[40px] max-h-[40px] w-[60px] h-[60px] md:max-w-[80px] md:max-h-[80px] md:w-[100px] md:h-[100px]  xl:w-[130px] xl:h-[130px]  transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3" /> */}
+            <img
+              src={img[0]}
+              loading="lazy"
+              alt="Restaurant"
+              className="rounded-full m-2 mb-1 mr-0 max-w-[40px] max-h-[40px] w-[60px] h-[60px] md:max-w-[80px] md:max-h-[80px] md:w-[100px] md:h-[100px] xl:w-[130px] xl:h-[130px] transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3"
+              style={{
+                width: "100%", // Ensure the image takes up the full width
+                height: "auto", // Allow the height to adjust proportionally
+                borderRadius: "50%", // Make it circular
+                objectFit: "cover", // Ensure the image is centered and covers the circle
+              }}
+            />
+
             <h2 className="w-full flex justify-center text-center px-2 my-auto text-lg font-bold text-[#224555] md:text-3xl">{restaurantName}</h2>
             {/* <div className="overlay absolute top-0 left-0 w-full h-full bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out rounded-b-xl rounded-t-xl">หฟกฟหก</div> */}
           </div>
@@ -97,16 +110,16 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
             {" "}
             {/*rounded-b-xl*/}
             {/* <h2 className="text-lg font-bold text-[#306279] mb-1 md:text-xl">{restaurantName}</h2> */}
-            <div className="flex items-center py-1">
+            <div className="flex items-center py-1  xl:py-3">
               <img src="https://cdn-icons-png.flaticon.com/512/8801/8801434.png" alt="Position" className="w-8 h-8 mr-2 rounded-full md:w-10 md:h-10 md:ml-3" />
               <p className="text-[#09506B] text-sm font-bold md:text-xl md:pl-2">{position}</p>
             </div>
-            <div className="flex items-center py-1">
+            <div className="flex items-center py-1  xl:py-3">
               {/* <img src={money} alt="Hourly Income" className="w-6 h-6 mr-4" /> */}
               <img src="https://cdn-icons-png.flaticon.com/512/7280/7280222.png" alt="Location" className="w-8 h-8 mr-2 rounded-full md:w-10 md:h-10 md:ml-3" />
               <p className="text-[#09506B] text-sm font-bold md:text-xl md:pl-2">{hourlyIncome} ฿ / ชั่วโมง</p>
             </div>
-            <div className="flex items-center py-1">
+            <div className="flex items-center py-1  xl:py-3">
               <img src={gps} alt="Location" className="w-8 h-8 mr-2 rounded-full bg-white md:w-10 md:h-10 md:ml-3" />
               {/* <i class="fa-solid fa-money-bill-1" style={{ color: '#0aae1d' }}></i> */}
               {/* <FontAwesomeIcon icon={faMoneyBill} className="text-[#0aae1d]" /> */}
