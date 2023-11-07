@@ -8,18 +8,25 @@ const ResetPassword = () => {
   const role = useParams();
   const [getEmail, setGetEmail] = React.useState(""); // Email user who want to reset password
   const [alreadyResetPass, setAlreadyResetPass] = useState(false); // Email user who want to reset password
+  const [foundEmail, setFoundEmail] = useState(true); // Email user who want to reset password
 
   const handleEmailChange = (event) => {
     setGetEmail(event.target.value);
   };
 
   const resetPass = () => {
-    setAlreadyResetPass(true);
     const email = CryptoJS.AES.encrypt(getEmail, process.env.REACT_APP_ENCRYPT_KEY).toString();
     const encodedEmail = encodeURIComponent(email);
     const encodedRole = encodeURIComponent(role.role);
 
-    Axios.post(`${process.env.REACT_APP_API}resetPassword/${encodedRole}/${encodedEmail}`);
+    Axios.post(`${process.env.REACT_APP_API}resetPassword/${encodedRole}/${encodedEmail}`).then((res) => {
+      if (!res.data.haveEmail) {
+        setFoundEmail(res.data.haveEmail)
+      } else {
+        setFoundEmail(res.data.haveEmail)
+        setAlreadyResetPass(true);
+      }
+    });
   };
 
   return (
@@ -35,6 +42,7 @@ const ResetPassword = () => {
               value={getEmail}
               onChange={handleEmailChange}
             />
+            {!foundEmail && <div>ไม่พบอีเมล์นี้</div>}
             <button onClick={resetPass} className="bg-[#29F072] rounded-full text-xl py-2 hover:scale-105 duration-300 mt-4">
               Send
             </button>
