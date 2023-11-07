@@ -63,7 +63,11 @@ export const ApproveUser = () => {
                 {noti &&
                   noti.map((noti, index) => {
                     if (role === "user") {
-                      return <Mail key={index} id={noti._id} email_shopname={noti.email_shopname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerUserApplyJob={triggerUserApplyJob}/>;
+                      return (
+                        <div className="grid-cols-2 md:grid-cols-4 gap-3 md:gap-3 xl:gap-7 xl:m-0 2xl:gap-16 xl:mb-10">
+                          <Mail key={index} id={noti._id} email_shopname={noti.email_shopname} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerUserApplyJob={triggerUserApplyJob}/>;
+                    </div>
+                      )
                     } else {
                       return <Mail key={index} useremail={noti.email} shopname={noti.shopname} status={noti.status} date={noti.date} role={role} triggerAccOrDenie={triggerAccOrDenie} />;
                     }
