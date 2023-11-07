@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import empl from "../img/empl.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { ScreenMode } from "./LoginMain";
 import CryptoJS from "crypto-js";
@@ -11,9 +11,10 @@ export const LoginEmpl = ({ onSwitchMode }) => {
   const [show, setshow] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
-  const role = CryptoJS.AES.encrypt("user", process.env.REACT_APP_ENCRYPT_KEY).toString()
+  const role = CryptoJS.AES.encrypt("user", process.env.REACT_APP_ENCRYPT_KEY).toString();
   const encodedRole = encodeURIComponent(role);
+
+  const location = useLocation();
 
   const toShow = () => {
     setshow(!show);
@@ -51,9 +52,7 @@ export const LoginEmpl = ({ onSwitchMode }) => {
 
   return (
     <section className="bg-gray-50 min-h-screen flex flex-col items-center justify-center ">
-      {/* {currMode === ScreenMode.LOGIN_EMPL ? <LoginEmpl onSwitchMode={onSwitchMode} /> : <LoginOrg onSwitchMode={onSwitchMode} />} */}
-
-      <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center mb-8">
+      <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 md:mx-10 items-center mb-8">
         {/* form */}
         <div className="md:w-1/2 px-8 md:px-16">
           <h2 className="font-bold text-2xl text-center text-[#002D74]">
@@ -82,9 +81,12 @@ export const LoginEmpl = ({ onSwitchMode }) => {
             <span className="text-red-500">{passwordError}</span>
 
             {/* <div className="flex justify-end -mt-3 text-xs text-yellow-500 mb-3 font-semibold">ลืมรหัสผ่าน?</div> */}
-            <Link to={`/ResetPassword/${encodedRole}`}>
+            <Link to={`/ResetPassword/${encodedRole}?from=${encodeURIComponent(location.pathname)}`}>
               <div className="flex justify-end -mt-3 text-xs text-yellow-500 mb-3 font-semibold cursor-pointer">ลืมรหัสผ่าน?</div>
             </Link>
+            {/* <Link to={`/ResetPassword/${encodedRole}`} >
+              <div className="flex justify-end -mt-3 text-xs text-yellow-500 mb-3 font-semibold cursor-pointer">ลืมรหัสผ่าน?</div>
+            </Link> */}
             <button className="bg-white rounded-full text-xl text-orange-500 py-2 hover:scale-105 duration-300" type="submit">
               เข้าสู่ระบบ
             </button>

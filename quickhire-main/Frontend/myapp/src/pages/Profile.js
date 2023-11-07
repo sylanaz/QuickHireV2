@@ -42,8 +42,8 @@ function Profile() {
         <LoadingPage />
       ) : (
         <div>
-          <div className="flex flex-col mx-auto min-h-[100vh] justify-center">
-            <Navbar />
+          <Navbar />
+          <div className="flex flex-col mx-auto justify-center">
             <div className="flex md:justify-center justify-between relative ml-10 mt-5">
               <h1 className=" text-2xl font-medium">
                 <span className="text-[#F17F0D]">โปรไฟล์</span>
@@ -54,8 +54,8 @@ function Profile() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 m-10 gap-10">
-              <div className="flex flex-col mx-auto justify-center bg-[#C7EFF6] rounded-2xl w-[80%] py-5">
+            <div className="grid grid-cols-1 lg:grid-cols-2 m-10 gap-10">
+              <div className="flex flex-col  justify-center bg-[#C7EFF6] rounded-2xl  py-5">
                 {/* <img className="w-[200px] h-[200px] rounded-full mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img> */}
                 <div className="m-5">{userData.img !== null && <SwapImage images={JSON.parse(userData.img)} forProfile={true} />}</div>
                 <h1 className="mx-auto mt-2 text-xl md:text-2xl  font-bold text-[#F17F0D]">{deCryptoData(userData.nickname)}</h1>
@@ -68,12 +68,12 @@ function Profile() {
                 </h1>
               </div>
 
-              <div className="flex flex-col mx-auto justify-center gap-10 w-[80%] ">
+              <div className="flex flex-col mx-auto justify-center gap-10  ">
                 <div className="relative ">
                   <div className=" rounded-full bg-[#419DBB] text-white p-2 w-40 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
                     <h1 className="font-bold">ประวัติการศึกษา</h1>
                   </div>
-                  <div className=" rounded-2xl bg-[#c7eff6]  h-64 overflow-y-auto ">
+                  <div className=" rounded-2xl  bg-[#c7eff6] h-64 overflow-y-auto ">
                     <h1 className="p-10 text-lg md:text-xl break-words ">{deCryptoData(userData.degree)}</h1>
                   </div>
                 </div>
@@ -89,21 +89,21 @@ function Profile() {
               </div>
             </div>
 
-            <div className="flex flex-col mx-auto justify-center gap-8 w-[90%] ">
-              <div className="relative mx-10">
+            <div className="flex flex-col mb-10 mx-10 gap-10 ">
+              <div className="relative">
                 <div className=" rounded-full bg-[#419dbb] text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
                   <h1>ความสามารถด้านภาษา</h1>
                 </div>
-                <div className="flex rounded-2xl bg-[#c7eff6] h-32 items-center justify-center text-sm  md:px-5   md:text-xl  ">
+                <div className="flex rounded-2xl bg-[#c7eff6] h-36 items-center justify-center text-sm md:text-lg md:px-2  lg:px-2  lg:text-lg  ">
                   {userData.languages.length !== 1 ? (
-                    <div className="grid grid-cols-2 md:gap-3 gap-5">
+                    <div className="grid grid-cols-2 md:gap-10 gap-5 my-4">
                       {/* Languages */}
                       {userData.languages &&
                         userData.languages.map((language) => {
                           return (
-                            <div className="md:flex gap-3 md:gap-5">
-                              <span className="flex font-bold justify-start"> {language.name} :</span>
-                              <div className="grid grid-cols-2 md:flex gap-1 md:gap-5">
+                            <div className="lg:flex gap-3  md:gap-5">
+                              <span className="flex font-bold justify-center lg:justify-start"> {language.name} :</span>
+                              <div className="grid grid-cols-2 lg:flex gap-1 md:gap-5">
                                 <div>
                                   <input checked={language.listen} id="checked-checkbox" type="checkbox" value="" class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
                                   <label for="checked-checkbox" class="ml-2 font-medium">
@@ -175,11 +175,11 @@ function Profile() {
                 </div>
               </div>
               {/* license driving */}
-              <div className="relative mx-10 ">
+              <div className="relative ">
                 <div className=" rounded-full bg-[#419dbb] text-white p-2 w-48 text-center  absolute left-1/2 -translate-x-1/2 -top-5 ">
                   <h1>ความสามารถในการขับรถ</h1>
                 </div>
-                <div className=" flex rounded-2xl bg-[#c7eff6] h-32  items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
+                <div className=" flex rounded-2xl bg-[#c7eff6] h-36  items-center justify-center text-sm  md:px-5  md:py-5 md:text-xl  ">
                   {/* <h1 className="p-10">{userData.vehicle}</h1> */}
                   {/* <div className="grid grid-cols-2 md:flex gap-1 md:gap-5 "> */}
                   {/* Vehicles */}
@@ -216,8 +216,6 @@ function Profile() {
                     })}
                 </div>
               </div>
-              {/* talent */}
-              <div className="relative mx-10"></div>
             </div>
           </div>
           <Footer />

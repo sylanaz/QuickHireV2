@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import org from "../../img/org.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { ScreenMode } from "../LoginMain";
 import CryptoJS from "crypto-js";
@@ -12,7 +12,8 @@ export const LoginOrg = ({ onSwitchMode }) => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const role = CryptoJS.AES.encrypt("shop", process.env.REACT_APP_ENCRYPT_KEY).toString()
+  const location = useLocation();
+  const role = CryptoJS.AES.encrypt("shop", process.env.REACT_APP_ENCRYPT_KEY).toString();
   const encodedRole = encodeURIComponent(role);
 
   const toShow = () => {
@@ -52,7 +53,7 @@ export const LoginOrg = ({ onSwitchMode }) => {
 
   return (
     <section className="bg-gray-50 min-h-screen flex flex-col items-center justify-center ">
-      <div className="bg-gray-100 flex flex-row-reverse rounded-2xl shadow-lg max-w-3xl p-5 items-center mb-8">
+      <div className="bg-gray-100 flex flex-row-reverse rounded-2xl shadow-lg max-w-3xl p-5 md:mx-10 items-center mb-8">
         {/* form */}
         <div className="md:w-1/2 px-8 md:px-16">
           <h2 className="font-bold text-2xl text-center text-[#002D74]">
@@ -79,8 +80,7 @@ export const LoginOrg = ({ onSwitchMode }) => {
               </div>
             </div>
             <span className="text-red-500">{passwordError}</span>
-
-            <Link to={`/ResetPassword/${encodedRole}`}>
+            <Link to={`/ResetPassword/${encodedRole}?from=${encodeURIComponent(location.pathname)}`}>
               <div className="flex justify-end -mt-3 text-xs text-yellow-500 mb-3 font-semibold cursor-pointer">ลืมรหัสผ่าน?</div>
             </Link>
             <button className="bg-white rounded-full text-xl text-orange-500 py-2 hover:scale-105 duration-300" type="submit">

@@ -138,7 +138,6 @@ const Createprofile = () => {
         area: area,
         degree: degree,
         workexp: workexp,
-
         languages: languages,
         vehicles: checkboxValues,
         img: imageJSON,
@@ -252,9 +251,11 @@ const Createprofile = () => {
       return (language.listen || language.talk || language.read || language.write) && language.name.trim() !== "";
     });
 
-    const isAtLeastOneVehicleSelected = Object.values(checkboxValues).some((value) => value);
-    // Check if all stages are complete
-    return personalInfoComplete && educationAndWorkComplete && languagesComplete && isAtLeastOneVehicleSelected;
+    const vehiclesComplete = checkboxValues.some((vehicle) => {
+      return vehicle.noMotorcycle || vehicle.motorcycle || vehicle.threeWheeler || vehicle.car;
+    });
+
+    return personalInfoComplete && educationAndWorkComplete && languagesComplete && vehiclesComplete;
   };
 
   const renderNextButton = () => {
@@ -471,78 +472,81 @@ const Createprofile = () => {
                   </div>
                   <div className="flex gap-5">
                     <div className="w-full">
-                      {id !== undefined && checkboxValues ? (
-                        checkboxValues.map((vehicle) => {
-                          return (
-                            <div className="h-20 p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-full bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150">
-                              <div>
-                                <input id="noMotorcycle" type="checkbox" checked={vehicle.noMotorcycle} onChange={() => handleVehicleChange(vehicle.id, "noMotorcycle")} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                <label htmlFor="noMotorcycle" className="ml-2 font-medium">
-                                  ไม่มี
-                                </label>
+                      {id !== undefined && checkboxValues
+                        ? checkboxValues.map((vehicle) => {
+                            return (
+                              <div className="h-20 p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-full bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150">
+                                <div>
+                                  <input id="noMotorcycle" type="checkbox" checked={vehicle.noMotorcycle} onChange={() => handleVehicleChange(vehicle.id, "noMotorcycle")} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                  <label htmlFor="noMotorcycle" className="ml-2 font-medium">
+                                    ไม่มี
+                                  </label>
+                                </div>
+                                <div>
+                                  <input id="motorcycle" type="checkbox" checked={vehicle.motorcycle} onChange={() => handleVehicleChange(vehicle.id, "motorcycle")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium">
+                                    รถจักรยานยนต์
+                                  </label>
+                                </div>
+                                <div>
+                                  <input id="threeWheeler" type="checkbox" checked={vehicle.threeWheeler} onChange={() => handleVehicleChange(vehicle.id, "threeWheeler")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium ">
+                                    รถยนต์สามล้อ
+                                  </label>
+                                </div>
+                                <div>
+                                  <input id="car" type="checkbox" checked={vehicle.car} onChange={() => handleVehicleChange(vehicle.id, "car")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium">
+                                    รถยนต์
+                                  </label>
+                                </div>
                               </div>
-                              <div>
-                                <input id="motorcycle" type="checkbox" checked={vehicle.motorcycle} onChange={() => handleVehicleChange(vehicle.id, "motorcycle")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                <label for="checked-checkbox" class="ml-2 font-medium">
-                                  รถจักรยานยนต์
-                                </label>
+                            );
+                          })
+                        : checkboxValues.map((vehicle) => {
+                            return (
+                              <div className="h-20 p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-full bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150">
+                                <div>
+                                  <input id="noMotorcycle" type="checkbox" checked={vehicle.noMotorcycle} onChange={() => handleVehicleChange(vehicle.id, "noMotorcycle")} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                  <label htmlFor="noMotorcycle" className="ml-2 font-medium">
+                                    ไม่มี
+                                  </label>
+                                </div>
+                                <div>
+                                  <input id="motorcycle" type="checkbox" checked={vehicle.motorcycle} onChange={() => handleVehicleChange(vehicle.id, "motorcycle")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium">
+                                    รถจักรยานยนต์
+                                  </label>
+                                </div>
+                                <div>
+                                  <input id="threeWheeler" type="checkbox" checked={vehicle.threeWheeler} onChange={() => handleVehicleChange(vehicle.id, "threeWheeler")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium ">
+                                    รถยนต์สามล้อ
+                                  </label>
+                                </div>
+                                <div>
+                                  <input id="car" type="checkbox" checked={vehicle.car} onChange={() => handleVehicleChange(vehicle.id, "car")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
+                                  <label for="checked-checkbox" class="ml-2 font-medium">
+                                    รถยนต์
+                                  </label>
+                                </div>
                               </div>
-                              <div>
-                                <input id="threeWheeler" type="checkbox" checked={vehicle.threeWheeler} onChange={() => handleVehicleChange(vehicle.id, "threeWheeler")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                <label for="checked-checkbox" class="ml-2 font-medium ">
-                                  รถยนต์สามล้อ
-                                </label>
-                              </div>
-                              <div>
-                                <input id="car" type="checkbox" checked={vehicle.car} onChange={() => handleVehicleChange(vehicle.id, "car")} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                                <label for="checked-checkbox" class="ml-2 font-medium">
-                                  รถยนต์
-                                </label>
-                              </div>
-                            </div>
-                          );
-                        })
-                      ) : (
-                        <div className="h-20 p-3 grid grid-cols-2 md:flex items-center justify-around gap-1 md:gap-5 w-full bg-slate-100 rounded text-sm md:text-xl shadow focus:outline-none focus:ring ease-linear transition-all duration-150">
-                          <div>
-                            <input id="noMotorcycle" type="checkbox" checked={checkboxValues.noMotorcycle} onChange={handleVehicleChange} className="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                            <label htmlFor="noMotorcycle" className="ml-2 font-medium">
-                              ไม่มี
-                            </label>
-                          </div>
-                          <div>
-                            <input id="motorcycle" type="checkbox" checked={checkboxValues.motorcycle} onChange={handleVehicleChange} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                            <label for="checked-checkbox" class="ml-2 font-medium">
-                              รถจักรยานยนต์
-                            </label>
-                          </div>
-                          <div>
-                            <input id="threeWheeler" type="checkbox" checked={checkboxValues.threeWheeler} onChange={handleVehicleChange} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                            <label for="checked-checkbox" class="ml-2 font-medium ">
-                              รถยนต์สามล้อ
-                            </label>
-                          </div>
-                          <div>
-                            <input id="car" type="checkbox" checked={checkboxValues.car} onChange={handleVehicleChange} class="md:w-6 md:h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
-                            <label for="checked-checkbox" class="ml-2 font-medium">
-                              รถยนต์
-                            </label>
-                          </div>
-                        </div>
-                      )}
+                            );
+                          })}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           )}
-          <div className="flex items-center justify-center my-20 ">
+
+          <div className="flex items-center justify-center my-20 lg:pt-44">
             <button onClick={handlePrevClick} className={`p-3 mr-2 rounded-lg ${currentIndex === 0 ? "bg-gray-400 text-black" : "bg-[#F27F0C] text-white"}`} disabled={currentIndex === 0}>
               ย้อนกลับ
             </button>
             {renderNextButton()}
           </div>
-          <Footer></Footer>
+          <Footer />
         </div>
       )}
     </>

@@ -44,7 +44,7 @@ const Addjob = () => {
         <div className="flex flex-col justify-center mx-auto min-h-[100vh]">
           <Navbar></Navbar>
           <h1 className="text-2xl flex justify-center mb-6 mt-5 font-medium">สร้างประกาศรับสมัครพนักงาน</h1>
-          <div className="grid grid-cols-2 md:grid-cols-4 m-auto gap-3 xl:gap-10 2xl:gap-16">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 m-auto gap-3 md:gap-5 xl:gap-10">
             <CardAddJob />
             {userData !== null && userData !== undefined && (
               <>
