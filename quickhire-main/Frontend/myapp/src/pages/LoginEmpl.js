@@ -52,7 +52,7 @@ export const LoginEmpl = ({ onSwitchMode }) => {
 
   return (
     <section className="bg-gray-50 min-h-screen flex flex-col items-center justify-center ">
-      <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 md:mx-10 items-center mb-8">
+      <div className="bg-[#419DBB] flex rounded-2xl shadow-lg max-w-3xl p-5 md:mx-10 items-center mb-8">
         {/* form */}
         <div className="md:w-1/2 px-8 md:px-16">
           <h2 className="font-bold text-2xl text-center text-[#002D74]">
@@ -97,18 +97,18 @@ export const LoginEmpl = ({ onSwitchMode }) => {
               </Link>
             </div>
           </form>
-          <div className="mt-10 mb-10 grid grid-cols-3 items-center text-gray-500">
-            <hr class=" border-gray-400" />
+          <div className="mt-10 mb-10 grid grid-cols-3 items-center text-black">
+            <hr class=" border-black" />
             <p className="text-center">หรือ</p>
-            <hr class=" border-gray-400" />
+            <hr class=" border-black" />
           </div>
 
-          <div className="flex justify-center text-center text-red-400 hover:scale-125 duration-300" onClick={() => onSwitchMode(ScreenMode.LOGIN_ORG)}>
+          <div className="flex justify-center text-center text-black hover:scale-125 duration-300" onClick={() => onSwitchMode(ScreenMode.LOGIN_ORG)}>
             หาใจที่รักงาน
           </div>
         </div>
         {/* image something */}
-        <div className="md:block hidden w-1/2 p-5 ">
+        <div className="md:block hidden w-1/2 p-5 rounded-2xl bg-gray-100">
           <img src={empl} className="rounded-2xl" alt="" />
         </div>
       </div>

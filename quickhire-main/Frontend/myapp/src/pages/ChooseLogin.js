@@ -12,7 +12,7 @@ export const ChooseLogin = () => {
             <Link to="/LoginMain?destination=LOGIN_EMPL" className="flex justify-center items-center">
               <div className="border-2 rounded-full text-center py-3 px-6 bg-[#419DBB] text-white text-2xl md:text-5xl ">หางานที่รู้ใจ</div>
             </Link>
-            <div className="text-xl text-center md:text-3xl md:flex md:flex-col-reverse">
+            <div className="text-xl text-center md:text-3xl md:flex md:flex-col-reverse md:my-5">
               หากคุณกำลังมองหางาน Part time <span className="text-cyan-900 ">Click</span>
             </div>
           </div>
@@ -22,7 +22,7 @@ export const ChooseLogin = () => {
             <Link to="/LoginMain?destination=LOGIN_ORG " className="flex justify-center items-center">
               <div className="border-2 rounded-full text-center py-3 px-6 bg-[#F27F0C] text-white text-2xl md:text-5xl">หาใจที่รักงาน</div>
             </Link>
-            <div className="text-xl text-center md:text-3xl md:flex md:flex-col">
+            <div className="text-xl text-center md:text-3xl md:flex md:flex-col md:my-5">
               หากคุณกำลังมองหาเพื่อนร่วมงาน <span className="text-yellow-500">Click</span>
             </div>
           </div>
