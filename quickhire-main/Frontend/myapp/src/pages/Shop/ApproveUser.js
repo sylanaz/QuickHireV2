@@ -49,7 +49,7 @@ export const ApproveUser = () => {
 
   const priorityOrder = ["รอดำเนินการ", "ยินดีด้วยนะ", "เสียใจด้วยนะ"];
 
-  const sortedItems = noti.sort((a, b) => {
+  const sortedItems = noti.length != 0 && noti.sort((a, b) => {
     const priorityA = priorityOrder.indexOf(a.status);
     const priorityB = priorityOrder.indexOf(b.status);
 
