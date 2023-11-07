@@ -57,6 +57,10 @@ const Createprofile = () => {
   //   });
   //   console.log(checkboxValues);
   // };
+  const handleSexChange = (event) => {
+    setSex(event.target.value);
+  };
+
   const handleVehicleChange = (id, check) => {
     const updatedValues = checkboxValues.map((vehicle) => {
       if (vehicle.id === id) {
@@ -358,9 +362,9 @@ const Createprofile = () => {
                   ></input>
                 </div>
 
-                <div className="flex flex-col">
+                {/* <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">เพศ</h1>
-                  {/* <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> */}
+                 
                   <div className="flex justify-around ">
                     <div className="flex gap-5">
                       <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-7 h-7 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"></input>
@@ -380,6 +384,21 @@ const Createprofile = () => {
                         อื่นๆ
                       </h1>
                     </div>
+                  </div>
+
+                  
+                </div> */}
+                <div className="flex flex-col">
+                  <h1 className="m-3 text-xl font-medium">เพศ</h1>
+                  <div className="flex gap-5 justify-around">
+                    {["หญิง", "ชาย", "อื่นๆ"].map((label, index) => (
+                      <div key={index} className="flex gap-2">
+                        <input id={`default-radio-${index}`} type="radio" value={label} name="default-radio" onChange={handleSexChange} checked={getsex === label} className="w-7 h-7 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label htmlFor={`default-radio-${index}`} className="text-xl font-medium">
+                          {label}
+                        </label>
+                      </div>
+                    ))}
                   </div>
 
                   {/* <input onChange={(event) => setSex(event.target.value)} type="text" value={getsex} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input> */}
