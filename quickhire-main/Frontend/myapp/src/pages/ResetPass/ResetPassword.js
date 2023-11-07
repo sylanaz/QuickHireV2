@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import TextField from "@mui/material/TextField";
+import { Link, useParams, useLocation } from "react-router-dom";
 import Axios from "axios";
 import CryptoJS from "crypto-js";
 
@@ -8,6 +7,10 @@ const ResetPassword = () => {
   const role = useParams();
   const [getEmail, setGetEmail] = React.useState(""); // Email user who want to reset password
   const [alreadyResetPass, setAlreadyResetPass] = useState(false); // Email user who want to reset password
+  const location = useLocation();
+  const previousPage = location.state ? location.state.from : "/";
+  console.log(location);
+  console.log(location.state);
 
   const handleEmailChange = (event) => {
     setGetEmail(event.target.value);
@@ -26,22 +29,38 @@ const ResetPassword = () => {
     <>
       {!alreadyResetPass ? (
         <div className="flex flex-col justify-center h-screen items-center">
-          <div className="flex flex-col bg-gray-100 rounded-2xl shadow-lg w-8/12 h-[23%] md:h-[27%] p-5 mb-8">
-            <div className="mb-2 text-2xl">ลืมรหัสผ่าน!</div>
-            <TextField
-              id="standard-basic"
-              label="อีเมล์"
-              variant="standard" // Use "standard" as the variant
-              value={getEmail}
-              onChange={handleEmailChange}
-            />
-            <button onClick={resetPass} className="bg-[#29F072] rounded-full text-xl py-2 hover:scale-105 duration-300 mt-4">
-              Send
+          <div className="flex flex-col bg-gray-100 rounded-2xl md:w-1/2 shadow-lg p-5 mx-5 md:p-10 mb-8">
+            <div className="mb-auto">
+              <div className="text-2xl">ลืมรหัสผ่านของคุณหรือเปล่า ?</div>
+              <div className="text-sm text-red-500">กรุณากรอกอีเมล์ เพื่อรับลิงก์เพื่อสร้างรหัสผ่านใหม่</div>
+            </div>
+            <div className="text-xl my-5">
+              <div>อีเมล์</div>
+              <input
+                id="standard-basic"
+                label="อีเมล์"
+                variant="standard" // Use "standard" as the variant
+                value={getEmail}
+                onChange={handleEmailChange}
+                className="rounded-lg w-full px-5"
+              />
+            </div>
+            <button onClick={resetPass} className="bg-[#29F072] rounded-full text-xl py-2 duration-300 mt-4">
+              เปลี่ยนรหัสผ่าน
             </button>
           </div>
-          <Link to={"/ChooseLogin"}>
-            <div className="text-center text-xl">Back to login</div>
-          </Link>
+          <div className="text-center text-xl flex gap-2">
+            <span>จำรหัสผ่านได้แล้ว?</span>
+            {<Link to="/LoginMain?destination=LOGIN_EMPL"/> ? (
+              <Link to="/LoginMain?destination=LOGIN_EMPL">
+                <div className="hover:scale-105 duration-300">Back to login</div>
+              </Link>
+            ) : (
+              <Link to="/LoginMain?destination=LOGIN_ORG">
+                <div className="hover:scale-105 duration-300">Back to login</div>
+              </Link>
+            )}
+          </div>
         </div>
       ) : (
         <div className="flex flex-col justify-center h-screen items-center">
@@ -52,7 +71,7 @@ const ResetPassword = () => {
             </div>
           </div>
           <Link to={"/ChooseLogin"}>
-            <div className="text-center text-xl">Back to login</div>
+            <div className="text-center text-xl ">Back to login</div>
           </Link>
         </div>
       )}

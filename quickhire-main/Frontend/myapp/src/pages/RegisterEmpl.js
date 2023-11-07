@@ -86,7 +86,7 @@ export const RegisterEmpl = () => {
         </div>
       </div>
       <div className="hover:scale-105 duration-300 mt-8">
-        <Link to={"/LoginMain"}>
+        <Link to={"/LoginMain?destination=LOGIN_EMPL"}>
           <span className="text-xl">Back to Login</span>
         </Link>
       </div>

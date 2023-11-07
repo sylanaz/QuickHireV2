@@ -99,7 +99,7 @@ export const LoginOrg = ({ onSwitchMode }) => {
             <hr class=" border-gray-400" />
           </div>
 
-          <div className="flex justify-center text-center text-red-400 hover:scale-125 duration-300" onClick={() => onSwitchMode(ScreenMode.LOGIN_EMPL)}>
+          <div className="flex justify-center text-center text-red-400 hover:scale-125 duration-300" onClick={() => onSwitchMode(ScreenMode.LOGIN_EMPL)} >
             หางานที่รู้ใจ
           </div>
         </div>
