@@ -258,9 +258,16 @@ const Createshop = () => {
                 <div className="flex mx-3 text-red-500">กดปุ่ม OK เพื่อยืนยันเวลา</div>
                 <div className="flex">
                   {/* <TimePicker.RangePicker onChange={handleChangeTime} value={test} format="HH:mm" showSecond={false} minuteStep={5} className=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" /> */}
-                  <TimePicker format="HH:mm" value={timeFrom} onChange={handleTimeFrom} showNow={false} showSecond={false} minuteStep={5} className=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
-                  <TimePicker format="HH:mm" value={timeTo} onChange={handleTimeTo} showNow={false} showSecond={false} minuteStep={5} className=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+                  <div className="flex flex-col w-1/2">
+                    <TimePicker format="HH:mm" value={timeFrom} onChange={handleTimeFrom} showNow={false} showSecond={false} minuteStep={5} className=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+                    {timeFrom == null && <div className="mx-3 text-red-500">กรุณากรอกเวลา</div>}
+                  </div>
+                  <div className="flex flex-col w-1/2">
+                    <TimePicker format="HH:mm" value={timeTo} onChange={handleTimeTo} showNow={false} showSecond={false} minuteStep={5} className=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+                    {timeTo == null && <div className="mx-3 text-red-500">กรุณากรอกเวลา</div>}
+                  </div>
                 </div>
+
                 {/* <input onChange={(event) => setTimework(event.target.value)} type="text" value={timework} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input> */}
               </div>
               <div className="flex flex-col">
@@ -294,7 +301,7 @@ const Createshop = () => {
               {/* Google Map API */}
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">ที่อยู่ร้าน</h1>
-                <PlaceAutocomplete getOldAddress={location} setDataMarker={setNewMarker} sendAddress={setAddress} />
+                <PlaceAutocomplete getOldAddress={location} setDataMarker={setNewMarker} sendAddress={setAddress} marker={marker} />
               </div>
               <GoogleMapAPI newMarker={marker} sendNewMarker={setNewMarkerFromGGMapAPI} />
               {/*  */}
