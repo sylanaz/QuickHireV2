@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
+import axios from "axios";
 
-const PlaceAutocomplete = ({ getOldAddress, setDataMarker,sendAddress }) => {
-  
+const PlaceAutocomplete = ({ getOldAddress, setDataMarker, sendAddress, marker }) => {
   const {
     ready,
     value,
@@ -26,7 +26,7 @@ const PlaceAutocomplete = ({ getOldAddress, setDataMarker,sendAddress }) => {
 
   useEffect(() => {
     setValue(getOldAddress);
-  },[getOldAddress])
+  }, [getOldAddress]);
 
   const handleSelect =
     ({ description }) =>
@@ -62,6 +62,16 @@ const PlaceAutocomplete = ({ getOldAddress, setDataMarker,sendAddress }) => {
         </li>
       );
     });
+
+  // Get address from lat lng
+  useEffect(() => {
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${marker.lat},${marker.lng}&key=AIzaSyB6Xu3rpJ_RKOn4qJR-lmXQHIOXQGMd9dY`).then((res) => {
+      if (res.data.status == "OK") {
+        setValue(res.data.results[0].formatted_address);
+      }
+    });
+  },[marker])
+
   return (
     <div ref={ref} className="flex flex-col">
       <input value={value} onChange={handleInput} disabled={!ready} placeholder="Where are you going?" className="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
