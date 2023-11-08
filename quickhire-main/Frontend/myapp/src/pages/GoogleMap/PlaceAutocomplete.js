@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
-import axios from "axios";
 
-const PlaceAutocomplete = ({ getOldAddress, setDataMarker, sendAddress, marker }) => {
+const PlaceAutocomplete = ({ getOldAddress, setDataMarker, sendAddress }) => {
   const {
     ready,
     value,
     suggestions: { status, data },
     setValue,
     clearSuggestions,
-  } = usePlacesAutocomplete({});
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      componentRestrictions: { country: "TH" }, // Restrict to Thailand
+    },
+  });
 
   const ref = useOnclickOutside(() => {
     // When the user clicks outside of the component, we can dismiss
@@ -62,15 +65,6 @@ const PlaceAutocomplete = ({ getOldAddress, setDataMarker, sendAddress, marker }
         </li>
       );
     });
-
-  // Get address from lat lng
-  useEffect(() => {
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${marker.lat},${marker.lng}&key=AIzaSyB6Xu3rpJ_RKOn4qJR-lmXQHIOXQGMd9dY`).then((res) => {
-      if (res.data.status == "OK") {
-        setValue(res.data.results[0].formatted_address);
-      }
-    });
-  },[marker])
 
   return (
     <div ref={ref} className="flex flex-col">
