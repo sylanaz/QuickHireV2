@@ -55,7 +55,7 @@ function Profile() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 m-10 gap-10">
-              <div className="flex flex-col  justify-center bg-[#C7EFF6] rounded-2xl  py-5">
+              <div className="flex flex-col w-full justify-center bg-[#C7EFF6] rounded-2xl  py-5">
                 {/* <img className="w-[200px] h-[200px] rounded-full mx-auto" src={decodeBlobToImageUrl(userData.img)} alt="Rounded avatar"></img> */}
                 <div className="m-5">{userData.img !== null && <SwapImage images={JSON.parse(userData.img)} forProfile={true} />}</div>
                 <h1 className="mx-auto mt-2 text-xl md:text-2xl  font-bold text-[#F17F0D]">{deCryptoData(userData.nickname)}</h1>
@@ -68,7 +68,7 @@ function Profile() {
                 </h1>
               </div>
 
-              <div className="flex flex-col mx-auto justify-center gap-10  ">
+              <div className="flex flex-col mx-auto justify-center gap-10 w-full ">
                 <div className="relative ">
                   <div className=" rounded-full bg-[#419DBB] text-white p-2 w-40 text-center  absolute left-1/2 -translate-x-1/2 -top-5">
                     <h1 className="font-bold">ประวัติการศึกษา</h1>

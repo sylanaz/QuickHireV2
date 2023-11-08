@@ -27,6 +27,7 @@ const Createshop = () => {
   const [shopname, setShopname] = useState("");
   const [location, setLocation] = useState("");
   // const [timework, setTimework] = useState("");
+
   const [money, setMoney] = useState("");
   // const [lat, setLat] = useState("");
   // const [long, setLong] = useState("");
@@ -181,6 +182,21 @@ const Createshop = () => {
     }
   };
 
+  const isFormComplete = () => {
+    // Personal Information
+    const shopInfoComplete = fullname.trim() !== "" && telnumber.trim() !== "" && shopname.trim() !== "" && location.trim() !== "" && formatTimeFrom !== null && formatTimeTo !== null && money.trim() !== "" && welfare.trim() !== "" && minilocation.trim() !== "" && workposition.trim() !== "" && jobdesc.trim() !== "" && peopleneed.trim() !== "" && imageURL.length > 0;
+    return shopInfoComplete;
+  };
+
+  const renderSubmitButton = () => {
+    const isComplete = isFormComplete();
+    return (
+      <button className={`p-3 rounded-lg ${!isComplete ? "bg-gray-400" : isComplete ? "bg-[#F27F0C] text-white" : "bg-[#F5993D] text-white"}`} onClick={isComplete ? handleSubmit : undefined} disabled={!isComplete}>
+        {isComplete ? "ยืนยันข้อมูล" : "กรุณากรอกข้อมูล"}
+      </button>
+    );
+  };
+
   return (
     <>
       {loading ? (
@@ -309,10 +325,11 @@ const Createshop = () => {
                 <h1 className="m-3 text-xl font-medium">สถานที่ (บริเวณ)</h1>
                 <input onChange={(event) => setMinilocation(event.target.value)} type="text" placeholder="เช่น หลัง มข." value={minilocation} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
               </div>
-              <div className="flex mx-auto mt-10">
-                <button className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3" onClick={handleSubmit}>
+              <div className="flex mx-auto mt-10 justify-center">
+                {renderSubmitButton()}
+                {/* <button className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3" onClick={handleSubmit}>
                   ยืนยันข้อมูล
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
