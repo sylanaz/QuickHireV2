@@ -98,8 +98,8 @@ function Card({ id, restaurantName, minilocation, position, hourlyIncome, img, l
               alt="Restaurant"
               className="rounded-full m-2 mb-1 mr-0 max-w-[40px] max-h-[40px] w-[60px] h-[60px] md:max-w-[80px] md:max-h-[80px] md:w-[100px] md:h-[100px] xl:w-[130px] xl:h-[130px] transition-opacity duration-300 ease-in-out md:ml-3 md:mt-3"
               style={{
-                width: "100%", // Ensure the image takes up the full width
-                height: "auto", // Allow the height to adjust proportionally
+                width: "100px", // Ensure the image takes up the full width
+                height: "100px", // Allow the height to adjust proportionally
                 borderRadius: "50%", // Make it circular
                 objectFit: "cover", // Ensure the image is centered and covers the circle
               }}
