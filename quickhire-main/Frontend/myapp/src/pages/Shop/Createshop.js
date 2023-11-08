@@ -110,8 +110,10 @@ const Createshop = () => {
   }, []);
   // =====================================================
 
+  const [onceSubmit, setOnceSubmit] = useState(false);
   // =====================================================
   const handleSubmit = async (event) => {
+    setOnceSubmit(true)
     event.preventDefault();
     // Only proceed with the upload if an image is selected
     const imageJSON = JSON.stringify(imageURL);
@@ -301,7 +303,7 @@ const Createshop = () => {
               {/* Google Map API */}
               <div className="flex flex-col">
                 <h1 className="m-3 text-xl font-medium">ที่อยู่ร้าน</h1>
-                <PlaceAutocomplete getOldAddress={location} setDataMarker={setNewMarker} sendAddress={setAddress} marker={marker} />
+                <PlaceAutocomplete getOldAddress={location} setDataMarker={setNewMarker} sendAddress={setAddress} />
               </div>
               <GoogleMapAPI newMarker={marker} sendNewMarker={setNewMarkerFromGGMapAPI} />
               {/*  */}
@@ -310,7 +312,7 @@ const Createshop = () => {
                 <input onChange={(event) => setMinilocation(event.target.value)} type="text" placeholder="เช่น หลัง มข." value={minilocation} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
               </div>
               <div className="flex mx-auto mt-10">
-                <button className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3" onClick={handleSubmit}>
+                <button disabled={onceSubmit} className="flex mx-auto text-xl font-medium border-2 border-black rounded-lg p-3" onClick={handleSubmit}>
                   ยืนยันข้อมูล
                 </button>
               </div>
