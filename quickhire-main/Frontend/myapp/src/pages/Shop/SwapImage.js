@@ -17,7 +17,7 @@ const SwapImage = ({ images, forProfile }) => {
 
   useEffect(() => {
     if (forProfile) {
-      setStyleImage("w-full h-full md:w-[300px] md:h-[300px]");
+      setStyleImage("w-[150px] h-[150px] md:w-[300px] md:h-[300px] objects-cover");
     }
   }, [forProfile]);
 
