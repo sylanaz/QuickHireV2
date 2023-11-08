@@ -184,7 +184,7 @@ const Createshop = () => {
 
   const isFormComplete = () => {
     // Personal Information
-    const shopInfoComplete = fullname.trim() !== "" && telnumber.trim() !== "" && shopname.trim() !== "" && location.trim() !== "" && formatTimeFrom !== null && formatTimeTo !== null && money.trim() !== "" && welfare.trim() !== "" && minilocation.trim() !== "" && workposition.trim() !== "" && jobdesc.trim() !== "" && peopleneed.trim() !== "" && imageURL.length > 0;
+    const shopInfoComplete = fullname.trim() !== "" && telnumber.trim() !== "" && shopname.trim() !== "" && location.trim() !== "" && timeFrom !== null && timeTo !== null && money.trim() !== "" && welfare.trim() !== "" && minilocation.trim() !== "" && workposition.trim() !== "" && jobdesc.trim() !== "" && peopleneed.trim() !== "" && imageURL.length > 0;
     return shopInfoComplete;
   };
 

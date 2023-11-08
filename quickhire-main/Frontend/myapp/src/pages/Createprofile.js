@@ -246,7 +246,7 @@ const Createprofile = () => {
   };
 
   const isFormComplete = () => {
-    const personalInfoComplete = selectedImage && getfirstname.trim() !== "" && getlastname.trim() !== "" && getnickname.trim() !== "" && getsex.trim() !== "" && getbirthdate.trim() !== "" && getnational.trim() !== "" && email.trim() !== "" && gettelnumber.trim() !== "";
+    const personalInfoComplete = selectedImage && getfirstname.trim() !== "" && getlastname.trim() !== "" && getnickname.trim() !== "" && getsex.trim() !== "" && getbirthdate.trim() !== "" && getnational.trim() !== "" && email.trim() !== "" && gettelnumber.trim() !== "" && gettelnumber.length === 10;
 
     const educationAndWorkComplete = getdegree.trim() !== "" && getworkexp.trim() !== "";
 
