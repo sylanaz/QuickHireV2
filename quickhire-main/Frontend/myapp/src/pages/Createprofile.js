@@ -438,7 +438,6 @@ const Createprofile = () => {
                     value={gettelnumber}
                     class="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   />
-
                   {/* <input maxLength={10} onChange={(event) => setTelnumber(event.target.value)} type="text" value={gettelnumber} class=" bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input> */}
                 </div>
               </div>
@@ -448,21 +447,13 @@ const Createprofile = () => {
           {currentStage === "educationAndWork" && (
             <div className="mt-4 mb-20">
               <div className="mx-10">
-                <div className="flex flex-col">
-                  <h1 className="m-3 text-xl font-medium break-words">ประวัติการศึกษา (กำลังศึกษาอยู่/จบการศึกษา)</h1>
-                  <input
-                    onChange={(event) => setDegree(event.target.value)}
-                    type="text"
-                    value={getdegree}
-                    className=" h-[9.5rem] bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="เช่น จบการศึกษามัธยมศึกษาปีที่6 ที่โรงเรียนชุมแพศึกษา
-จบการศึกษาปริญญาตรีจากคณะวิทยาศาสตร์ สาขาฟิสิกส์ 
-กำลังศึกษาปริญญาตรีคณะวิศวกรรมศาสตร์ มหาวิทยาลัยขอนแก่น เป็นต้น"
-                  ></input>
+                <div className="flex flex-col ">
+                  <h1 className="m-3 text-xl font-medium break-words ">ประวัติการศึกษา (กำลังศึกษาอยู่/จบการศึกษา)</h1>
+                  <textarea onChange={(event) => setDegree(event.target.value)} type="text" value={getdegree} className=" h-[9.5rem] bg-slate-100 border-0 px-3 py-3  placeholder-blueGray-300 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" placeholder="เช่น จบการศึกษามัธยมศึกษาปีที่6 ที่โรงเรียนชุมแพศึกษา กำลังศึกษาปริญญาตรีคณะวิศวกรรมศาสตร์ มหาวิทยาลัยขอนแก่น เป็นต้น"></textarea>
                 </div>
                 <div className="flex flex-col ">
                   <h1 className="m-3 text-xl font-medium break-words  ">ประวัติการทำงาน/ฝึกงาน (อธิบายโดยละเอียด)</h1>
-                  <input onChange={(event) => setWorkexp(event.target.value)} type="text" value={getworkexp} class=" h-[9.5rem] bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 " placeholder="เช่น ปี 2020-2022 เป็นพนักงานทำความสะอาด ที่โรงพยาบาลขอนแก่น ได้รับหน้าที่ดูแลความสะอาดบริเวณตึกผู้ป่วย A B C เป็นต้น  หากไม่เคยมีประสบการณ์ทำงานให้กรอก ไม่มีประสบการณ์ทำงาน"></input>
+                  <textarea onChange={(event) => setWorkexp(event.target.value)} type="text" value={getworkexp} class=" h-[9.5rem] bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm md:text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 " placeholder="เช่น ปี 2020-2022 เป็นพนักงานทำความสะอาด ที่โรงพยาบาลขอนแก่น ได้รับหน้าที่ดูแลความสะอาดบริเวณตึกผู้ป่วย  C เป็นต้น  หากไม่เคยมีประสบการณ์ทำงานให้กรอก ไม่มีประสบการณ์ทำงาน"></textarea>
                 </div>
               </div>
             </div>
