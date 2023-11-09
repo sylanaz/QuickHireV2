@@ -27,7 +27,7 @@ const CardApproveUser = ({ userData, shopname, date_month_year, hour_minute, sta
 
   const bool = [false, true];
 
-  const text = status == "ยินดีด้วยนะ" ? "ยอมรับแล้ว" : "ปฏิเสธแล้ว";
+  // const text = status == "ยินดีด้วยนะ" ? "ยอมรับแล้ว" : "ปฏิเสธแล้ว";
 
   return (
     // max-h-[19.5rem] md:max-h-[40rem]
@@ -68,7 +68,7 @@ const CardApproveUser = ({ userData, shopname, date_month_year, hour_minute, sta
                     return <AccAndDenie acc_denie={data} user_email={userData.email} user_fullname={deCryptData(userData.fullname)} shopname={shopname} triggerAccOrDenie={triggerAccOrDenie} />;
                   })
                 ) : (
-                  <DescBTN text={text} />
+                  <DescBTN text={status} shop={true}/>
                   // <div className="flex mb-2 w-full justify-center mx-1">
                   //   <div className={`flex ${style} justify-center items-center py-[0.20rem] px-[0.20rem] text-sm font-bold w-full rounded-[16rem] md:text-2xl md:w-11/12`}>{text}</div>
                   // </div>
