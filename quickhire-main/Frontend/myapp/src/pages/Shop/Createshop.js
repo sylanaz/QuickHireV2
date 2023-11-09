@@ -79,9 +79,10 @@ const Createshop = () => {
   const [imageURL, setImageURL] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [idChaneShopnameInNoti, setIdChaneShopnameInNoti] = useState([]);
+
   const getOldData = async () => {
-    await axios.get(`${process.env.REACT_APP_API}getSpecificDataShop/${id}`).then((data) => {
-      console.log(data.data);
+    await axios.get(`${process.env.REACT_APP_API}getSpecificDataShop/${id}`).then(async (data) => {
       setFullname(data.data.fullname);
       setTelnumber(data.data.telnumber);
       setShopname(data.data.shopname);
@@ -101,6 +102,11 @@ const Createshop = () => {
       setPeopleneed(data.data.peopleneed);
       setImageURL(JSON.parse(data.data.img));
       setLoading(false);
+
+      await axios.get(`${process.env.REACT_APP_API}getJobChangeInNoti/${data.data.email}/${data.data.shopname}`).then((data) => {
+        console.log("data...", data.data);
+        setIdChaneShopnameInNoti(data.data);
+      });
     });
   };
   useEffect(() => {
@@ -114,7 +120,7 @@ const Createshop = () => {
   const [onceSubmit, setOnceSubmit] = useState(false);
   // =====================================================
   const handleSubmit = async (event) => {
-    setOnceSubmit(true)
+    setOnceSubmit(true);
     event.preventDefault();
     // Only proceed with the upload if an image is selected
     const imageJSON = JSON.stringify(imageURL);
@@ -151,9 +157,11 @@ const Createshop = () => {
         });
     } else {
       await axios.post(`${process.env.REACT_APP_API}updateJob/${id}`, formData).then(
-        setTimeout(() => {
-          window.location.replace("/");
-        }, 1000)
+        await axios.post(`${process.env.REACT_APP_API}updateJobInNoti`, { ids: idChaneShopnameInNoti, shopname: shopname }).then(
+          setTimeout(() => {
+            window.location.replace("/");
+          }, 1000)
+        )
       );
     }
   };
