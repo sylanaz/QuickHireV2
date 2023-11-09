@@ -114,7 +114,7 @@ const Createshop = () => {
   const [onceSubmit, setOnceSubmit] = useState(false);
   // =====================================================
   const handleSubmit = async (event) => {
-    setOnceSubmit(true)
+    setOnceSubmit(true);
     event.preventDefault();
     // Only proceed with the upload if an image is selected
     const imageJSON = JSON.stringify(imageURL);
@@ -237,7 +237,7 @@ const Createshop = () => {
                 <h1 className="m-3 text-xl font-medium">ชื่อจริง - นามสกุล (เจ้าของร้าน)</h1>
                 <input
                   onChange={(event) => {
-                    const alphabeticValue = event.target.value.replace(/[^A-Za-zก-๙]/g, "");
+                    const alphabeticValue = event.target.value.replace(/[^A-Za-zก-๙ ]/g, "");
                     setFullname(alphabeticValue);
                   }}
                   type="text"
