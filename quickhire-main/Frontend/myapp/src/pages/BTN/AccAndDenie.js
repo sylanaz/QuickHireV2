@@ -29,8 +29,8 @@ const AccAndDenie = ({ acc_denie, user_email, user_fullname, shopname, triggerAc
       });
     } else {
       await Swal.fire({
-        title: "รับพนักงาน!",
-        text: "ต้องการรับพนักงานหรือไม่",
+        title: "ไม่รับพนักงาน!",
+        text: "ต้องการปฏิเสธพนักงานหรือไม่",
         icon: "error",
         showCancelButton: true,
         confirmButtonColor: "#3EC712",
@@ -40,7 +40,7 @@ const AccAndDenie = ({ acc_denie, user_email, user_fullname, shopname, triggerAc
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire("รับพนักงาน!", "รับพนักงานเรียบร้อย", "success");
+          Swal.fire("ไม่รับพนักงาน!", "ปฏิเสธพนักงานเรียบร้อย", "success");
           axios.post(`${process.env.REACT_APP_API}acceptjob`, { user_email: user_email, email_shopname: email_shopname, shopname: shopname, status: "เสียใจด้วยนะ" });
         }
       });
