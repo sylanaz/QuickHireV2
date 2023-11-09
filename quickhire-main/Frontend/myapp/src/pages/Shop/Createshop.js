@@ -194,7 +194,7 @@ const Createshop = () => {
 
   const isFormComplete = () => {
     // Personal Information
-    const shopInfoComplete = fullname.trim() !== "" && telnumber.trim() !== "" && shopname.trim() !== "" && location.trim() !== "" && timeFrom !== null && timeTo !== null && money.trim() !== "" && welfare.trim() !== "" && minilocation.trim() !== "" && workposition.trim() !== "" && jobdesc.trim() !== "" && peopleneed.trim() !== "" && imageURL.length > 0 && onceSubmit == false;
+    const shopInfoComplete = fullname.trim() !== "" && telnumber.trim() !== "" && shopname.trim() !== "" && location.trim() !== "" && timeFrom !== null && timeTo !== null && money.trim() !== "" && welfare.trim() !== "" && minilocation.trim() !== "" && workposition.trim() !== "" && jobdesc.trim() !== "" && peopleneed.trim() !== "" && imageURL.length > 0 && onceSubmit === false;
     return shopInfoComplete;
   };
 
@@ -245,7 +245,7 @@ const Createshop = () => {
                 <h1 className="m-3 text-xl font-medium">ชื่อจริง - นามสกุล (เจ้าของร้าน)</h1>
                 <input
                   onChange={(event) => {
-                    const alphabeticValue = event.target.value.replace(/[^A-Za-zก-๙]/g, "");
+                    const alphabeticValue = event.target.value.replace(/[^A-Za-zก-๙ ]/g, "");
                     setFullname(alphabeticValue);
                   }}
                   type="text"
