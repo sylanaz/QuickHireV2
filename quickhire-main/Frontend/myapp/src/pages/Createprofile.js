@@ -405,7 +405,7 @@ const Createprofile = () => {
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">วัน/เดือน/ปี เกิด</h1>
-                  <input onChange={(event) => setBirthdate(event.target.value)} type="date" value={getbirthdate} className="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"></input>
+                  <input max={new Date().toISOString().split("T")[0]} onChange={(event) => setBirthdate(event.target.value)} type="date" value={getbirthdate} className="bg-slate-100 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-xl shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
                 </div>
                 <div className="flex flex-col">
                   <h1 className="m-3 text-xl font-medium">สัญชาติ</h1>
